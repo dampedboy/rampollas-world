@@ -11,12 +11,14 @@ public class DialogueTrigger : MonoBehaviour
     private bool firstSentence = false;
     private bool continueDialogue = false;
     //public static bool isMoving;
-    
+
     private void Update()
     {
+        
         if (!continueDialogue && firstSentence && Input.GetKeyDown(KeyCode.T))
         {
             Debug.Log("Sono nel primo if");
+            
             FindObjectOfType<DialogueManager>().StartDialogue(dialogue);
             firstSentence = false;
             continueDialogue = true;
