@@ -1,14 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] float projectileSpeed=5f;
-
-    private void Update()
+    private void OnCollisionEnter(Collision collision)
     {
-        transform.Translate(new Vector3(0f,0f,projectileSpeed*Time.deltaTime));
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(1);
+            }
+            Destroy(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject, 2f); // Distrugge il proiettile dopo 2 secondi se non colpisce il player
+        }
     }
-    
 }
