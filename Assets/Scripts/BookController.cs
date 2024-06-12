@@ -12,22 +12,50 @@ public class BookController : MonoBehaviour
 
     private bool _open = false;
 
+    private bool isPlayerInside = false;
+
     void Start()
     {
         _animator = GetComponent<Animator>();
 
-
+        if (uiPanel != null)
+        {
+            uiPanel.SetActive(false);
+        }
     }
 
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+
+
+        if (isPlayerInside && Input.GetKeyDown(KeyCode.O))
             Open();
-        if (Input.GetKeyDown(KeyCode.C))
+        if ( Input.GetKeyDown(KeyCode.C))
+            Close();
+        if (!isPlayerInside)
             Close();
     }
 
+    // Metodo chiamato quando un altro collider entra nel trigger
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInside = true;
+        }
+    }
+
+    // Metodo chiamato quando un altro collider esce dal trigger
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isPlayerInside = false;
+        }
+    }
+
+    // Metodo per aprire l'animazione e la UI
     public void Open()
     {
         if (_animator == null)
@@ -61,4 +89,5 @@ public class BookController : MonoBehaviour
         }
 
     }
+
 }
