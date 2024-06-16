@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class AbsorbableObject : MonoBehaviour
+public class KeyAbsorber : MonoBehaviour
 {
     public float moveSpeed = 2f; // Velocità di avvicinamento dell'oggetto
     public float throwSpeed = 10f; // Velocità di lancio dell'oggetto
@@ -9,6 +9,7 @@ public class AbsorbableObject : MonoBehaviour
     public Transform playerHead; // Posizione della testa del player
     public Transform player; // Riferimento al player
     public GameObject risucchio; // Riferimento all'oggetto Risucchio
+    public GameObject portal; // Riferimento all'oggetto Portal
 
     private Vector3 initialPosition; // Posizione iniziale dell'oggetto
     private Vector3 targetPosition; // Posizione target verso cui muovere l'oggetto
@@ -26,7 +27,7 @@ public class AbsorbableObject : MonoBehaviour
         isInRange = Vector3.Distance(transform.position, player.position) <= maxDistance;
 
         // Controlla se il player è nel range dell'oggetto e ha premuto il tasto C
-        if (isInRange && Input.GetKeyDown(KeyCode.C) && !isHoldingObject && CompareTag("Absorbable"))
+        if (isInRange && Input.GetKeyDown(KeyCode.C) && !isHoldingObject && CompareTag("Key"))
         {
             // Se non sta già tenendo l'oggetto, avvicinalo al player
             isHoldingObject = true;
@@ -71,6 +72,15 @@ public class AbsorbableObject : MonoBehaviour
             transform.position += direction * throwSpeed * Time.deltaTime;
             elapsedTime += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        // Controlla se l'oggetto assorbito collide con il portale
+        if (other.gameObject == portal)
+        {
+            Destroy(gameObject); // Distruggi l'oggetto chiave
         }
     }
 
