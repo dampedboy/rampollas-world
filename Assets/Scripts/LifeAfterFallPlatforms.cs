@@ -13,10 +13,19 @@ public class LifeAfterFallPlatforms : MonoBehaviour
 
     private int currentLives;
     private bool isFalling; // Flag per controllare la caduta
+    private CharacterController characterController;
 
     void Start()
     {
         currentLives = maxLives;
+        isFalling = false;
+
+        characterController = GetComponent<CharacterController>();
+        if (characterController == null)
+        {
+            Debug.LogError("CharacterController non trovato sul player!");
+            return;
+        }
 
         // Controlla se i riferimenti sono assegnati correttamente
         if (lifeModels == null || lifeModels.Length != maxLives || respawnPoint == null || gameOverText == null)
@@ -32,7 +41,6 @@ public class LifeAfterFallPlatforms : MonoBehaviour
         }
 
         gameOverText.gameObject.SetActive(false); // Nascondi il testo Game Over inizialmente
-        isFalling = false; // Inizialmente il giocatore non è in caduta
     }
 
     // Funzione per gestire la perdita di una vita
@@ -51,7 +59,7 @@ public class LifeAfterFallPlatforms : MonoBehaviour
             else
             {
                 // Respawn
-                RespawnPlayer();
+                StartCoroutine(RespawnPlayer());
             }
         }
     }
@@ -86,10 +94,13 @@ public class LifeAfterFallPlatforms : MonoBehaviour
         return false;
     }
 
-    // Funzione per respawnare il giocatore
-    private void RespawnPlayer()
+    // Coroutine per respawnare il giocatore con un breve ritardo
+    private IEnumerator RespawnPlayer()
     {
+        characterController.enabled = false;
         transform.position = respawnPoint.position;
+        yield return new WaitForSeconds(0.1f); // Breve ritardo per stabilizzare il player
+        characterController.enabled = true;
         isFalling = false; // Resetta il flag di caduta
     }
 
