@@ -43,13 +43,13 @@ public class Timer : MonoBehaviour
 
     void LoadHubScene()
     {
-        if (SceneExists("Hub Centrale"))
+        if (SceneExists("Hub"))
         {
-            SceneManager.LoadScene("Hub Centrale"); // Carica la scena Hub Centrale
+            SceneManager.LoadScene("Hub"); // Carica la scena Hub Centrale
         }
         else
         {
-            Debug.LogError("La scena 'Hub Centrale' non esiste o non è stata aggiunta alle build settings!");
+            Debug.LogError("La scena 'Hub' non esiste o non è stata aggiunta alle build settings!");
         }
     }
 

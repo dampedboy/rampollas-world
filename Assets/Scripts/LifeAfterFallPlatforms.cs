@@ -61,9 +61,9 @@ public class LifeAfterFallPlatforms : MonoBehaviour
     {
         gameOverText.gameObject.SetActive(true); // Mostra il testo Game Over
         yield return new WaitForSeconds(gameOverDelay); // Attendi qualche secondo
-        if (SceneExists("Hub Centrale"))
+        if (SceneExists("Hub"))
         {
-            SceneManager.LoadScene("Hub Centrale"); // Carica la scena dell'hub centrale
+            SceneManager.LoadScene("Hub"); // Carica la scena dell'hub centrale
         }
         else
         {
