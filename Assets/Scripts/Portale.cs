@@ -28,15 +28,12 @@ public class Portale : MonoBehaviour
         {
             daTeletrasportare = other.attachedRigidbody.GetComponent<Transform>();
             daTeletrasportare.position = altroPortaleTransform.position;
-
         }
         else if(other != null)
         {
-            daTeletrasportare = other.GetComponentInParent<Transform>();
-            daTeletrasportare.position = altroPortaleTransform.position;
+            other.GetComponent<Transform>().position= altroPortaleTransform.position;
         }
-        
-        Debug.Log(other.name + " è entrato");
+        Debug.Log(other.name + " è entrato, si trova a "+other.GetComponent<Transform>().position+" teletrasportalo a"+ altroPortaleTransform.position);
 
     }
 
