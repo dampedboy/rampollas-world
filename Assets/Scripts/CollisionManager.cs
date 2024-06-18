@@ -16,47 +16,74 @@ public class CollisionManager : MonoBehaviour
         // Check the tags of the colliding objects
         if (gameObject.CompareTag("Glass"))
         {
-            if (otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("MetalBlock"))
-            {
-                // Destroy glass object
-                Destroy(gameObject);
-            }
+            HandleGlassCollision(otherObject);
         }
         else if (gameObject.CompareTag("Wood"))
         {
-            if (otherObject.CompareTag("WoodBlock"))
-            {
-                // Destroy wood object and replace wood block with beams
-                Destroy(gameObject);
-                ReplaceWithBeams(otherObject.transform.position, otherObject.transform.rotation);
-                Destroy(otherObject);
-            }
+            HandleWoodCollision(otherObject);
         }
         else if (gameObject.CompareTag("Metal"))
         {
-            if (otherObject.CompareTag("WoodBlock"))
+            HandleMetalCollision(otherObject);
+        }
+    }
+
+    private void HandleGlassCollision(GameObject otherObject)
+    {
+        if (otherObject.CompareTag("WoodBlock"))
+        {
+            // Destroy glass object
+            Destroy(gameObject);
+        }
+        else if (otherObject.CompareTag("MetalBlock"))
+        {
+            // Destroy glass object
+            Destroy(gameObject);
+        }
+    }
+
+    private void HandleWoodCollision(GameObject otherObject)
+    {
+        if (otherObject.CompareTag("WoodBlock"))
+        {
+            // Replace wood block with beams
+            ReplaceWithBeams(otherObject.transform.position, otherObject.transform.rotation);
+            Destroy(otherObject);
+            Destroy(gameObject);
+        }
+        else if (otherObject.CompareTag("MetalBlock"))
+        {
+            // Destroy wood object
+            Destroy(gameObject);
+        }
+    }
+
+    private void HandleMetalCollision(GameObject otherObject)
+    {
+        if (otherObject.CompareTag("WoodBlock"))
+        {
+            // Replace wood block with beams
+            ReplaceWithBeams(otherObject.transform.position, otherObject.transform.rotation);
+            Destroy(otherObject);
+            Destroy(gameObject);
+        }
+        else if (otherObject.CompareTag("MetalBlock"))
+        {
+            metalToWoodHitCount++;
+
+            if (metalToWoodHitCount == 1)
+            {
+                // Replace metal block with wood block
+                Instantiate(woodBlockPrefab, otherObject.transform.position, otherObject.transform.rotation);
+                Destroy(otherObject);
+            }
+            else if (metalToWoodHitCount == 2)
             {
                 // Replace wood block with beams
                 ReplaceWithBeams(otherObject.transform.position, otherObject.transform.rotation);
                 Destroy(otherObject);
-            }
-            else if (otherObject.CompareTag("MetalBlock"))
-            {
-                metalToWoodHitCount++;
-
-                if (metalToWoodHitCount == 1)
-                {
-                    // Replace metal block with wood block
-                    Instantiate(woodBlockPrefab, otherObject.transform.position, otherObject.transform.rotation);
-                    Destroy(otherObject);
-                }
-                else if (metalToWoodHitCount == 2)
-                {
-                    // Destroy metal object and replace wood block with beams
-                    ReplaceWithBeams(otherObject.transform.position, otherObject.transform.rotation);
-                    Destroy(gameObject);
-                    Destroy(otherObject);
-                }
+                // Destroy metal object
+                Destroy(gameObject);
             }
         }
     }
