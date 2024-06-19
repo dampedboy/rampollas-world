@@ -12,6 +12,19 @@ public class CollisionManager : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         GameObject otherObject = collision.gameObject;
+        ObjAbsorbeGlass glassScript = GetComponent<ObjAbsorbeGlass>();
+        ObjAbsorbeMetal metalScript = GetComponent<ObjAbsorbeMetal>();
+        ObjAbsorbeWood woodScript = GetComponent<ObjAbsorbeWood>();
+
+        bool isThrown = (glassScript != null && glassScript.isThrown) ||
+                        (metalScript != null && metalScript.isThrown) ||
+                        (woodScript != null && woodScript.isThrown);
+
+        if (!isThrown)
+        {
+            // If the object has not been thrown, do nothing
+            return;
+        }
 
         // Check the tags of the colliding objects
         if (gameObject.CompareTag("Glass"))

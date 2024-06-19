@@ -15,6 +15,7 @@ public class ObjAbsorbeWood : MonoBehaviour
     private Vector3 targetPosition; // Posizione target verso cui muovere l'oggetto
     private bool isHoldingObject = false; // Indica se il player sta tenendo l'oggetto
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
+    public bool isThrown = false; // Indica se l'oggetto è stato lanciato
 
     void Start()
     {
@@ -60,6 +61,7 @@ public class ObjAbsorbeWood : MonoBehaviour
                 Vector3 throwDirection = player.forward.normalized;
                 StartCoroutine(ThrowObject(throwDirection));
                 isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
+                isThrown = true; // Imposta la variabile isThrown su true
             }
         }
     }
