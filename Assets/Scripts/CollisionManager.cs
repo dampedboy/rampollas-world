@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class CollisionManager : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class CollisionManager : MonoBehaviour
     public GameObject metalBlockPrefab;
 
     private int metalToWoodHitCount = 0;
+    private GameObject lastHitWoodBlock;
+    private GameObject lastHitMetalObject;
+    private bool metalObjectDestroyed = false;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -43,12 +47,7 @@ public class CollisionManager : MonoBehaviour
 
     private void HandleGlassCollision(GameObject otherObject)
     {
-        if (otherObject.CompareTag("WoodBlock"))
-        {
-            // Destroy glass object
-            Destroy(gameObject);
-        }
-        else if (otherObject.CompareTag("MetalBlock"))
+        if (otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("MetalBlock"))
         {
             // Destroy glass object
             Destroy(gameObject);
@@ -73,32 +72,66 @@ public class CollisionManager : MonoBehaviour
 
     private void HandleMetalCollision(GameObject otherObject)
     {
-        if (otherObject.CompareTag("WoodBlock"))
+        if (otherObject.CompareTag("MetalBlock"))
         {
-            // Replace wood block with beams
-            ReplaceWithBeams(otherObject.transform.position, otherObject.transform.rotation);
-            Destroy(otherObject);
+            HandleMetalBlockCollision(otherObject);
+        }
+        else if (otherObject.CompareTag("WoodBlock"))
+        {
+            HandleWoodBlockCollision(otherObject);
+        }
+    }
+
+    private void HandleMetalBlockCollision(GameObject metalBlock)
+    {
+        // Replace metal block with wood block
+        lastHitWoodBlock = Instantiate(woodBlockPrefab, metalBlock.transform.position, metalBlock.transform.rotation);
+        Destroy(metalBlock);
+    }
+
+    private void HandleWoodBlockCollision(GameObject woodBlock)
+    {
+        if (lastHitWoodBlock == woodBlock)
+        {
+            // Check if metal object was previously destroyed
+            if (!metalObjectDestroyed)
+            {
+                // Mark metal object as destroyed
+                metalObjectDestroyed = true;
+
+                // Store the metal object
+                lastHitMetalObject = woodBlock;
+
+                // Replace wood block with beams after a delay
+                StartCoroutine(ReplaceWithBeamsAfterDelay(woodBlock.transform.position, woodBlock.transform.rotation));
+            }
+            else
+            {
+                // Destroy the wood block immediately
+                Destroy(woodBlock);
+            }
+
+            // Destroy this game object
             Destroy(gameObject);
         }
-        else if (otherObject.CompareTag("MetalBlock"))
-        {
-            metalToWoodHitCount++;
+    }
 
-            if (metalToWoodHitCount == 1)
-            {
-                // Replace metal block with wood block
-                Instantiate(woodBlockPrefab, otherObject.transform.position, otherObject.transform.rotation);
-                Destroy(otherObject);
-            }
-            else if (metalToWoodHitCount == 2)
-            {
-                // Replace wood block with beams
-                ReplaceWithBeams(otherObject.transform.position, otherObject.transform.rotation);
-                Destroy(otherObject);
-                // Destroy metal object
-                Destroy(gameObject);
-            }
-        }
+    private IEnumerator ReplaceWithBeamsAfterDelay(Vector3 position, Quaternion rotation)
+    {
+        // Wait for a few seconds
+        yield return new WaitForSeconds(2f);
+
+        // Replace wood block with beams
+        ReplaceWithBeams(position, rotation);
+
+        // Destroy the wood block
+        Destroy(lastHitWoodBlock);
+
+        // Wait for another few seconds
+        yield return new WaitForSeconds(2f);
+
+        // Destroy the metal object
+        Destroy(lastHitMetalObject);
     }
 
     private void ReplaceWithBeams(Vector3 position, Quaternion rotation)

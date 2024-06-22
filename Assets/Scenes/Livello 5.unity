@@ -3563,14 +3563,11 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 91d53d128e4694d8cbf653be16af66b4, type: 2}
     - target: {fileID: 919132149155446097, guid: 5a1ad69fadc3149ba99c30ae0c8238cd, type: 3}
       propertyPath: m_Name
-      value: piattaforma_bersaglio (2)
+      value: PlatformTarget
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 5a1ad69fadc3149ba99c30ae0c8238cd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1910505028}
+    m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5a1ad69fadc3149ba99c30ae0c8238cd, type: 3}
       insertIndex: -1
@@ -4910,6 +4907,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1910505028}
+  - component: {fileID: 1910505029}
   m_Layer: 0
   m_Name: FallingPoint
   m_TagString: Untagged
@@ -4925,13 +4923,27 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910505027}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: 0, w: 0.7071067}
-  m_LocalPosition: {x: 1.01, y: 0.78, z: 15.5}
-  m_LocalScale: {x: 1.7182131, y: 5, z: 1.6776767}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.3409002, y: 15.939999, z: 3.945354}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1845765872}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1910505029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910505027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208960eb12dc14e49bf84a1dc5efa8c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1845765872}
+  offset: {x: 0, y: 10, z: 0}
 --- !u!1 &1943965387
 GameObject:
   m_ObjectHideFlags: 0
@@ -5460,3 +5472,4 @@ SceneRoots:
   - {fileID: 1652023132}
   - {fileID: 1772656998}
   - {fileID: 1093969829}
+  - {fileID: 1910505028}
