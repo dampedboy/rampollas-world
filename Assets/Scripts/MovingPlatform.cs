@@ -1,46 +1,79 @@
 using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public Vector3 targetPosition; // La posizione di destinazione della piattaforma
-    private Vector3 originalPosition; // La posizione originale della piattaforma
-    private bool playerOnPlatform = false; // Indica se il player è sulla piattaforma
+    public Vector3 moveToPosition; // La posizione verso cui muoversi
+    public float moveSpeed = 2.0f; // Velocità di movimento
+    public float returnDelay = 2.0f; // Tempo di ritardo prima di tornare alla posizione originale
 
-    private void Start()
+    private Vector3 originalPosition;
+    private bool movingToTarget = false;
+    private Transform playerTransform;
+    private Vector3 lastPlatformPosition;
+
+    void Start()
     {
-        originalPosition = transform.position; // Salva la posizione originale della piattaforma
+        originalPosition = transform.position;
+        lastPlatformPosition = transform.position;
+        // Ensure the platform has a trigger collider
+        Collider platformCollider = GetComponent<Collider>();
+        if (platformCollider != null)
+        {
+            platformCollider.isTrigger = true;
+        }
     }
 
-    public void StartMovingToTarget()
+    void OnTriggerEnter(Collider other)
     {
-        if (!playerOnPlatform)
+        if (other.gameObject.tag == "Player")
         {
-            playerOnPlatform = true;
+            playerTransform = other.transform;
+            movingToTarget = true;
             StopAllCoroutines();
-            StartCoroutine(MovePlatform(targetPosition));
+            StartCoroutine(MovePlatform(moveToPosition));
         }
     }
 
-    public void StartMovingToOriginal()
+    void OnTriggerExit(Collider other)
     {
-        if (playerOnPlatform)
+        if (other.gameObject.tag == "Player")
         {
-            playerOnPlatform = false;
+            playerTransform = null;
+            movingToTarget = false;
             StopAllCoroutines();
-            StartCoroutine(MovePlatform(originalPosition));
+            StartCoroutine(ReturnToOriginalPosition());
         }
     }
 
-    private IEnumerator MovePlatform(Vector3 destination)
+    void LateUpdate()
     {
-        float speed = 2f; // Velocità di movimento della piattaforma
-        while ((transform.position - destination).sqrMagnitude > 0.01f)
+        if (playerTransform != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, destination, speed * Time.deltaTime);
-            yield return null; // Attende il frame successivo
+            Vector3 platformMovement = transform.position - lastPlatformPosition;
+            playerTransform.position += platformMovement;
         }
+        lastPlatformPosition = transform.position;
+    }
 
-        transform.position = destination; // Assicura che la piattaforma raggiunga esattamente la posizione di destinazione
+    IEnumerator MovePlatform(Vector3 targetPosition)
+    {
+        while (movingToTarget && Vector3.Distance(transform.position, targetPosition) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+    }
+
+    IEnumerator ReturnToOriginalPosition()
+    {
+        yield return new WaitForSeconds(returnDelay);
+
+        while (!movingToTarget && Vector3.Distance(transform.position, originalPosition) > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, originalPosition, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
     }
 }
