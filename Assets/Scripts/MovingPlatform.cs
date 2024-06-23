@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collections; // Aggiungi questa direttiva
+using System.Collections;
 
 public class MovingPlatform : MonoBehaviour
 {
@@ -12,23 +12,23 @@ public class MovingPlatform : MonoBehaviour
         originalPosition = transform.position; // Salva la posizione originale della piattaforma
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void StartMovingToTarget()
     {
-        if (other.CompareTag("Player"))
+        if (!playerOnPlatform)
         {
             playerOnPlatform = true;
-            StopAllCoroutines(); // Ferma tutte le coroutines in esecuzione
-            StartCoroutine(MovePlatform(targetPosition)); // Inizia lo spostamento verso la posizione di destinazione
+            StopAllCoroutines();
+            StartCoroutine(MovePlatform(targetPosition));
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    public void StartMovingToOriginal()
     {
-        if (other.CompareTag("Player"))
+        if (playerOnPlatform)
         {
             playerOnPlatform = false;
-            StopAllCoroutines(); // Ferma tutte le coroutines in esecuzione
-            StartCoroutine(MovePlatform(originalPosition)); // Inizia lo spostamento verso la posizione originale
+            StopAllCoroutines();
+            StartCoroutine(MovePlatform(originalPosition));
         }
     }
 
