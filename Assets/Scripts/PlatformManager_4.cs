@@ -8,7 +8,7 @@ public class PlatformManager_4 : MonoBehaviour
     public GameObject[] greenPlatforms;
     public GameObject[] yellowPlatforms;
 
-    private float switchInterval = 2f;
+    private float switchInterval = 1f;
     private GameObject[][] allPlatforms;
     private System.Random random = new System.Random();
 

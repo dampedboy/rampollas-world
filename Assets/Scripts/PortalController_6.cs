@@ -38,7 +38,7 @@ public class PortalController_6 : MonoBehaviour
 
         if (playerDistance <= activationDistance && isActivated)
         {
-            SceneManager.LoadScene("Livello 8");
+            SceneManager.LoadScene("Livello 7");
         }
     }
 
