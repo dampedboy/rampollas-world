@@ -2045,6 +2045,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5609831589589143354, guid: 8759da7e004cfb54492e4342de935682, type: 3}
+      propertyPath: m_TagString
+      value: circle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5753777312734737799, guid: 8759da7e004cfb54492e4342de935682, type: 3}
+      propertyPath: m_TagString
+      value: area light
+      objectReference: {fileID: 0}
     - target: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       propertyPath: m_Name
       value: Portal
@@ -2062,7 +2070,13 @@ PrefabInstance:
       addedObject: {fileID: 544398487}
     - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 544398489}
+    - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 544398488}
+    - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 544398491}
   m_SourcePrefab: {fileID: 100100000, guid: 8759da7e004cfb54492e4342de935682, type: 3}
 --- !u!1 &491771744
 GameObject:
@@ -2302,15 +2316,47 @@ MonoBehaviour:
   m_GameObject: {fileID: 544398486}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0a3ab6b97b034519b2c54811fd8fe1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 711a97659673347468a00e03cfc78b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &544398489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544398486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 093a69d9d247d4e4fab894e4e7edffd7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   circle: {fileID: 1355706470}
   areaLight: {fileID: 1471739425}
-  particleSystem: {fileID: 1451583370}
+  particleSystem: {fileID: 995898148}
   door: {fileID: 1673495586}
   keyObject: {fileID: 1624070774}
-  player: {fileID: 1319615471}
+--- !u!65 &544398491
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 544398486}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &551232719
 GameObject:
   m_ObjectHideFlags: 0
@@ -3655,6 +3701,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1431731123}
   m_SourcePrefab: {fileID: 100100000, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
+--- !u!1 &995898148 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2943766813573587645, guid: 8759da7e004cfb54492e4342de935682, type: 3}
+  m_PrefabInstance: {fileID: 486207258}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1008394441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5014,11 +5065,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: -4.15, y: 0, z: 0}
---- !u!1 &1451583370 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2943766813573587645, guid: 8759da7e004cfb54492e4342de935682, type: 3}
-  m_PrefabInstance: {fileID: 486207258}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1471739425 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5753777312734737799, guid: 8759da7e004cfb54492e4342de935682, type: 3}
@@ -5379,7 +5425,7 @@ MonoBehaviour:
   playerHead: {fileID: 1851906105}
   player: {fileID: 1319615471}
   risucchio: {fileID: 1901577705}
-  portal: {fileID: 0}
+  portal: {fileID: 544398486}
 --- !u!4 &1624070774 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7e603a14512954ac49f343167b587074, type: 3}
