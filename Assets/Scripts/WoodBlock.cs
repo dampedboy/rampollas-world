@@ -8,11 +8,18 @@ public class WoodBlock : MonoBehaviour
     {
         GameObject otherObject = collision.gameObject;
 
-        if (otherObject.CompareTag("Wood") || otherObject.CompareTag("Metal"))
+        // Controlla se l'oggetto che ha causato la collisione è di legno o metallo
+        if (otherObject.CompareTag("Wood") || (otherObject.CompareTag("Metal") && IsAbsorbedMetal(otherObject)))
         {
             ReplaceWithBeams(transform.position, transform.rotation);
             Destroy(gameObject);
         }
+    }
+
+    private bool IsAbsorbedMetal(GameObject otherObject)
+    {
+        ObjAbsorbeMetal metalScript = otherObject.GetComponent<ObjAbsorbeMetal>();
+        return metalScript != null && metalScript.isThrown;
     }
 
     private void ReplaceWithBeams(Vector3 position, Quaternion rotation)
