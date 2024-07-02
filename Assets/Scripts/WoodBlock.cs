@@ -3,6 +3,7 @@ using UnityEngine;
 public class WoodBlock : MonoBehaviour
 {
     public GameObject woodBeamPrefab;
+    public Transform emptyTransform; // Riferimento all'oggetto Empty
 
     void OnCollisionEnter(Collision collision)
     {
@@ -11,7 +12,7 @@ public class WoodBlock : MonoBehaviour
         // Controlla se l'oggetto che ha causato la collisione è di legno o metallo
         if (otherObject.CompareTag("Wood") || (otherObject.CompareTag("Metal") && IsAbsorbedMetal(otherObject)))
         {
-            ReplaceWithBeams(transform.position, transform.rotation);
+            ReplaceWithBeams(emptyTransform.position, emptyTransform.rotation); // Usa la posizione dell'Empty
             Destroy(gameObject);
         }
     }
@@ -25,9 +26,11 @@ public class WoodBlock : MonoBehaviour
     private void ReplaceWithBeams(Vector3 position, Quaternion rotation)
     {
         int beamCount = Random.Range(4, 8);
+        float radius = 2.5f;  // Raggio del cerchio in cui spargere le travi
         for (int i = 0; i < beamCount; i++)
         {
-            Instantiate(woodBeamPrefab, position, Quaternion.Euler(0, 0, 0));
+            Vector3 randomPosition = position + new Vector3(Random.Range(-radius, radius), 0, Random.Range(-radius, radius));
+            Instantiate(woodBeamPrefab, randomPosition, Quaternion.Euler(0, Random.Range(0, 360), 0));
         }
     }
 }
