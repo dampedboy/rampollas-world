@@ -27,7 +27,7 @@ public class WoodBlock : MonoBehaviour
         int beamCount = Random.Range(4, 8);
         for (int i = 0; i < beamCount; i++)
         {
-            Instantiate(woodBeamPrefab, position, Quaternion.Euler(90, 0, 90));
+            Instantiate(woodBeamPrefab, position, Quaternion.Euler(0, 0, 0));
         }
     }
 }
