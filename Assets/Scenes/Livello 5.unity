@@ -2453,10 +2453,10 @@ PrefabInstance:
     - target: {fileID: 85251312879204188, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: d0b4b06b357454ce4a6982a0cb399dc2, type: 2}
+      objectReference: {fileID: 2100000, guid: 53a8e3e0ebeec4fde8da8331322d2eac, type: 2}
     - target: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_Name
-      value: Base Platform (2)
+      value: Fragile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -2472,10 +2472,10 @@ PrefabInstance:
       addedObject: {fileID: 760614771}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 760614770}
+      addedObject: {fileID: 760614773}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 760614773}
+      addedObject: {fileID: 760614774}
     - targetCorrespondingSourceObject: {fileID: -8560251016157817921, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 760614772}
@@ -2490,18 +2490,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: -8560251016157817921, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
   m_PrefabInstance: {fileID: 760614767}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &760614770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760614768}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3352e630bef5042c7abcf8696343c432, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &760614771
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2554,8 +2542,22 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 0.1, z: 2}
+  m_Size: {x: 2, y: 0.2, z: 2}
   m_Center: {x: -4.15, y: 0, z: 0}
+--- !u!114 &760614774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760614768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad49af297875543f3be56dbc469c1cb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newPlatformPrefab: {fileID: 7706882282269679302, guid: 5e1ffb415b3654385bfca35ec2bd2006, type: 3}
+  delay: 1
 --- !u!1001 &773257183
 PrefabInstance:
   m_ObjectHideFlags: 0
