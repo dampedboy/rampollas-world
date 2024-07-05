@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.1727758, g: 0.21590176, b: 0.2978366, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1008,6 +1008,39 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!65 &287876339
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287876336}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &287876340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287876336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 711a97659673347468a00e03cfc78b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &301918956
 GameObject:
   m_ObjectHideFlags: 0
@@ -1205,9 +1238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9709ef25bab1dec46a0ec8f3b87871fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  a: {fileID: 406566996}
-  ac: {fileID: 0}
-  target: {fileID: 0}
 --- !u!1001 &428495951
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2045,7 +2075,7 @@ Transform:
   m_GameObject: {fileID: 705507993}
   serializedVersion: 2
   m_LocalRotation: {x: 0.70820266, y: 0.0074845254, z: 0.005597382, w: 0.70594734}
-  m_LocalPosition: {x: 0, y: 8.8, z: 1}
+  m_LocalPosition: {x: 0, y: 13.67, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1.0399}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10100,6 +10130,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       insertIndex: -1
       addedObject: {fileID: 287876338}
+    - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 287876340}
+    - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 287876339}
   m_SourcePrefab: {fileID: 100100000, guid: 8759da7e004cfb54492e4342de935682, type: 3}
 --- !u!114 &6443128564369245464
 MonoBehaviour:
