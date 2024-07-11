@@ -3,6 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class Portal : MonoBehaviour
 {
+    private int portalLevel = 0;
+
+
     // Metodo chiamato quando un altro collider entra nel trigger
     private void OnTriggerEnter(Collider other)
     {
@@ -14,14 +17,31 @@ public class Portal : MonoBehaviour
         }
     }
 
+    public void UpdatePortal()
+    {
+        portalLevel ++;
+
+        Debug.Log("Livello attuale del portale: " + portalLevel);
+    }
+
     // Metodo per caricare il prossimo livello
     private void LoadNextLevel()
     {
         // Ottieni l'indice della scena attuale
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
+        int nextSceneIndex = currentSceneIndex;
         // Calcola l'indice del prossimo livello
-        int nextSceneIndex = currentSceneIndex + 1;
+        if (currentSceneIndex == 0)
+        {
+            nextSceneIndex = currentSceneIndex + 1 + portalLevel;
+        }
+        else
+        {
+            nextSceneIndex = currentSceneIndex + 1;
+        }
+        // Calcola l'indice del prossimo livello
+        
 
         // Controlla se l'indice del prossimo livello è valido
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
