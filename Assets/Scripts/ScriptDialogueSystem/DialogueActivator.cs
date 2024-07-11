@@ -3,17 +3,42 @@ using UnityEngine;
 
 public class DialogueActivator: MonoBehaviour, IInteractable
 {
+    //parte aggiunta per mostrare icona talk
+    [SerializeField] GameObject uiPanelTalk;
+
+
+
     [SerializeField] private DialogueObject dialogueObject;
+
     public void Interact(Player player)
     {
         player.DialogueUI.ShowDialogue(dialogueObject);
     }
 
+
+    //parte aggiunta per mostrare icona talk
+    void Start()
+    {
+        if (uiPanelTalk != null)
+        {
+            uiPanelTalk.SetActive(false);
+        }
+    }
+
+
+
+
+
+
     private void OnTriggerEnter(Collider other)
     {
+
+
         if (other.CompareTag("Player") && other.TryGetComponent(out Player player))
         {
             player.Interactable = this;
+            //parte aggiunta per mostrare icona talk
+            uiPanelTalk.SetActive(true);
 
         }
     }
@@ -25,6 +50,9 @@ public class DialogueActivator: MonoBehaviour, IInteractable
             if(player.Interactable is DialogueActivator dialogueActivator && dialogueActivator == this)
             {
                 player.Interactable = null;
+                //parte aggiunta per mostrare icona talk
+                uiPanelTalk.SetActive(false);
+
             }
         }
 
