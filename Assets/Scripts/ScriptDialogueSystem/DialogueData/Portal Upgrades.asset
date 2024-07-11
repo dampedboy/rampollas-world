@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6366846a2e2bdbd47b47c22326fd7e31, type: 3}
-  m_Name: done
+  m_Name: Portal Upgrades
   m_EditorClassIdentifier: 
   dialogue:
-  - Ho finito le provviste, passa la prossima volta.
-  responses: []
+  - A portal upgrade costs 15 coins. Do you want to proceed with the purchase?
+  responses:
+  - responseText: yes
+    dialogueObject: {fileID: 11400000, guid: f858e984a75883a4abaa4e3a8173ecf8, type: 2}
+  - responseText: No
+    dialogueObject: {fileID: 11400000, guid: 4646155ec6677cc4b86afdd1329f6583, type: 2}

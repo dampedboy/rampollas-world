@@ -10,8 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6366846a2e2bdbd47b47c22326fd7e31, type: 3}
-  m_Name: No_monete
+  m_Name: Lives
   m_EditorClassIdentifier: 
   dialogue:
-  - Ciao!
-  responses: []
+  - A life costs 10 coins. Do you want to proceed with the purchase?
+  responses:
+  - responseText: Yes
+    dialogueObject: {fileID: 11400000, guid: dc4ef001de10f284493d7417c1734d3f, type: 2}
+  - responseText: No
+    dialogueObject: {fileID: 11400000, guid: 5955acf048e4c9f4bbd514acdd5b78f8, type: 2}
