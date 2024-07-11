@@ -7,11 +7,21 @@ public class DialogueActivator: MonoBehaviour, IInteractable
     [SerializeField] GameObject uiPanelTalk;
 
 
-
     [SerializeField] private DialogueObject dialogueObject;
+
+
+    public void UpdateDialogueObject(DialogueObject dialogueObject)
+    {
+        this.dialogueObject = dialogueObject;
+    }
 
     public void Interact(Player player)
     {
+        if (TryGetComponent(out DialogueResponseEvents responseEvents) && responseEvents.DialogueObject == dialogueObject)
+        {
+            player.DialogueUI.AddResponseEvents(responseEvents.Events);
+        }
+
         player.DialogueUI.ShowDialogue(dialogueObject);
     }
 

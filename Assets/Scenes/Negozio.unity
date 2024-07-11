@@ -786,6 +786,7 @@ GameObject:
   - component: {fileID: 524359003}
   - component: {fileID: 524359005}
   - component: {fileID: 524359004}
+  - component: {fileID: 524359006}
   m_Layer: 0
   m_Name: Froggy
   m_TagString: Untagged
@@ -847,6 +848,40 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &524359006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524359002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eeb4eeb5ba776344aee241f27b6b013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueObject: {fileID: 11400000, guid: 4f50bf332dabe7c4f86048687b14b269, type: 2}
+  events:
+  - name: Vite
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 524359004}
+          m_TargetAssemblyTypeName: DialogueActivator, Assembly-CSharp
+          m_MethodName: UpdateDialogueObject
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: b2e2df0b7e7a691498fcd45788e2f4c7, type: 2}
+            m_ObjectArgumentAssemblyTypeName: DialogueObject, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - name: Potenziamento dei portali
+    onPickedResponse:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &654459533
 GameObject:
   m_ObjectHideFlags: 0
