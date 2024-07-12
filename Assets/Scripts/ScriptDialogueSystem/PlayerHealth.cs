@@ -12,6 +12,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject[] hearts;         // Array di oggetti cuore nell'UI
     public TMP_Text gameOverText;       // Testo di game over nell'UI
     public float fallThreshold = -10f;  // Soglia di caduta per il respawn
+    private bool hasRespawned = false;
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class PlayerHealth : MonoBehaviour
             currentLives = Mathf.Clamp(currentLives, startingLives, maxLives);
             isInitialized = true;
         }
-
+        transform.position = respawnPoint.position;
         // Aggiorna l'UI dei cuori
         UpdateHearts();
 
@@ -32,10 +33,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
-        // Se il giocatore cade sotto la soglia di caduta, esegui il respawn
-        if (transform.position.y < fallThreshold)
+        // Se il giocatore cade sotto la soglia di caduta e non è già stato respawnato, esegui il respawn
+        if (transform.position.y < fallThreshold && !hasRespawned)
         {
             FallRespawn();
+            hasRespawned = true;
         }
     }
 
