@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections.Generic;
 
 public class CoinManager : MonoBehaviour
 {
@@ -8,26 +9,26 @@ public class CoinManager : MonoBehaviour
     public TextMeshProUGUI coinText; // Assicurati di avere un oggetto TextMeshProUGUI nella scena per visualizzare le monete
 
     static int coinCount = 0;
-
-    
+    static HashSet<int> visitedScenes = new HashSet<int>();
 
     void Start()
     {
         UpdateCoinText();
         SceneManager.sceneLoaded += OnSceneLoaded;
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (currentSceneIndex != 0 && currentSceneIndex != 1 && currentSceneIndex != 7 && currentSceneIndex != 13 && currentSceneIndex != 19 && !visitedScenes.Contains(currentSceneIndex))
+        {
+            coinCount++;
+            UpdateCoinText();
+            visitedScenes.Add(currentSceneIndex);
+            Debug.Log(coinCount);
+        }
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        if (currentSceneIndex != 0 && currentSceneIndex != 6 && currentSceneIndex != 12 && currentSceneIndex != 18)
-        {
-            coinCount++;
-            UpdateCoinText();
-            Debug.Log(coinCount);
-        }
-        
+        // La logica è ora gestita nello Start, quindi questa funzione può rimanere vuota o essere rimossa.
     }
 
     void UpdateCoinText()
@@ -51,6 +52,5 @@ public class CoinManager : MonoBehaviour
         UpdateCoinText();
         Debug.Log(coinCount);
     }
-
 }
 
