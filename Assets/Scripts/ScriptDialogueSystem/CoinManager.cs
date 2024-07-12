@@ -38,14 +38,14 @@ public class CoinManager : MonoBehaviour
         }
     }
 
-    void BuyHeart()
+    public void BuyHeart()
     {
         coinCount = coinCount - 5;
         UpdateCoinText();
         Debug.Log(coinCount);
     }
 
-    void BuyPortal()
+    public void BuyPortal()
     {
         coinCount = coinCount - 10;
         UpdateCoinText();
