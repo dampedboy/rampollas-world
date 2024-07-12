@@ -118,19 +118,21 @@ public class PlayerHealth : MonoBehaviour
 
     public void AddHeart()
     {
+        Debug.Log("CoinManager.CoinCount: " + CoinManager.CoinCount);
         if (CoinManager.CoinCount >= 5)
         {
             currentLives++;
             PlayerPrefs.SetInt("PlayerLives", currentLives);
             UpdateHearts();
-            Debug.Log(currentLives);
+            Debug.Log("Current Lives: " + currentLives);
         }
-
-
+        else
+        {
+            Debug.Log("Not enough coins to add a heart. CoinManager.CoinCount: " + CoinManager.CoinCount);
+        }
     }
+
 }
-
-
 
 
 
