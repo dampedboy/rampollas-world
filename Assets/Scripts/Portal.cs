@@ -31,18 +31,19 @@ public class Portal : MonoBehaviour
 
     public void UpdatePortal()
     {
-        portalLevel ++;
-
-        Debug.Log("Livello attuale del portale: " + portalLevel);
-
-        // Assicuriamoci che il riferimento al Text sia valido
-        if (portalLevelText != null)
+        if (CoinManager.instance != null && CoinManager.CoinCount > 10)
         {
-            int pl = portalLevel + 1;
-            // Mostra il valore di portalLevel nel Text
-            portalLevelText.text = "Lvl. " + pl;
-        }
+            portalLevel++;
+            Debug.Log("Livello attuale del portale: " + portalLevel);
 
+            // Assicuriamoci che il riferimento al Text sia valido
+            if (portalLevelText != null)
+            {
+                int pl = portalLevel + 1;
+                // Mostra il valore di portalLevel nel Text
+                portalLevelText.text = "Lvl. " + pl;
+            }
+        }
     }
 
     // Metodo per caricare il prossimo livello
@@ -61,8 +62,6 @@ public class Portal : MonoBehaviour
         {
             nextSceneIndex = currentSceneIndex + 1;
         }
-        // Calcola l'indice del prossimo livello
-        
 
         // Controlla se l'indice del prossimo livello è valido
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
