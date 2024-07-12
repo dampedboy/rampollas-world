@@ -100,6 +100,8 @@ public class PlayerHealth : MonoBehaviour
     {
         // Mostra il testo di game over
         gameOverText.gameObject.SetActive(true);
+        SceneManager.LoadScene(0);
+
         // Eventuali altre logiche di game over qui (blocco input, animazioni, etc.)
     }
 
