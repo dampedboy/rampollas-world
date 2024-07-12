@@ -23,7 +23,7 @@ public class PlayerHealth : MonoBehaviour
             currentLives = Mathf.Clamp(currentLives, startingLives, maxLives);
             isInitialized = true;
         }
-        transform.position = respawnPoint.position;
+
         // Aggiorna l'UI dei cuori
         UpdateHearts();
 

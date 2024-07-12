@@ -9,6 +9,7 @@ public class CoinManager : MonoBehaviour
     public static CoinManager instance;
     public TextMeshProUGUI coinText; // Assicurati di avere un oggetto TextMeshProUGUI nella scena per visualizzare le monete
     public float textChangeDuration = 1.0f; // Durata dell'effetto di cambiamento del testo
+    public float buyDelay = 0.5f; // Ritardo in secondi prima di effettuare l'acquisto
 
     private static int coinCount = 0;
     static HashSet<int> visitedScenes = new HashSet<int>();
@@ -51,9 +52,7 @@ public class CoinManager : MonoBehaviour
     {
         if (CoinCount >= 5)
         {
-            CoinCount -= 5;
-            Debug.Log(CoinCount);
-            UpdateCoinText();
+            StartCoroutine(BuyWithDelay(5));
         }
         else
         {
@@ -65,14 +64,21 @@ public class CoinManager : MonoBehaviour
     {
         if (CoinCount >= 10)
         {
-            CoinCount -= 10;
-            Debug.Log(CoinCount);
-            UpdateCoinText();
+            StartCoroutine(BuyWithDelay(10));
         }
         else
         {
             UpdateCoinTextWithEffect();
         }
+    }
+
+    private IEnumerator BuyWithDelay(int cost)
+    {
+        yield return new WaitForSeconds(buyDelay);
+
+        CoinCount -= cost;
+        Debug.Log(CoinCount);
+        UpdateCoinText();
     }
 
     public void UpdateCoinTextWithEffect()
