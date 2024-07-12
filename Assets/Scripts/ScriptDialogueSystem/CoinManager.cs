@@ -19,16 +19,22 @@ public class CoinManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        coinCount++;
-        UpdateCoinText();
-        Debug.Log(coinCount);
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        if (currentSceneIndex != 0 && currentSceneIndex != 6 && currentSceneIndex != 12 && currentSceneIndex != 18)
+        {
+            coinCount++;
+            UpdateCoinText();
+            Debug.Log(coinCount);
+        }
+        
     }
 
     void UpdateCoinText()
     {
         if (coinText != null)
         {
-            coinText.text = "Coins: " + coinCount.ToString();
+            coinText.text = coinCount.ToString();
         }
     }
 

@@ -1,10 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Portal : MonoBehaviour
 {
     private int portalLevel = 0;
-
+    public TMP_Text portalLevelText;
 
     // Metodo chiamato quando un altro collider entra nel trigger
     private void OnTriggerEnter(Collider other)
@@ -17,11 +18,31 @@ public class Portal : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        // Assicuriamoci che il riferimento al Text sia valido
+        if (portalLevelText != null)
+        {
+            int pl = portalLevel + 1;
+            // Mostra il valore di portalLevel nel Text
+            portalLevelText.text = "Lvl. " + pl;
+        }
+    }
+
     public void UpdatePortal()
     {
         portalLevel ++;
 
         Debug.Log("Livello attuale del portale: " + portalLevel);
+
+        // Assicuriamoci che il riferimento al Text sia valido
+        if (portalLevelText != null)
+        {
+            int pl = portalLevel + 1;
+            // Mostra il valore di portalLevel nel Text
+            portalLevelText.text = "Lvl. " + pl;
+        }
+
     }
 
     // Metodo per caricare il prossimo livello
