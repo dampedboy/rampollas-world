@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public class Portal : MonoBehaviour
 {
@@ -31,10 +32,13 @@ public class Portal : MonoBehaviour
 
     public void UpdatePortal()
     {
-        if (CoinManager.instance != null && CoinManager.CoinCount > 10)
+        if (CoinManager.CoinCount >= 10)
         {
             portalLevel++;
             Debug.Log("Livello attuale del portale: " + portalLevel);
+
+            // Avvia la coroutine per ruotare il portale
+            StartCoroutine(RotatePortalForTime(2f)); // Ruota il portale per 2 secondi
 
             // Assicuriamoci che il riferimento al Text sia valido
             if (portalLevelText != null)
@@ -45,6 +49,19 @@ public class Portal : MonoBehaviour
             }
         }
     }
+
+    private IEnumerator RotatePortalForTime(float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            transform.Rotate(Vector3.forward, 90f * Time.deltaTime / duration); // Ruota gradualmente lungo l'asse z nel tempo
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+    }
+
 
     // Metodo per caricare il prossimo livello
     private void LoadNextLevel()
