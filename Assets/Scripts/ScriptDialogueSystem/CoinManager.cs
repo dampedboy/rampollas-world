@@ -8,7 +8,7 @@ public class CoinManager : MonoBehaviour
 {
     public static CoinManager instance;
     public TextMeshProUGUI coinText; // Assicurati di avere un oggetto TextMeshProUGUI nella scena per visualizzare le monete
-    public float textChangeDuration = 2.0f; // Durata dell'effetto di cambiamento del testo
+    public float textChangeDuration = 1.0f; // Durata dell'effetto di cambiamento del testo
 
     private static int coinCount = 0;
     static HashSet<int> visitedScenes = new HashSet<int>();
@@ -53,6 +53,7 @@ public class CoinManager : MonoBehaviour
         {
             CoinCount -= 5;
             Debug.Log(CoinCount);
+            UpdateCoinText();
         }
         else
         {
@@ -66,6 +67,7 @@ public class CoinManager : MonoBehaviour
         {
             CoinCount -= 10;
             Debug.Log(CoinCount);
+            UpdateCoinText();
         }
         else
         {
