@@ -6,7 +6,8 @@ public class PlayerHealth : MonoBehaviour
 {
     public int startingLives = 3;       // Vite iniziali
     public int maxLives = 6;            // Massimo numero di vite consentito
-    static public int currentLives;           // Vite attuali del giocatore
+    static public int currentLives;     // Vite attuali del giocatore
+    static private bool isInitialized = false; // Variabile per verificare l'inizializzazione
     public Transform respawnPoint;      // Punto di respawn del giocatore
     public GameObject[] hearts;         // Array di oggetti cuore nell'UI
     public TMP_Text gameOverText;       // Testo di game over nell'UI
@@ -14,9 +15,13 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        // Inizializza currentLives con il valore delle PlayerPrefs, default a startingLives
-        currentLives = PlayerPrefs.GetInt("PlayerLives", startingLives);
-        currentLives = Mathf.Clamp(currentLives, startingLives, maxLives);
+        if (!isInitialized)
+        {
+            // Inizializza currentLives con il valore delle PlayerPrefs, default a startingLives
+            currentLives = PlayerPrefs.GetInt("PlayerLives", startingLives);
+            currentLives = Mathf.Clamp(currentLives, startingLives, maxLives);
+            isInitialized = true;
+        }
 
         // Aggiorna l'UI dei cuori
         UpdateHearts();
@@ -113,9 +118,6 @@ public class PlayerHealth : MonoBehaviour
 
     public void AddHeart()
     {
-        // Aggiungi una vita se il giocatore ha almeno 5 monete e non ha raggiunto il limite massimo di vite
-
-
         if (CoinManager.CoinCount >= 5)
         {
             currentLives++;
@@ -126,6 +128,8 @@ public class PlayerHealth : MonoBehaviour
 
     }
 }
+
+
 
 
 
