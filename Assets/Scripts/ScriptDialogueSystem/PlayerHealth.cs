@@ -100,6 +100,13 @@ public class PlayerHealth : MonoBehaviour
     {
         // Mostra il testo di game over
         gameOverText.gameObject.SetActive(true);
+
+        // Resetta le vite a startingLives
+        currentLives = startingLives + 1;
+        PlayerPrefs.SetInt("PlayerLives", currentLives);
+        UpdateHearts();
+
+        // Ricarica la scena (o altre logiche di game over)
         SceneManager.LoadScene(0);
 
         // Eventuali altre logiche di game over qui (blocco input, animazioni, etc.)
@@ -135,8 +142,8 @@ public class PlayerHealth : MonoBehaviour
             Debug.Log("Not enough coins to add a heart. CoinManager.CoinCount: " + CoinManager.CoinCount);
         }
     }
-
 }
+
 
 
 
