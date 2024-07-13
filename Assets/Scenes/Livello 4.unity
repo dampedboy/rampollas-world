@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17277557, g: 0.21590148, b: 0.29783624, a: 1}
+  m_IndirectSpecularColor: {r: 0.1727758, g: 0.21590176, b: 0.2978366, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1153,6 +1153,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3992373717307186792, guid: 7e603a14512954ac49f343167b587074, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 112b5985b8901448db5916f61a210ec4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 8599663480391393280, guid: 7e603a14512954ac49f343167b587074, type: 3}
@@ -2254,6 +2258,16 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 135317117}
   m_SourcePrefab: {fileID: 100100000, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
+--- !u!4 &771018661 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: acbb982a622de4679bf58d4bc331e03f, type: 3}
+  m_PrefabInstance: {fileID: 657982767}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &771018662 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -735491426789216412, guid: acbb982a622de4679bf58d4bc331e03f, type: 3}
+  m_PrefabInstance: {fileID: 657982767}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &804981778
 GameObject:
   m_ObjectHideFlags: 0
@@ -4702,8 +4716,8 @@ MonoBehaviour:
   moveSpeed: 2
   throwSpeed: 10
   maxDistance: 5
-  playerHead: {fileID: 0}
-  player: {fileID: 0}
+  playerHead: {fileID: 771018662}
+  player: {fileID: 771018661}
   risucchio: {fileID: 911092074}
   portal: {fileID: 1594412522}
 --- !u!4 &2041824545 stripped

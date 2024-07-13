@@ -7,6 +7,7 @@ public class Portal : MonoBehaviour
 {
     private int portalLevel = 0;
     public TMP_Text portalLevelText;
+    
 
     // Metodo chiamato quando un altro collider entra nel trigger
     private void OnTriggerEnter(Collider other)
