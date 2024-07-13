@@ -5,7 +5,7 @@ using System.Collections;
 
 public class Portal : MonoBehaviour
 {
-<<<<<<< HEAD
+
     private BoxCollider boxCollider;
 
     void Start()
@@ -15,12 +15,12 @@ public class Portal : MonoBehaviour
         boxCollider.enabled = false;
     }
 
-=======
+
     private int portalLevel = 0;
     public TMP_Text portalLevelText;
 
     // Metodo chiamato quando un altro collider entra nel trigger
->>>>>>> annalisa
+
     private void OnTriggerEnter(Collider other)
     {
         if (boxCollider.isTrigger && other.CompareTag("Player"))
@@ -29,8 +29,8 @@ public class Portal : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
-=======
+
+
     private void Update()
     {
         // Assicuriamoci che il riferimento al Text sia valido
@@ -76,13 +76,13 @@ public class Portal : MonoBehaviour
 
 
     // Metodo per caricare il prossimo livello
->>>>>>> annalisa
+
     private void LoadNextLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-<<<<<<< HEAD
+
         int nextSceneIndex = currentSceneIndex + 1;
-=======
+
 
         int nextSceneIndex = currentSceneIndex;
         // Calcola l'indice del prossimo livello
@@ -94,7 +94,7 @@ public class Portal : MonoBehaviour
         {
             nextSceneIndex = currentSceneIndex + 1;
         }
->>>>>>> annalisa
+
 
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
@@ -105,7 +105,7 @@ public class Portal : MonoBehaviour
             Debug.Log("Hai completato tutti i livelli!");
         }
     }
-<<<<<<< HEAD
+
 
     // Meto pubblico per attivare il box collider
     public void ActivateCollider()
@@ -113,6 +113,6 @@ public class Portal : MonoBehaviour
         boxCollider.enabled = true;
     }
 }
-=======
+
 }
->>>>>>> annalisa
+
