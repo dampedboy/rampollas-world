@@ -1,8 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System.Collections;
 
 public class Portal : MonoBehaviour
 {
+<<<<<<< HEAD
     private BoxCollider boxCollider;
 
     void Start()
@@ -12,6 +15,12 @@ public class Portal : MonoBehaviour
         boxCollider.enabled = false;
     }
 
+=======
+    private int portalLevel = 0;
+    public TMP_Text portalLevelText;
+
+    // Metodo chiamato quando un altro collider entra nel trigger
+>>>>>>> annalisa
     private void OnTriggerEnter(Collider other)
     {
         if (boxCollider.isTrigger && other.CompareTag("Player"))
@@ -20,10 +29,72 @@ public class Portal : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
+=======
+    private void Update()
+    {
+        // Assicuriamoci che il riferimento al Text sia valido
+        if (portalLevelText != null)
+        {
+            int pl = portalLevel + 1;
+            // Mostra il valore di portalLevel nel Text
+            portalLevelText.text = "Lvl. " + pl;
+        }
+    }
+
+    public void UpdatePortal()
+    {
+        if (CoinManager.CoinCount >= 10)
+        {
+            portalLevel++;
+            Debug.Log("Livello attuale del portale: " + portalLevel);
+
+            // Avvia la coroutine per ruotare il portale
+            StartCoroutine(RotatePortalForTime(2f)); // Ruota il portale per 2 secondi
+
+            // Assicuriamoci che il riferimento al Text sia valido
+            if (portalLevelText != null)
+            {
+                int pl = portalLevel + 1;
+                // Mostra il valore di portalLevel nel Text
+                portalLevelText.text = "Lvl. " + pl;
+            }
+        }
+    }
+
+    private IEnumerator RotatePortalForTime(float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            transform.Rotate(Vector3.forward, 90f * Time.deltaTime / duration); // Ruota gradualmente lungo l'asse z nel tempo
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+    }
+
+
+    // Metodo per caricare il prossimo livello
+>>>>>>> annalisa
     private void LoadNextLevel()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+<<<<<<< HEAD
         int nextSceneIndex = currentSceneIndex + 1;
+=======
+
+        int nextSceneIndex = currentSceneIndex;
+        // Calcola l'indice del prossimo livello
+        if (currentSceneIndex == 0)
+        {
+            nextSceneIndex = currentSceneIndex + 1 + portalLevel;
+        }
+        else
+        {
+            nextSceneIndex = currentSceneIndex + 1;
+        }
+>>>>>>> annalisa
 
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
@@ -34,6 +105,7 @@ public class Portal : MonoBehaviour
             Debug.Log("Hai completato tutti i livelli!");
         }
     }
+<<<<<<< HEAD
 
     // Meto pubblico per attivare il box collider
     public void ActivateCollider()
@@ -41,3 +113,6 @@ public class Portal : MonoBehaviour
         boxCollider.enabled = true;
     }
 }
+=======
+}
+>>>>>>> annalisa
