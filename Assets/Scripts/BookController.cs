@@ -8,6 +8,7 @@ public class BookController : MonoBehaviour
     private Animator _animator;
 
     [SerializeField] GameObject uiPanel; // Il pannello della UI
+    [SerializeField] GameObject uiPanel_talk; // Il pannello della UI talk
 
 
     private bool _open = false;
@@ -21,20 +22,28 @@ public class BookController : MonoBehaviour
         if (uiPanel != null)
         {
             uiPanel.SetActive(false);
+            uiPanel_talk.SetActive(false);
+
         }
     }
 
 
     void Update()
     {
-
-
+        if(isPlayerInside)
+        {
+            uiPanel_talk.SetActive(true);
+        }
         if (isPlayerInside && Input.GetKeyDown(KeyCode.O))
             Open();
         if ( Input.GetKeyDown(KeyCode.C))
             Close();
         if (!isPlayerInside)
+        {
             Close();
+            uiPanel_talk.SetActive(false);
+        }
+
     }
 
     // Metodo chiamato quando un altro collider entra nel trigger

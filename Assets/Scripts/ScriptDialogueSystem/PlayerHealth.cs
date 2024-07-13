@@ -102,7 +102,7 @@ public class PlayerHealth : MonoBehaviour
         gameOverText.gameObject.SetActive(true);
 
         // Resetta le vite a startingLives
-        currentLives = startingLives + 1;
+        currentLives = startingLives ;
         PlayerPrefs.SetInt("PlayerLives", currentLives);
         UpdateHearts();
 
