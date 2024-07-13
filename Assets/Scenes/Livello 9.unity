@@ -900,10 +900,7 @@ PrefabInstance:
       addedObject: {fileID: 1599703852}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1599703854}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1599703856}
+      addedObject: {fileID: 1599703858}
   m_SourcePrefab: {fileID: 100100000, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
 --- !u!1001 &494497340
 PrefabInstance:
@@ -1485,7 +1482,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2, y: 0.2, z: 2}
-  m_Center: {x: -4.1, y: 0, z: 0}
+  m_Center: {x: -4.15, y: 0, z: 0}
 --- !u!1 &829850641
 GameObject:
   m_ObjectHideFlags: 0
@@ -2817,7 +2814,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2387f0b2b76364818b7e89e1f0981155, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostSpeed: 20
+  boostSpeed: 30
 --- !u!65 &1599703853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2839,7 +2836,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 0.5, z: 2}
   m_Center: {x: -4.15, y: 0, z: 0}
---- !u!65 &1599703854
+--- !u!65 &1599703858
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2858,29 +2855,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &1599703856
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1599703851}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2, y: 0.2, z: 2}
+  m_Center: {x: -4.15, y: -0.1, z: 0}
 --- !u!1 &1639279836 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
@@ -3509,6 +3485,7 @@ MonoBehaviour:
   particleSystem: {fileID: 1862533386}
   door: {fileID: 1862533385}
   keyObject: {fileID: 1007513799}
+  portalScript: {fileID: 1862533393}
 --- !u!114 &1862533393
 MonoBehaviour:
   m_ObjectHideFlags: 0
