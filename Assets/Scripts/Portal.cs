@@ -7,7 +7,13 @@ public class Portal : MonoBehaviour
 {
     private int portalLevel = 0;
     public TMP_Text portalLevelText;
-    
+
+    private void Start()
+    {
+        // Carica il livello del portale salvato
+        portalLevel = PlayerPrefs.GetInt("PortalLevel", 0);
+        UpdatePortalText();
+    }
 
     // Metodo chiamato quando un altro collider entra nel trigger
     private void OnTriggerEnter(Collider other)
@@ -25,29 +31,36 @@ public class Portal : MonoBehaviour
         // Assicuriamoci che il riferimento al Text sia valido
         if (portalLevelText != null)
         {
-            int pl = portalLevel + 1;
-            // Mostra il valore di portalLevel nel Text
-            portalLevelText.text = "Lvl. " + pl;
+            UpdatePortalText();
         }
     }
 
     public void UpdatePortal()
     {
-        if (CoinManager.CoinCount >= 10)
+        if (CoinManager.CoinCount >= 0)
         {
             portalLevel++;
             Debug.Log("Livello attuale del portale: " + portalLevel);
 
+            // Salva il nuovo livello del portale
+            PlayerPrefs.SetInt("PortalLevel", portalLevel);
+            PlayerPrefs.Save();
+
             // Avvia la coroutine per ruotare il portale
             StartCoroutine(RotatePortalForTime(2f)); // Ruota il portale per 2 secondi
 
-            // Assicuriamoci che il riferimento al Text sia valido
-            if (portalLevelText != null)
-            {
-                int pl = portalLevel + 1;
-                // Mostra il valore di portalLevel nel Text
-                portalLevelText.text = "Lvl. " + pl;
-            }
+            // Aggiorna il testo del portale
+            UpdatePortalText();
+        }
+    }
+
+    private void UpdatePortalText()
+    {
+        if (portalLevelText != null)
+        {
+            int pl = portalLevel + 1;
+            // Mostra il valore di portalLevel nel Text
+            portalLevelText.text = "Lvl. " + pl;
         }
     }
 
@@ -60,9 +73,7 @@ public class Portal : MonoBehaviour
             elapsed += Time.deltaTime;
             yield return null;
         }
-
     }
-
 
     // Metodo per caricare il prossimo livello
     private void LoadNextLevel()
