@@ -66,16 +66,15 @@ public class PlayerHealth : MonoBehaviour
         {
             GameOver();
         }
-        else
-        {
-            Respawn();
-        }
+        
     }
 
     private void Respawn()
     {
         // Posiziona il giocatore nel punto di respawn
         transform.position = respawnPoint.position;
+        Debug.Log("Entrato in Respawn");
+
     }
 
     private void FallRespawn()
@@ -84,6 +83,7 @@ public class PlayerHealth : MonoBehaviour
         currentLives--;
         PlayerPrefs.SetInt("PlayerLives", currentLives);
         UpdateHearts();
+        Debug.Log("Entrato in FallRespawn");
 
         // Se il giocatore è senza vite, esegui il game over, altrimenti respawn
         if (currentLives <= 0)
@@ -92,6 +92,8 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
+            Debug.Log("Entrato in if di FallRespawn");
+
             Respawn();
         }
     }
