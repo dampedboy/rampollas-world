@@ -7,6 +7,7 @@ public class PortalActivation : MonoBehaviour
     public GameObject particleSystem; // Riferimento all'oggetto Particle System
     public GameObject door; // Riferimento all'oggetto Door
     public Transform keyObject; // Riferimento all'oggetto chiave
+    public BoxCollider boxCollider; // Riferimento al BoxCollider del portale
 
     private bool isActivated = false; // Flag per controllare se il portale è attivato
     private float activationDistance = 3f; // Distanza di attivazione del portale
@@ -21,6 +22,12 @@ public class PortalActivation : MonoBehaviour
             particleSystem.SetActive(true);
         }
         door.SetActive(true);
+
+        // Disattiva il BoxCollider all'inizio
+        if (boxCollider != null)
+        {
+            boxCollider.enabled = false;
+        }
     }
 
     void Update()
@@ -42,5 +49,11 @@ public class PortalActivation : MonoBehaviour
         circle.SetActive(state);
         areaLight.SetActive(state);
         isActivated = state;
+
+        // Attiva o disattiva il BoxCollider
+        if (boxCollider != null)
+        {
+            boxCollider.enabled = state;
+        }
     }
 }
