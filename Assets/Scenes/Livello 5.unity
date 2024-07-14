@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1727758, g: 0.21590176, b: 0.2978366, a: 1}
+  m_IndirectSpecularColor: {r: 0.17277557, g: 0.21590148, b: 0.29783624, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -128,6 +128,75 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2943766813573587645, guid: 8759da7e004cfb54492e4342de935682, type: 3}
   m_PrefabInstance: {fileID: 773257183}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &122642195
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 10.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845248682605816809, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5221387953411354963, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
+      propertyPath: m_Name
+      value: MetalBlock
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0283e5baf7702410fa308b3ae39cbec7, type: 3}
 --- !u!1 &199998568 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
@@ -897,7 +966,7 @@ Transform:
   m_GameObject: {fileID: 490245308}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.27, y: 0.73, z: 2.52}
+  m_LocalPosition: {x: 2.55, y: 0.73, z: 2.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -972,6 +1041,7 @@ MonoBehaviour:
   particleSystem: {fileID: 112273755}
   door: {fileID: 528522619}
   keyObject: {fileID: 2030794461}
+  boxCollider: {fileID: 579407955}
 --- !u!114 &579407954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3920,7 +3990,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 0.00010391323}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &1845765876
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3940,7 +4010,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2, z: 0.6}
+  m_Size: {x: 2, y: 2, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1845765879
 MonoBehaviour:
@@ -4581,3 +4651,4 @@ SceneRoots:
   - {fileID: 1239812901}
   - {fileID: 1463533188}
   - {fileID: 1773224034}
+  - {fileID: 122642195}
