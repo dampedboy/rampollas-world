@@ -1,27 +1,36 @@
 using UnityEngine;
+using System.Collections;
 
 public class FallingPlatform : MonoBehaviour
 {
-    public float fallDelay = 1.0f; // Ritardo prima che la piattaforma inizi a cadere
+    public float fallDelay = 3.0f;  // Tempo di attesa prima che la piattaforma inizi a cadere
+    public float disappearDelay = 2.0f;  // Tempo di attesa prima che la piattaforma scompaia dopo la caduta
 
     private Rigidbody rb;
 
-    private void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true; // Assicurati che la piattaforma non si muova fino a quando non viene toccata
+        rb.useGravity = false;  // Disabilita la gravità all'inizio
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Invoke("DropPlatform", fallDelay); // Inizia il conto alla rovescia per la caduta
+            StartCoroutine(FallAndDisappear());
         }
     }
 
-    private void DropPlatform()
+    IEnumerator FallAndDisappear()
     {
-        rb.isKinematic = false; // Permette alla piattaforma di cadere
+        yield return new WaitForSeconds(fallDelay);
+
+        rb.useGravity = true;  // Abilita la gravità dopo il delay
+        rb.isKinematic = false;  // Assicurati che il RigidBody non sia kinematic
+
+        yield return new WaitForSeconds(disappearDelay);
+
+        Destroy(gameObject);  // Distrugge la piattaforma dopo il tempo di attesa
     }
 }
