@@ -1,13 +1,16 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+using System.Linq;
 
 public class Portal : MonoBehaviour
 {
     private int portalLevel = 0;
     public TMP_Text portalLevelText;
-    
+    public Animator transition;
+    public float transitionTime = 1f;
 
     // Metodo chiamato quando un altro collider entra nel trigger
     private void OnTriggerEnter(Collider other)
@@ -85,12 +88,22 @@ public class Portal : MonoBehaviour
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
             // Carica il prossimo livello
-            SceneManager.LoadScene(nextSceneIndex);
+            //SceneManager.LoadScene(nextSceneIndex);
+            StartCoroutine(LoadLevel(nextSceneIndex));
         }
         else
         {
             // Se non ci sono più livelli, ritorna al primo livello o gestisci diversamente
             Debug.Log("Hai completato tutti i livelli!");
         }
+    }
+
+    IEnumerator LoadLevel(int nextSceneIndex)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+        
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }
