@@ -2,43 +2,66 @@ using UnityEngine;
 
 public class PlatformTargetController : MonoBehaviour
 {
-    public GameObject block;             // Il blocco che deve muoversi
-    public Transform originalPosition;   // La posizione originale del blocco
-    public Transform platformPosition;   // La posizione della piattaforma dove il blocco deve scendere
-    public float moveSpeed = 2.0f;       // La velocità di movimento del blocco
+    // Oggetto da assegnare nel Inspector per il blocco
+    public GameObject block;
 
-    private Vector3 targetPosition;      // La posizione di destinazione del blocco
-    private bool playerOnPlatform = false; // Indica se il player è sulla piattaforma
+    // Trasform del blocco (posizione di partenza)
+    public Transform OriginalPosition;
+
+    // Trasform della piattaforma (posizione di arrivo)
+    public Transform PlatformPosition;
+
+    // Variabile per determinare se il blocco è stato rilasciato
+    private bool isTriggered = false;
+
+    // Velocità di caduta del blocco
+    public float dropSpeed = 5.0f;
+
+    // Tempo di ritardo prima della caduta in secondi (3 secondi)
+    private float delay = 2.0f; // 3 secondi
+
+    // Timer per il ritardo
+    private float delayTimer;
 
     void Start()
     {
-        // Salva la posizione iniziale del blocco
-        targetPosition = originalPosition.position;
+        // Imposta la posizione iniziale del blocco
+        block.transform.position = OriginalPosition.position;
+        // Inizializza il timer di ritardo
+        delayTimer = delay;
     }
 
     void Update()
     {
-        // Muove il blocco verso la posizione di destinazione
-        block.transform.position = Vector3.Lerp(block.transform.position, targetPosition, Time.deltaTime * moveSpeed);
+        if (isTriggered)
+        {
+            // Riduce il timer di ritardo fino a 0
+            if (delayTimer > 0)
+            {
+                delayTimer -= Time.deltaTime;
+            }
+            else
+            {
+                // Movimento del blocco verso la posizione della piattaforma
+                block.transform.position = Vector3.MoveTowards(block.transform.position, PlatformPosition.position, dropSpeed * Time.deltaTime);
+
+                // Verifica se il blocco ha raggiunto la piattaforma
+                if (block.transform.position == PlatformPosition.position)
+                {
+                    // Blocca il movimento quando raggiunge la piattaforma
+                    isTriggered = false;
+                }
+            }
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Se il player entra in contatto con la piattaforma
+        // Verifica se il player entra nel collider
         if (other.CompareTag("Player"))
         {
-            playerOnPlatform = true;
-            targetPosition = platformPosition.position;
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        // Se il player esce dal contatto con la piattaforma
-        if (other.CompareTag("Player"))
-        {
-            playerOnPlatform = false;
-            targetPosition = originalPosition.position;
+            // Imposta il flag per iniziare il conto alla rovescia per la caduta
+            isTriggered = true;
         }
     }
 }
