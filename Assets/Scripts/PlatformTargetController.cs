@@ -15,7 +15,7 @@ public class PlatformTargetController : MonoBehaviour
     private bool isTriggered = false;
 
     // Velocità di caduta del blocco
-    public float dropSpeed = 8.0f;
+    public float dropSpeed = 7.0f;
 
 
 
