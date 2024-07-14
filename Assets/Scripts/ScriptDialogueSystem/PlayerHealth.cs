@@ -71,10 +71,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void Respawn()
     {
-        // Posiziona il giocatore nel punto di respawn
-        transform.position = respawnPoint.position;
-        Debug.Log("Entrato in Respawn");
+        // Otteniamo l'indice della scena corrente
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
+        // Carichiamo nuovamente la stessa scena
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
     private void FallRespawn()
