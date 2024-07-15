@@ -11,6 +11,11 @@ public class CoinManager : MonoBehaviour
     public float textChangeDuration = 1.0f; // Durata dell'effetto di cambiamento del testo
     public float buyDelay = 0.5f; // Ritardo in secondi prima di effettuare l'acquisto
 
+    public AudioClip soldi_denied; // Suono per quando i soldi non sono sufficienti
+    public AudioClip soldi_spesi; // Suono per quando i soldi vengono spesi
+
+    public AudioSource audioSource; // Componente AudioSource per riprodurre i suoni
+
     private static int coinCount = 0;
     static HashSet<int> visitedScenes = new HashSet<int>();
 
@@ -22,6 +27,7 @@ public class CoinManager : MonoBehaviour
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         UpdateCoinText();
         SceneManager.sceneLoaded += OnSceneLoaded;
 
@@ -79,6 +85,11 @@ public class CoinManager : MonoBehaviour
         CoinCount -= cost;
         Debug.Log(CoinCount);
         UpdateCoinText();
+
+        if (audioSource != null && soldi_spesi != null)
+        {
+            audioSource.PlayOneShot(soldi_spesi);
+        }
     }
 
     public void UpdateCoinTextWithEffect()
@@ -92,6 +103,11 @@ public class CoinManager : MonoBehaviour
 
     private IEnumerator ChangeTextEffect()
     {
+        if (audioSource != null && soldi_denied != null)
+        {
+            audioSource.PlayOneShot(soldi_denied);
+        }
+
         coinText.color = Color.red;
         coinText.fontSize *= 1.2f; // Aumenta la dimensione del font del 20%
         yield return new WaitForSeconds(textChangeDuration);
@@ -99,6 +115,3 @@ public class CoinManager : MonoBehaviour
         coinText.fontSize /= 1.2f; // Ripristina la dimensione originale del font
     }
 }
-
-
-
