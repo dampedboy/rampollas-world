@@ -5,7 +5,7 @@ using System.Collections;
 
 public class Portal : MonoBehaviour
 {
-    private int portalLevel = 0;
+    private static int portalLevel = 0;
     public TMP_Text portalLevelText;
 
     // Metodo chiamato quando un altro collider entra nel trigger
@@ -32,7 +32,7 @@ public class Portal : MonoBehaviour
 
     public void UpdatePortal()
     {
-        if (CoinManager.CoinCount >= 0)
+        if (CoinManager.CoinCount >= 10)
         {
             portalLevel++;
             Debug.Log("Livello attuale del portale: " + portalLevel);
