@@ -12,6 +12,12 @@ public class Teleport : MonoBehaviour
             // Teletrasporta il player all'altro portale
             TeleportPlayer(other.gameObject);
         }
+
+        if (other.CompareTag("Key"))
+        {
+            // Teletrasporta il player all'altro portale
+            TeleportKey(other.gameObject);
+        }
     }
 
     private void TeleportPlayer(GameObject player)
@@ -36,4 +42,9 @@ public class Teleport : MonoBehaviour
             player.transform.position = destinationPortal.position;
         }
     }
+    private void TeleportKey(GameObject key)
+    {
+        key.transform.position = destinationPortal.position;
+    }
+
 }
