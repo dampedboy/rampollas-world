@@ -1749,12 +1749,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    m_Quality: 3
-    m_FrameInfluence: 0.1
-    m_JitterScale: 1
-    m_MipBias: 0
-    m_VarianceClampScale: 0.9
-    m_ContrastAdaptiveSharpening: 0
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!114 &1467072935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2406,6 +2406,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: acbb982a622de4679bf58d4bc331e03f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1724855367}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: acbb982a622de4679bf58d4bc331e03f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1724855371}
   m_SourcePrefab: {fileID: 100100000, guid: acbb982a622de4679bf58d4bc331e03f, type: 3}
 --- !u!1 &1724855366 stripped
 GameObject:
@@ -2436,6 +2439,9 @@ MonoBehaviour:
   - {fileID: 242667397}
   gameOverText: {fileID: 1682016279}
   fallThreshold: -10
+  audioSource: {fileID: 1724855371}
+  takeDamageSound: {fileID: 8300000, guid: b653393ecdbc95b48a80a42c08c5ed83, type: 3}
+  gameOverSound: {fileID: 8300000, guid: 86b67b19185911b43a09cecab57740af, type: 3}
 --- !u!143 &1724855368
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2500,6 +2506,102 @@ MonoBehaviour:
   jumpHeight: 2
   gravityMultiplier: 1.5
   jumpButtonGracePeriod: 0.2
+--- !u!82 &1724855371
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724855366}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1737259191 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fee33f61d4a5828408cf87bcd544b90d, type: 3}
@@ -2868,6 +2970,9 @@ MonoBehaviour:
   coinText: {fileID: 1982458380}
   textChangeDuration: 1
   buyDelay: 0.5
+  soldi_denied: {fileID: 0}
+  soldi_spesi: {fileID: 0}
+  audioSource: {fileID: 0}
 --- !u!4 &1896121365
 Transform:
   m_ObjectHideFlags: 0

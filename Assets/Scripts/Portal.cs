@@ -7,45 +7,57 @@ public class Portal : MonoBehaviour
 {
     private static int portalLevel = 0;
     public TMP_Text portalLevelText;
+    public AudioClip updatePortalSoundClip; // AudioClip per il suono di aggiornamento del portale
+    public AudioClip loadLevelSoundClip; // AudioClip per il suono di caricamento del livello
+    public AudioSource audioSource; // AudioSource per gestire i suoni
 
-    // Metodo chiamato quando un altro collider entra nel trigger
+    private void Start()
+    {
+        // Ottieni o aggiungi l'AudioSource a questo GameObject
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        // Controlla se l'oggetto che entra nel trigger è il player
         if (other.CompareTag("Player"))
         {
-            // Carica il prossimo livello
             LoadNextLevel();
         }
     }
 
     private void Update()
     {
-        // Assicuriamoci che il riferimento al Text sia valido
         if (portalLevelText != null)
         {
             int pl = portalLevel + 1;
-            // Mostra il valore di portalLevel nel Text
             portalLevelText.text = "Lvl. " + pl;
         }
     }
 
     public void UpdatePortal()
     {
-        if (CoinManager.CoinCount >= 10)
+        if (CoinManager.CoinCount >= 0)
         {
             portalLevel++;
             Debug.Log("Livello attuale del portale: " + portalLevel);
 
-            // Avvia la coroutine per ruotare il portale
-            StartCoroutine(RotatePortalForTime(2f)); // Ruota il portale per 2 secondi
+            StartCoroutine(RotatePortalForTime(2f));
 
-            // Assicuriamoci che il riferimento al Text sia valido
             if (portalLevelText != null)
             {
                 int pl = portalLevel + 1;
-                // Mostra il valore di portalLevel nel Text
                 portalLevelText.text = "Lvl. " + pl;
+            }
+
+            // Riproduci il suono di aggiornamento del portale
+            if (updatePortalSoundClip != null)
+            {
+                audioSource.clip = updatePortalSoundClip;
+                audioSource.Play();
             }
         }
     }
@@ -55,22 +67,17 @@ public class Portal : MonoBehaviour
         float elapsed = 0f;
         while (elapsed < duration)
         {
-            transform.Rotate(Vector3.forward, 90f * Time.deltaTime / duration); // Ruota gradualmente lungo l'asse z nel tempo
+            transform.Rotate(Vector3.forward, 90f * Time.deltaTime / duration);
             elapsed += Time.deltaTime;
             yield return null;
         }
-
     }
 
-
-    // Metodo per caricare il prossimo livello
     private void LoadNextLevel()
     {
-        // Ottieni l'indice della scena attuale
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         int nextSceneIndex = currentSceneIndex;
-        // Calcola l'indice del prossimo livello
         if (currentSceneIndex == 0)
         {
             nextSceneIndex = currentSceneIndex + 1 + portalLevel;
@@ -80,16 +87,21 @@ public class Portal : MonoBehaviour
             nextSceneIndex = currentSceneIndex + 1;
         }
 
-        // Controlla se l'indice del prossimo livello è valido
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
-            // Carica il prossimo livello
             SceneManager.LoadScene(nextSceneIndex);
+
+            // Riproduci il suono di caricamento del livello
+            if (loadLevelSoundClip != null)
+            {
+                audioSource.clip = loadLevelSoundClip;
+                audioSource.Play();
+            }
         }
         else
         {
-            // Se non ci sono più livelli, ritorna al primo livello o gestisci diversamente
             Debug.Log("Hai completato tutti i livelli!");
         }
     }
 }
+

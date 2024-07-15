@@ -9,11 +9,13 @@ public class ResponseHandler : MonoBehaviour
     [SerializeField] private RectTransform responseBox;
     [SerializeField] private RectTransform responseButtonTemplate;
     [SerializeField] private RectTransform responseContainer;
+    [SerializeField] private AudioSource responseAudioSource; // Add this line
+    [SerializeField] private AudioClip responseAudioClip; // Add this line
 
     private DialogueUI dialogueUI;
     private ResponseEvent[] responseEvents;
 
-    private List<GameObject> tempResponseButtons = new List<GameObject> ();
+    private List<GameObject> tempResponseButtons = new List<GameObject>();
 
     private void Start()
     {
@@ -25,13 +27,11 @@ public class ResponseHandler : MonoBehaviour
         this.responseEvents = responseEvents;
     }
 
-
-
     public void ShowResponses(Response[] responses)
     {
         float responseBoxHeight = 0;
 
-        for (int i = 0; i < responses.Length ; i++) 
+        for (int i = 0; i < responses.Length; i++)
         {
             Response response = responses[i];
             int responseIndex = i;
@@ -52,9 +52,15 @@ public class ResponseHandler : MonoBehaviour
 
     private void OnPickedResponse(Response response, int responseIndex)
     {
+        // Play the response sound
+        if (responseAudioSource != null && responseAudioClip != null)
+        {
+            responseAudioSource.PlayOneShot(responseAudioClip);
+        }
+
         responseBox.gameObject.SetActive(false);
 
-        foreach (GameObject button  in tempResponseButtons)
+        foreach (GameObject button in tempResponseButtons)
         {
             Destroy(button);
         }
@@ -75,6 +81,5 @@ public class ResponseHandler : MonoBehaviour
         {
             dialogueUI.CloseDialogueBox();
         }
-        
     }
 }

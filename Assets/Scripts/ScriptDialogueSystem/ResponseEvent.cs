@@ -2,7 +2,7 @@ using UnityEngine.Events;
 using UnityEngine;
 
 [System.Serializable]
-public class ResponseEvent 
+public class ResponseEvent
 {
     [HideInInspector] public string name;
     [SerializeField] private UnityEvent onPickedResponse;
