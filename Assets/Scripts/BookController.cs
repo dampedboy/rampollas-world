@@ -74,8 +74,10 @@ public class BookController : MonoBehaviour
         // Riproduci il suono di apertura
         if (_audioSource != null && openCloseSound != null)
         {
+            Debug.Log("Playing open/close sound");
             _audioSource.PlayOneShot(openCloseSound);
         }
+
 
         if (uiPanel != null)
         {
@@ -92,11 +94,13 @@ public class BookController : MonoBehaviour
         _open = false;
         _animator.SetBool("open", _open);
 
-        // Riproduci il suono di chiusura
+        // Riproduci il suono di apertura
         if (_audioSource != null && openCloseSound != null)
         {
+            Debug.Log("Playing open/close sound");
             _audioSource.PlayOneShot(openCloseSound);
         }
+
 
         if (uiPanel != null)
         {
