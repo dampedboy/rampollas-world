@@ -83,6 +83,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void FallRespawn()
     {
+        // Play damage sound
+        if (damageSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(damageSound);
+        }
         currentLives--;
         PlayerPrefs.SetInt("PlayerLives", currentLives);
         UpdateHearts();
