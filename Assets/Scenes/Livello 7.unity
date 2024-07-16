@@ -435,7 +435,7 @@ MonoBehaviour:
   moveSpeed: 2
   throwSpeed: 10
   maxDistance: 5
-  playerHead: {fileID: 797139284}
+  playerHead: {fileID: 1856372153}
   player: {fileID: 797139283}
   risucchio: {fileID: 732248692}
   portal: {fileID: 260773519}
@@ -1854,7 +1854,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208960eb12dc14e49bf84a1dc5efa8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 797139284}
   offset: {x: 0, y: 1, z: 0}
 --- !u!1 &764341878 stripped
 GameObject:
@@ -3673,6 +3673,52 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 1, z: 2}
   m_Center: {x: -4.15, y: 0, z: 0}
+--- !u!1 &1521760233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1521760235}
+  - component: {fileID: 1521760234}
+  m_Layer: 0
+  m_Name: DynamiteEmpty
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1521760234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521760233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208960eb12dc14e49bf84a1dc5efa8c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 797139284}
+  offset: {x: 0.08, y: 0.2, z: 1.4}
+--- !u!4 &1521760235
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1521760233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.981188, y: 3.8040273, z: -9.240682}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1537826536
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4940,7 +4986,7 @@ MonoBehaviour:
   moveSpeed: 2
   throwSpeed: 20
   maxDistance: 5
-  playerHead: {fileID: 797139284}
+  playerHead: {fileID: 1521760235}
   player: {fileID: 797139283}
   risucchio: {fileID: 732248692}
 --- !u!65 &1762468898
@@ -4964,6 +5010,52 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.90453345, y: 2.324299, z: 0.8241488}
   m_Center: {x: 0.000000029802326, y: 0.57500666, z: 0.000000029802326}
+--- !u!1 &1856372151
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1856372153}
+  - component: {fileID: 1856372152}
+  m_Layer: 0
+  m_Name: PositionEmpty
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1856372152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856372151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 208960eb12dc14e49bf84a1dc5efa8c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 797139284}
+  offset: {x: 1.4, y: 0.2, z: 0}
+--- !u!4 &1856372153
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1856372151}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -12.981188, y: 3.8040273, z: -9.240682}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1879597372 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
@@ -5599,7 +5691,7 @@ MonoBehaviour:
   moveSpeed: 2
   throwSpeed: 20
   maxDistance: 5
-  playerHead: {fileID: 797139284}
+  playerHead: {fileID: 1521760235}
   player: {fileID: 797139283}
   risucchio: {fileID: 732248692}
 --- !u!65 &2085029396
@@ -5699,3 +5791,5 @@ SceneRoots:
   - {fileID: 1241904390}
   - {fileID: 1575314827}
   - {fileID: 2027177207}
+  - {fileID: 1521760235}
+  - {fileID: 1856372153}

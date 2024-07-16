@@ -9,14 +9,19 @@ public class Teleport : MonoBehaviour
         // Verifica se l'oggetto che entra nel portale è il player
         if (other.CompareTag("Player"))
         {
+            Debug.Log("Player entered the portal.");
             // Teletrasporta il player all'altro portale
             TeleportPlayer(other.gameObject);
         }
-
-        if (other.CompareTag("Key"))
+        else if (other.CompareTag("Key"))
         {
+            Debug.Log("Key entered the portal.");
             // Teletrasporta la chiave all'altro portale
             TeleportKey(other.gameObject);
+        }
+        else
+        {
+            Debug.Log("Other object entered the portal: " + other.tag);
         }
     }
 
@@ -46,10 +51,11 @@ public class Teleport : MonoBehaviour
     private void TeleportKey(GameObject key)
     {
         // Posiziona la chiave al punto del portale di destinazione
-        Collider keyCollider = key.GetComponent<BoxCollider>();
+        Collider keyCollider = key.GetComponent<Collider>();
 
         if (keyCollider != null)
         {
+            Debug.Log("Teleporting key.");
             // Disattiva momentaneamente il Collider per evitare problemi di collisione
             keyCollider.enabled = false;
 
@@ -61,6 +67,7 @@ public class Teleport : MonoBehaviour
         }
         else
         {
+            Debug.LogWarning("Key does not have a Collider.");
             // Se la chiave non ha un Collider, semplicemente cambia la posizione
             key.transform.position = destinationPortal.position;
         }
