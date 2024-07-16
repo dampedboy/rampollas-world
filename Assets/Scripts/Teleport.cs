@@ -46,7 +46,7 @@ public class Teleport : MonoBehaviour
     private void TeleportKey(GameObject key)
     {
         // Posiziona la chiave al punto del portale di destinazione
-        Collider keyCollider = key.GetComponent<Collider>();
+        Collider keyCollider = key.GetComponent<BoxCollider>();
 
         if (keyCollider != null)
         {
