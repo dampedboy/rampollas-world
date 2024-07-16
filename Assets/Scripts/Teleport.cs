@@ -15,7 +15,7 @@ public class Teleport : MonoBehaviour
 
         if (other.CompareTag("Key"))
         {
-            // Teletrasporta il player all'altro portale
+            // Teletrasporta la chiave all'altro portale
             TeleportKey(other.gameObject);
         }
     }
@@ -42,9 +42,27 @@ public class Teleport : MonoBehaviour
             player.transform.position = destinationPortal.position;
         }
     }
+
     private void TeleportKey(GameObject key)
     {
-        key.transform.position = destinationPortal.position;
-    }
+        // Posiziona la chiave al punto del portale di destinazione
+        Collider keyCollider = key.GetComponent<Collider>();
 
+        if (keyCollider != null)
+        {
+            // Disattiva momentaneamente il Collider per evitare problemi di collisione
+            keyCollider.enabled = false;
+
+            // Teletrasporta la chiave al portale di destinazione
+            key.transform.position = destinationPortal.position;
+
+            // Riattiva il Collider
+            keyCollider.enabled = true;
+        }
+        else
+        {
+            // Se la chiave non ha un Collider, semplicemente cambia la posizione
+            key.transform.position = destinationPortal.position;
+        }
+    }
 }
