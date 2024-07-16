@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Teleport : MonoBehaviour
@@ -12,6 +13,15 @@ public class Teleport : MonoBehaviour
             // Teletrasporta il player all'altro portale
             TeleportPlayer(other.gameObject);
         }
+        else
+        {
+            TeleportObject(other.gameObject);
+        }
+    }
+
+    private void TeleportObject(GameObject gameObject)
+    {
+        
     }
 
     private void TeleportPlayer(GameObject player)

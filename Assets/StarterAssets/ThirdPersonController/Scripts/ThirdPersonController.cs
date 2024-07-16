@@ -388,6 +388,15 @@ namespace StarterAssets
             }
         }
 
+        public float getJumpHeight()
+        {
+            return this.JumpHeight;
+        }
+        public void setJumpHeight(float jump)
+        {
+            this.JumpHeight = jump;
+        }
+
         private void OnLand(AnimationEvent animationEvent)
         {
             if (animationEvent.animatorClipInfo.weight > 0.5f)
