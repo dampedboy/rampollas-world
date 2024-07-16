@@ -12,7 +12,7 @@ public class SpuntoniController : MonoBehaviour
         // Controlla se il player ha toccato il bottone
         if (other.CompareTag("Player") )
         {
-            spuntoniAnimator.SetTrigger("up"); // Attiva l'animazione del bottone
+            spuntoniAnimator.SetTrigger("Up"); // Attiva l'animazione del bottone
         }
     }
 }
