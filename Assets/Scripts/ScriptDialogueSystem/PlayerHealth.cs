@@ -131,7 +131,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void AddHeart()
     {
-        if (CoinManager.CoinCount >= 5)
+        if (CoinManager.CoinCount >= 4)
         {
             currentLives++;
             PlayerPrefs.SetInt("PlayerLives", currentLives);
