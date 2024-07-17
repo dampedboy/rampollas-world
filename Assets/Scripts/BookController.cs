@@ -6,19 +6,19 @@ using UnityEngine.UI;
 public class BookController : MonoBehaviour
 {
     private Animator _animator;
-    private AudioSource _audioSource;
-
-    [SerializeField] GameObject uiPanel; // Il pannello della UI
-    [SerializeField] GameObject uiPanel_talk; // Il pannello della UI talk
-    [SerializeField] AudioClip openCloseSound; // Suono di apertura e chiusura del libro
+    [SerializeField] private GameObject uiPanel; // Il pannello della UI
+    [SerializeField] private GameObject uiPanel_talk; // Il pannello della UI talk
 
     private bool _open = false;
     private bool isPlayerInside = false;
 
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip openSound;
+    [SerializeField] private AudioClip closeSound;
+
     void Start()
     {
         _animator = GetComponent<Animator>();
-        _audioSource = GetComponent<AudioSource>();
 
         if (uiPanel != null)
         {
@@ -32,16 +32,17 @@ public class BookController : MonoBehaviour
         if (isPlayerInside)
         {
             uiPanel_talk.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.O))
+                Open();
         }
-        if (isPlayerInside && Input.GetKeyDown(KeyCode.O))
-            Open();
-        if (Input.GetKeyDown(KeyCode.C))
-            Close();
-        if (!isPlayerInside)
+        else
         {
-            Close();
             uiPanel_talk.SetActive(false);
         }
+
+        if (Input.GetKeyDown(KeyCode.C))
+            Close();
     }
 
     // Metodo chiamato quando un altro collider entra nel trigger
@@ -71,13 +72,11 @@ public class BookController : MonoBehaviour
         _open = true;
         _animator.SetBool("open", _open);
 
-        // Riproduci il suono di apertura
-        if (_audioSource != null && openCloseSound != null)
+        if (audioSource != null && openSound != null)
         {
-            Debug.Log("Playing open/close sound");
-            _audioSource.PlayOneShot(openCloseSound);
+            audioSource.clip = openSound;
+            audioSource.Play();
         }
-
 
         if (uiPanel != null)
         {
@@ -94,13 +93,11 @@ public class BookController : MonoBehaviour
         _open = false;
         _animator.SetBool("open", _open);
 
-        // Riproduci il suono di apertura
-        if (_audioSource != null && openCloseSound != null)
+        if (audioSource != null && closeSound != null)
         {
-            Debug.Log("Playing open/close sound");
-            _audioSource.PlayOneShot(openCloseSound);
+            audioSource.clip = closeSound;
+            audioSource.Play();
         }
-
 
         if (uiPanel != null)
         {
@@ -108,3 +105,4 @@ public class BookController : MonoBehaviour
         }
     }
 }
+

@@ -16,6 +16,9 @@ public class PlaySoundOnStart : MonoBehaviour
         // Imposta il clip audio nel AudioSource
         audioSource.clip = clip;
 
+        // Abbassa il volume della metà
+        audioSource.volume = 0.1f;
+
         // Riproduci il suono
         audioSource.Play();
     }

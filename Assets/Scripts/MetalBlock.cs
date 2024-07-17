@@ -45,6 +45,7 @@ public class MetalBlock : MonoBehaviour
         canCollide = false;
 
         // Riproduci il suono di rottura
+        audioSource.volume *= 1.5f; // Aumenta il volume di 1.5 volte
         audioSource.Play();
 
         // Ottieni la posizione e la rotazione del blocco di metallo
@@ -67,3 +68,4 @@ public class MetalBlock : MonoBehaviour
         Destroy(gameObject);
     }
 }
+

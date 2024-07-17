@@ -20,7 +20,7 @@ public class GlassObject : MonoBehaviour
     {
         if (glassBreakSound != null)
         {
-            AudioSource.PlayClipAtPoint(glassBreakSound, transform.position);
+            AudioSource.PlayClipAtPoint(glassBreakSound, transform.position, 10f);
         }
     }
 }

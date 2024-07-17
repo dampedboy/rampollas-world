@@ -65,6 +65,7 @@ public class MovingPlatform : MonoBehaviour
     {
         if (gameObject.tag == "Spuntoni")
         {
+            audioSource.volume = audioSource.volume * 0.2f;
             audioSource.Play();
         }
 
@@ -81,6 +82,7 @@ public class MovingPlatform : MonoBehaviour
 
         if (gameObject.tag == "Spuntoni")
         {
+            audioSource.volume = audioSource.volume * 0.2f;
             audioSource.Play();
         }
 
