@@ -4,22 +4,20 @@ using UnityEngine;
 
 public class Trap_Door : MonoBehaviour
 {
-    // Start is called before the first frame update
-
+   
     public Animator doorAnim;
-    void OnTriggerEnter(Collider other)
+    public Transform door;
+    public Transform player;
+
+    void Update()
     {
-        if (other.CompareTag("Player")){
-            doorAnim.SetTrigger("open");
+        float distance = Vector3.Distance(player.position,door.position);
+        if (distance<=6){
+            doorAnim.SetBool("Near",true);
+        }
+        else{
+            doorAnim.SetBool("Near",false);
         }
     }
 
-    // Update is called once per frame
-    void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player")){
-            doorAnim.SetTrigger("close");
-        }
-        
-    }
 }

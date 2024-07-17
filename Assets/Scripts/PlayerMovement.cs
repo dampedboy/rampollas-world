@@ -1,4 +1,4 @@
-using System.Collections;
+ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -109,4 +109,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+ public void Jump(float jumpForce)
+{
+    
+    
+        ySpeed = Mathf.Sqrt(jumpForce * -2 * Physics.gravity.y * gravityMultiplier);
+        animator.SetBool("isJumping", true);
+        isJumping = true;
+        jumpButtonPressedTime = null;
+        lastGroundedTime = null;
+    
+}
 }
