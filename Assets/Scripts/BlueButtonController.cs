@@ -4,6 +4,7 @@ public class BlueButtonController : MonoBehaviour
 {
     public Animator buttonAnimator; // Riferimento all'animator del bottone blu
     public GameObject keyObject; // Riferimento all'oggetto chiave
+    public AudioClip buttonPressClip; // Riferimento all'AudioClip
 
     private bool isButtonPressed = false; // Flag per controllare se il bottone è stato premuto
 
@@ -19,7 +20,14 @@ public class BlueButtonController : MonoBehaviour
         {
             isButtonPressed = true;
             buttonAnimator.SetTrigger("Press"); // Attiva l'animazione del bottone
+            PlayButtonPressSound(); // Riproduce il suono del bottone
             keyObject.SetActive(true); // Rende visibile l'oggetto chiave
         }
+    }
+
+    private void PlayButtonPressSound()
+    {
+        // Crea un nuovo AudioSource, assegna la clip e riproduce il suono
+        AudioSource.PlayClipAtPoint(buttonPressClip, transform.position);
     }
 }
