@@ -3,6 +3,15 @@ using UnityEngine;
 public class Teleport : MonoBehaviour
 {
     public Transform destinationPortal;  // Riferimento all'altro portale
+    public AudioClip teleportSound;      // Clip audio per il suono di teletrasporto
+
+    private AudioSource audioSource;     // Sorgente audio per riprodurre il suono
+
+    private void Start()
+    {
+        // Aggiungi o ottieni il componente AudioSource
+        audioSource = gameObject.AddComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -46,6 +55,9 @@ public class Teleport : MonoBehaviour
             // Se il player non ha un CharacterController, semplicemente cambia la posizione
             player.transform.position = destinationPortal.position;
         }
+
+        // Riproduci il suono di teletrasporto
+        PlayTeleportSound();
     }
 
     private void TeleportKey(GameObject key)
@@ -70,6 +82,21 @@ public class Teleport : MonoBehaviour
             Debug.LogWarning("Key does not have a Collider.");
             // Se la chiave non ha un Collider, semplicemente cambia la posizione
             key.transform.position = destinationPortal.position;
+        }
+
+        // Riproduci il suono di teletrasporto
+        PlayTeleportSound();
+    }
+
+    private void PlayTeleportSound()
+    {
+        if (teleportSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(teleportSound);
+        }
+        else
+        {
+            Debug.LogWarning("Teleport sound or audio source not set.");
         }
     }
 }
