@@ -5,9 +5,12 @@ public class MalocchioController : MonoBehaviour
     public Transform respawnPoint; // Punto di respawn (Empty game object)
     public GameObject player; // Riferimento al Player
     public Transform keyObject; // Riferimento all'oggetto chiave
-    public Transform cameraPosition; // Nuova posizione per la Main Camera
 
     private float activationDistance = 3f; // Distanza di attivazione del portale
+
+    // Coordinate esatte per la nuova posizione della Main Camera
+    public Vector3 cameraNewPosition = new Vector3(0f, 10f, -10f);
+    
 
     void Update()
     {
@@ -23,8 +26,8 @@ public class MalocchioController : MonoBehaviour
             player.transform.position = respawnPoint.position;
 
             // Sposta la Main Camera nella nuova posizione
-            Camera.main.transform.position = cameraPosition.position;
-            Camera.main.transform.rotation = cameraPosition.rotation;
+            Camera.main.transform.position = cameraNewPosition;
+            
         }
     }
 }
