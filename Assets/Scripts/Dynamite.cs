@@ -4,15 +4,13 @@ public class Dynamite : MonoBehaviour
 {
     public float explosionForce = 500f;
     public float explosionRadius = 5f;
-
-    public AudioClip esplosione;
-    public AudioSource audioSource;
+    public AudioClip esplosione; // AudioClip per l'esplosione
+    private AudioSource audioSource;
 
     void Start()
     {
-        // Initialize audio source
-        audioSource = GetComponent<AudioSource>();
-
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = esplosione;
     }
 
     void OnTriggerEnter(Collider other)
@@ -20,23 +18,20 @@ public class Dynamite : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Explode(other.gameObject);
-
-
         }
         else if (other.CompareTag("Enemy"))
         {
+            audioSource.Play();
             Destroy(other.gameObject); // Distruggi il nemico
             Destroy(gameObject); // Distruggi la dinamite
-                                 // Play  sound
-            if (esplosione != null && audioSource != null)
-            {
-                audioSource.PlayOneShot(esplosione);
-            }
         }
     }
 
     void Explode(GameObject player)
     {
+        // Riproduci il suono dell'esplosione
+        audioSource.Play();
+
         CharacterController controller = player.GetComponent<CharacterController>();
 
         if (controller != null)
@@ -48,12 +43,8 @@ public class Dynamite : MonoBehaviour
             StartCoroutine(ApplyExplosionForce(controller, pushDirection));
         }
 
-        // Play  sound
-        if (esplosione != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(esplosione);
-        }
-        Destroy(gameObject); // Distruggi la dinamite dopo l'esplosione
+        // Distruggi la dinamite dopo l'esplosione
+        Destroy(gameObject, audioSource.clip.length); // Delay destruction to allow the sound to play
     }
 
     System.Collections.IEnumerator ApplyExplosionForce(CharacterController controller, Vector3 force)
