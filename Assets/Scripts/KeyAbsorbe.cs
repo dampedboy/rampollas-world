@@ -69,8 +69,6 @@ public class KeyAbsorber : MonoBehaviour
                 Vector3 throwDirection = player.forward.normalized;
                 StartCoroutine(ThrowObject(throwDirection));
                 isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
-
-         
             }
         }
     }
