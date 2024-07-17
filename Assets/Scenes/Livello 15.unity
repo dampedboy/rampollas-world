@@ -634,6 +634,9 @@ MonoBehaviour:
   OriginalPosition: {fileID: 958130537}
   PlatformPosition: {fileID: 358574958}
   dropSpeed: 10
+  fallSoundClip: {fileID: 8300000, guid: a3f756fa7227e314e9c79242c6dc593d, type: 3}
+  startFallSoundClip: {fileID: 8300000, guid: 5995deadd5d5a104e834c74ecb7eb32a, type: 3}
+  arrivalThreshold: 0.1
 --- !u!65 &174180091
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1347,6 +1350,9 @@ MonoBehaviour:
   OriginalPosition: {fileID: 47453064}
   PlatformPosition: {fileID: 340201944}
   dropSpeed: 8
+  fallSoundClip: {fileID: 8300000, guid: a3f756fa7227e314e9c79242c6dc593d, type: 3}
+  startFallSoundClip: {fileID: 8300000, guid: 5995deadd5d5a104e834c74ecb7eb32a, type: 3}
+  arrivalThreshold: 0.1
 --- !u!65 &276766820
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1417,6 +1423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 5
+  fallSound: {fileID: 8300000, guid: 5995deadd5d5a104e834c74ecb7eb32a, type: 3}
 --- !u!54 &305496380
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1915,31 +1922,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9999831
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.0057678786
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.0000000019453839
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.0007658126
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 0.661
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -0.001
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -0.088
       objectReference: {fileID: 0}
     - target: {fileID: 85251312879204188, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -1994,6 +2001,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 5
+  fallSound: {fileID: 8300000, guid: 5995deadd5d5a104e834c74ecb7eb32a, type: 3}
 --- !u!54 &377181569
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2322,6 +2330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 5
+  fallSound: {fileID: 8300000, guid: 5995deadd5d5a104e834c74ecb7eb32a, type: 3}
 --- !u!54 &415906492
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2711,6 +2720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 5
+  fallSound: {fileID: 8300000, guid: 5995deadd5d5a104e834c74ecb7eb32a, type: 3}
 --- !u!54 &516288979
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4702,6 +4712,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 5
+  fallSound: {fileID: 8300000, guid: 5995deadd5d5a104e834c74ecb7eb32a, type: 3}
 --- !u!54 &1265579939
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6191,6 +6202,9 @@ MonoBehaviour:
   OriginalPosition: {fileID: 1543142240}
   PlatformPosition: {fileID: 653921264}
   dropSpeed: 8
+  fallSoundClip: {fileID: 8300000, guid: a3f756fa7227e314e9c79242c6dc593d, type: 3}
+  startFallSoundClip: {fileID: 8300000, guid: 5995deadd5d5a104e834c74ecb7eb32a, type: 3}
+  arrivalThreshold: 0.1
 --- !u!65 &1633638424
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6686,6 +6700,9 @@ MonoBehaviour:
   OriginalPosition: {fileID: 1294665048}
   PlatformPosition: {fileID: 1018099868}
   dropSpeed: 8
+  fallSoundClip: {fileID: 8300000, guid: a3f756fa7227e314e9c79242c6dc593d, type: 3}
+  startFallSoundClip: {fileID: 8300000, guid: 5995deadd5d5a104e834c74ecb7eb32a, type: 3}
+  arrivalThreshold: 0.1
 --- !u!65 &1701327366
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7190,6 +7207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fallSpeed: 5
+  fallSound: {fileID: 8300000, guid: 5995deadd5d5a104e834c74ecb7eb32a, type: 3}
 --- !u!54 &1802775148
 Rigidbody:
   m_ObjectHideFlags: 0
