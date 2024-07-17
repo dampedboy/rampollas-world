@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class Timer : MonoBehaviour
 {
@@ -29,9 +30,10 @@ public class Timer : MonoBehaviour
     {
         timer -= Time.deltaTime; // Sottrai il tempo trascorso dal timer
 
-        if (timer <= 0f)
+        if (timer <= 0f && !playedSound)
         {
-            ReloadCurrentScene(); // Chiamata alla funzione per ricaricare la scena corrente
+            StartCoroutine(PlayTimerSoundTwiceAndReload());
+            playedSound = true;
         }
 
         UpdateTimerText(); // Aggiorna il testo del timer ogni frame
@@ -49,6 +51,20 @@ public class Timer : MonoBehaviour
         }
     }
 
+    IEnumerator PlayTimerSoundTwiceAndReload()
+    {
+        // Riproduci il suono del timer la prima volta
+        audioSource.Play();
+        yield return new WaitForSeconds(audioSource.clip.length);
+
+        // Riproduci il suono del timer la seconda volta
+        audioSource.Play();
+        yield return new WaitForSeconds(audioSource.clip.length);
+
+        // Ricarica la scena corrente dopo che il suono è stato riprodotto due volte
+        ReloadCurrentScene();
+    }
+
     void ReloadCurrentScene()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
@@ -59,7 +75,6 @@ public class Timer : MonoBehaviour
     {
         int seconds = Mathf.CeilToInt(timer);
         timerText.text = seconds.ToString(); // Aggiorna il testo del timer con i secondi rimanenti
-
     }
 
     void ResetPlayedSound()
