@@ -9,6 +9,7 @@ public class ObjAbsorbeMetal : MonoBehaviour
     public Transform playerHead; // Posizione della testa del player
     public Transform player; // Riferimento al player
     public GameObject risucchio; // Riferimento all'oggetto Risucchio
+    public AudioClip assorbimento; // Audio clip per il suono di assorbimento
 
 
     private Vector3 initialPosition; // Posizione iniziale dell'oggetto
@@ -16,11 +17,14 @@ public class ObjAbsorbeMetal : MonoBehaviour
     private bool isHoldingObject = false; // Indica se il player sta tenendo l'oggetto
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
     public bool isThrown = false; // Indica se l'oggetto è stato lanciato
+    private AudioSource audioSource; // Componente AudioSource
 
     void Start()
     {
         initialPosition = transform.position; // Memorizza la posizione iniziale dell'oggetto
         risucchio.SetActive(false); // Inizialmente nasconde l'oggetto Risucchio
+        audioSource = GetComponent<AudioSource>(); // Ottiene il componente AudioSource
+
     }
 
     void Update()
@@ -34,6 +38,10 @@ public class ObjAbsorbeMetal : MonoBehaviour
             isHoldingObject = true;
             targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
             risucchio.SetActive(true); // Mostra l'oggetto Risucchio
+            if (assorbimento != null)
+            {
+                audioSource.PlayOneShot(assorbimento);
+            }
         }
 
         // Se stiamo tenendo l'oggetto, muovilo lentamente verso il player

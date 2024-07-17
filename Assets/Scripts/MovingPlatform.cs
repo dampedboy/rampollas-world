@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine;
 using System.Collections;
 
 public class MovingPlatform : MonoBehaviour
@@ -7,16 +6,21 @@ public class MovingPlatform : MonoBehaviour
     public Vector3 moveToPosition; // La posizione verso cui muoversi
     public float moveSpeed = 2.0f; // Velocità di movimento
     public float returnDelay = 2.0f; // Tempo di ritardo prima di tornare alla posizione originale
+    public AudioClip spuntoniSound; // Il suono da riprodurre
 
     private Vector3 originalPosition;
     private bool movingToTarget = false;
     private Transform playerTransform;
     private Vector3 lastPlatformPosition;
+    private AudioSource audioSource;
 
     void Start()
     {
         originalPosition = transform.position;
         lastPlatformPosition = transform.position;
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = spuntoniSound;
+
         // Ensure the platform has a trigger collider
         Collider platformCollider = GetComponent<Collider>();
         if (platformCollider != null)
@@ -59,6 +63,11 @@ public class MovingPlatform : MonoBehaviour
 
     IEnumerator MovePlatform(Vector3 targetPosition)
     {
+        if (gameObject.tag == "Spuntoni")
+        {
+            audioSource.Play();
+        }
+
         while (movingToTarget && Vector3.Distance(transform.position, targetPosition) > 0.01f)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -69,6 +78,11 @@ public class MovingPlatform : MonoBehaviour
     IEnumerator ReturnToOriginalPosition()
     {
         yield return new WaitForSeconds(returnDelay);
+
+        if (gameObject.tag == "Spuntoni")
+        {
+            audioSource.Play();
+        }
 
         while (!movingToTarget && Vector3.Distance(transform.position, originalPosition) > 0.01f)
         {

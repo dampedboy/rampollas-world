@@ -10,16 +10,19 @@ public class KeyAbsorber : MonoBehaviour
     public Transform player; // Riferimento al player
     public GameObject risucchio; // Riferimento all'oggetto Risucchio
     public GameObject portal; // Riferimento all'oggetto Portal
+    public AudioClip assorbimento; // Audio clip per il suono di assorbimento
 
     private Vector3 initialPosition; // Posizione iniziale dell'oggetto
     private Vector3 targetPosition; // Posizione target verso cui muovere l'oggetto
     private bool isHoldingObject = false; // Indica se il player sta tenendo l'oggetto
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
+    private AudioSource audioSource; // Componente AudioSource
 
     void Start()
     {
         initialPosition = transform.position; // Memorizza la posizione iniziale dell'oggetto
         risucchio.SetActive(false); // Inizialmente nasconde l'oggetto Risucchio
+        audioSource = GetComponent<AudioSource>(); // Ottiene il componente AudioSource
     }
 
     void Update()
@@ -33,6 +36,12 @@ public class KeyAbsorber : MonoBehaviour
             isHoldingObject = true;
             targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
             risucchio.SetActive(true); // Mostra l'oggetto Risucchio
+
+            // Riproduce il suono di assorbimento
+            if (assorbimento != null)
+            {
+                audioSource.PlayOneShot(assorbimento);
+            }
         }
 
         // Se stiamo tenendo l'oggetto, muovilo lentamente verso il player

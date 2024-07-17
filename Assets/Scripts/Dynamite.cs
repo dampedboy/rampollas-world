@@ -5,16 +5,33 @@ public class Dynamite : MonoBehaviour
     public float explosionForce = 500f;
     public float explosionRadius = 5f;
 
+    public AudioClip esplosione;
+    public AudioSource audioSource;
+
+    void Start()
+    {
+        // Initialize audio source
+        audioSource = GetComponent<AudioSource>();
+
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             Explode(other.gameObject);
+
+
         }
         else if (other.CompareTag("Enemy"))
         {
             Destroy(other.gameObject); // Distruggi il nemico
             Destroy(gameObject); // Distruggi la dinamite
+                                 // Play  sound
+            if (esplosione != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(esplosione);
+            }
         }
     }
 
@@ -31,6 +48,11 @@ public class Dynamite : MonoBehaviour
             StartCoroutine(ApplyExplosionForce(controller, pushDirection));
         }
 
+        // Play  sound
+        if (esplosione != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(esplosione);
+        }
         Destroy(gameObject); // Distruggi la dinamite dopo l'esplosione
     }
 
