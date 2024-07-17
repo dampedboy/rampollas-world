@@ -6,7 +6,8 @@ public class GreenButtonController : MonoBehaviour
     public Animator buttonAnimator; // Riferimento all'animator del bottone
     public GameObject[] platforms; // Array di piattaforme da rendere visibili
     public float platformsVisibleDuration = 5f; // Durata per cui le piattaforme rimangono visibili
-    public AudioClip buttonPressClip; // Riferimento all'AudioClip
+    public AudioClip buttonPressClip; // Riferimento all'AudioClip per il suono del bottone
+    public AudioClip cageSoundClip; // Riferimento all'AudioClip per il suono della gabbia
 
     private bool isButtonPressed = false; // Flag per controllare se il bottone è stato premuto
 
@@ -37,6 +38,12 @@ public class GreenButtonController : MonoBehaviour
         AudioSource.PlayClipAtPoint(buttonPressClip, transform.position);
     }
 
+    private void PlayCageSound()
+    {
+        // Crea un nuovo AudioSource per riprodurre il suono della gabbia
+        AudioSource.PlayClipAtPoint(cageSoundClip, transform.position);
+    }
+
     private IEnumerator ShowPlatformsTemporarily()
     {
         // Nasconde le piattaforme
@@ -53,6 +60,9 @@ public class GreenButtonController : MonoBehaviour
         {
             platform.SetActive(true);
         }
+
+        // Riproduci il suono della gabbia dopo aver reso visibili le piattaforme
+        PlayCageSound();
 
         // Nota: il flag `isButtonPressed` non viene resettato
     }
