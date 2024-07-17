@@ -8,6 +8,9 @@ public class PlatformManager_3 : MonoBehaviour
     public GameObject[] greenPlatforms;
     public GameObject[] yellowPlatforms;
 
+    public AudioClip cambioColoriSound; // Aggiunta: AudioClip per il suono del cambio colori
+    private AudioSource audioSource; // Aggiunta: AudioSource per riprodurre il suono
+
     private float switchInterval = 3f;
     private int currentColorIndex = 0;
     private GameObject[][] allPlatforms;
@@ -15,7 +18,14 @@ public class PlatformManager_3 : MonoBehaviour
     void Start()
     {
         // Initialize the array of all platforms
-        allPlatforms = new GameObject[][] { redPlatforms, bluePlatforms, greenPlatforms , yellowPlatforms};
+        allPlatforms = new GameObject[][] { redPlatforms, bluePlatforms, greenPlatforms, yellowPlatforms };
+
+        // Carica l'AudioSource
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.volume = 0.05f; // Imposta il volume del suono a 0.05
+
+        // Carica l'AudioClip per il suono del cambio colori
+        audioSource.clip = cambioColoriSound;
 
         // Start the coroutine to switch platforms visibility
         StartCoroutine(SwitchPlatformsVisibility());
@@ -40,6 +50,12 @@ public class PlatformManager_3 : MonoBehaviour
             foreach (var platform in allPlatforms[currentColorIndex])
             {
                 platform.SetActive(true);
+            }
+
+            // Play the sound for cambio colori
+            if (cambioColoriSound != null && audioSource != null)
+            {
+                audioSource.PlayOneShot(cambioColoriSound);
             }
 
             // Move to the next color
