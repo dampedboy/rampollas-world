@@ -40,8 +40,9 @@ public class WoodBlock : MonoBehaviour
     {
         if (breakSound != null)
         {
-            AudioSource.PlayClipAtPoint(breakSound, transform.position, 10f); // Imposta il volume a 1.5
+            AudioSource.PlayClipAtPoint(breakSound, transform.position, 100.0f); 
         }
     }
 }
+
 

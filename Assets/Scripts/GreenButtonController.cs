@@ -3,67 +3,57 @@ using UnityEngine;
 
 public class GreenButtonController : MonoBehaviour
 {
-    public Animator buttonAnimator; // Riferimento all'animator del bottone
-    public GameObject[] platforms; // Array di piattaforme da rendere visibili
-    public float platformsVisibleDuration = 5f; // Durata per cui le piattaforme rimangono visibili
-    public AudioClip buttonPressClip; // Riferimento all'AudioClip per il suono del bottone
-    public AudioClip cageSoundClip; // Riferimento all'AudioClip per il suono della gabbia
+    public Animator buttonAnimator;
+    public GameObject[] platforms;
+    public float platformsVisibleDuration = 5f;
+    public AudioClip buttonPressClip;
+    public AudioClip cageSoundClip;
 
-    private bool isButtonPressed = false; // Flag per controllare se il bottone è stato premuto
+    private bool isButtonPressed = false;
 
     void Start()
     {
-        // Nasconde inizialmente le piattaforme
         foreach (GameObject platform in platforms)
         {
-            platform.SetActive(true);
+            platform.SetActive(false);
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Controlla se il player ha toccato il bottone
         if (other.CompareTag("Player") && !isButtonPressed)
         {
             isButtonPressed = true;
-            buttonAnimator.SetTrigger("Press"); // Attiva l'animazione del bottone
-            PlayButtonPressSound(); // Riproduce il suono del bottone
+            buttonAnimator.SetTrigger("Press");
+            PlayButtonPressSound();
             StartCoroutine(ShowPlatformsTemporarily());
         }
     }
 
     private void PlayButtonPressSound()
     {
-        // Crea un nuovo AudioSource, assegna la clip e riproduce il suono
-        AudioSource.PlayClipAtPoint(buttonPressClip, transform.position);
+        AudioSource.PlayClipAtPoint(buttonPressClip, transform.position); 
     }
 
     private void PlayCageSound()
     {
-        // Crea un nuovo AudioSource per riprodurre il suono della gabbia
-        AudioSource.PlayClipAtPoint(cageSoundClip, transform.position);
+        AudioSource.PlayClipAtPoint(cageSoundClip, transform.position, 3f); // Increase volume by 1.5 times
     }
 
     private IEnumerator ShowPlatformsTemporarily()
     {
-        // Nasconde le piattaforme
-        foreach (GameObject platform in platforms)
-        {
-            platform.SetActive(false);
-        }
-
-        // Attendi per la durata specificata
-        yield return new WaitForSeconds(platformsVisibleDuration);
-
-        // Rendi di nuovo visibili le piattaforme
         foreach (GameObject platform in platforms)
         {
             platform.SetActive(true);
         }
 
-        // Riproduci il suono della gabbia dopo aver reso visibili le piattaforme
-        PlayCageSound();
+        yield return new WaitForSeconds(platformsVisibleDuration);
 
-        // Nota: il flag `isButtonPressed` non viene resettato
+        foreach (GameObject platform in platforms)
+        {
+            platform.SetActive(false);
+        }
+
+        PlayCageSound();
     }
 }
