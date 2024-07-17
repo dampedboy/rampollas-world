@@ -59,18 +59,27 @@ public class PlatformTargetController : MonoBehaviour
             // Movimento del blocco verso la posizione della piattaforma
             block.transform.position = Vector3.MoveTowards(block.transform.position, PlatformPosition.position, dropSpeed * Time.deltaTime);
 
-            // Verifica se il blocco è vicino abbastanza alla piattaforma per considerarsi "arrivato"
-            if (Vector3.Distance(block.transform.position, PlatformPosition.position) <= arrivalThreshold)
+            if (Vector3.Distance(block.transform.position, PlatformPosition.position) <= arrivalThreshold+5)
             {
-                // Blocca il movimento quando raggiunge la piattaforma
-                isTriggered = false;
-
                 // Riproduci il suono di caduta solo se non è stato già riprodotto
                 if (!hasPlayedFallSound)
                 {
                     fallAudioSource.Play();
                     hasPlayedFallSound = true;
                 }
+            }
+
+
+                // Verifica se il blocco è vicino abbastanza alla piattaforma per considerarsi "arrivato"
+                if (Vector3.Distance(block.transform.position, PlatformPosition.position) <= arrivalThreshold)
+            {
+
+
+                // Blocca il movimento quando raggiunge la piattaforma
+                
+                isTriggered = false;
+
+
             }
         }
     }
