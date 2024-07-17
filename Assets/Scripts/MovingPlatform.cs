@@ -6,7 +6,8 @@ public class MovingPlatform : MonoBehaviour
     public Vector3 moveToPosition; // La posizione verso cui muoversi
     public float moveSpeed = 2.0f; // Velocità di movimento
     public float returnDelay = 2.0f; // Tempo di ritardo prima di tornare alla posizione originale
-    public AudioClip spuntoniSound; // Il suono da riprodurre
+    public AudioClip spuntoniSound; // Suono da riprodurre per i spuntoni
+    public AudioClip movingPlatformSound; // Suono da riprodurre per la moving platform
 
     private Vector3 originalPosition;
     private bool movingToTarget = false;
@@ -19,14 +20,6 @@ public class MovingPlatform : MonoBehaviour
         originalPosition = transform.position;
         lastPlatformPosition = transform.position;
         audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.clip = spuntoniSound;
-
-        // Ensure the platform has a trigger collider
-        Collider platformCollider = GetComponent<Collider>();
-        if (platformCollider != null)
-        {
-            platformCollider.isTrigger = true;
-        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -59,14 +52,23 @@ public class MovingPlatform : MonoBehaviour
             playerTransform.position += platformMovement;
         }
         lastPlatformPosition = transform.position;
+
+        // Controlla se la piattaforma ha smesso di muoversi e ferma il suono
+        if (!movingToTarget && audioSource.isPlaying)
+        {
+            audioSource.Stop();
+        }
     }
 
     IEnumerator MovePlatform(Vector3 targetPosition)
     {
-        if (gameObject.tag == "Spuntoni")
+        if (gameObject.tag != "Spuntoni" && movingToTarget && playerTransform != null)
         {
-            audioSource.volume = audioSource.volume * 0.2f;
-            audioSource.Play();
+            PlayMovingPlatformSound();
+        }
+        else if (gameObject.tag == "Spuntoni")
+        {
+            PlaySpuntoniSound();
         }
 
         while (movingToTarget && Vector3.Distance(transform.position, targetPosition) > 0.01f)
@@ -74,22 +76,48 @@ public class MovingPlatform : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
             yield return null;
         }
+
+        // Ferma il suono quando la piattaforma smette di muoversi
+        if (!movingToTarget)
+        {
+            audioSource.Stop();
+        }
     }
 
     IEnumerator ReturnToOriginalPosition()
     {
-        yield return new WaitForSeconds(returnDelay);
-
-        if (gameObject.tag == "Spuntoni")
+        if (gameObject.tag != "Spuntoni"  && playerTransform != null)
         {
-            audioSource.volume = audioSource.volume * 0.2f;
-            audioSource.Play();
+            PlayMovingPlatformSound();
         }
+
+
+        yield return new WaitForSeconds(returnDelay);
 
         while (!movingToTarget && Vector3.Distance(transform.position, originalPosition) > 0.01f)
         {
             transform.position = Vector3.MoveTowards(transform.position, originalPosition, moveSpeed * Time.deltaTime);
             yield return null;
+        }
+
+
+    }
+
+    void PlaySpuntoniSound()
+    {
+        if (spuntoniSound != null)
+        {
+            audioSource.clip = spuntoniSound;
+            audioSource.Play();
+        }
+    }
+
+    void PlayMovingPlatformSound()
+    {
+        if (movingPlatformSound != null)
+        {
+            audioSource.clip = movingPlatformSound;
+            audioSource.Play();
         }
     }
 }
