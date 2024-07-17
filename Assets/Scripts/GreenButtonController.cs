@@ -15,7 +15,7 @@ public class GreenButtonController : MonoBehaviour
     {
         foreach (GameObject platform in platforms)
         {
-            platform.SetActive(false);
+            platform.SetActive(true);
         }
     }
 
@@ -44,14 +44,14 @@ public class GreenButtonController : MonoBehaviour
     {
         foreach (GameObject platform in platforms)
         {
-            platform.SetActive(true);
+            platform.SetActive(false);
         }
 
         yield return new WaitForSeconds(platformsVisibleDuration);
 
         foreach (GameObject platform in platforms)
         {
-            platform.SetActive(false);
+            platform.SetActive(true);
         }
 
         PlayCageSound();
