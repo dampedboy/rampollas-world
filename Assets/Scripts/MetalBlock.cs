@@ -4,8 +4,22 @@ using System.Collections;
 public class MetalBlock : MonoBehaviour
 {
     public GameObject woodBlockPrefab;
+    public AudioClip breakSound; // AudioClip per il suono di rottura
 
     private bool canCollide = true; // Variabile per controllare se il blocco può collidere
+    private AudioSource audioSource; // AudioSource per riprodurre il suono
+
+    void Start()
+    {
+        // Ottieni o aggiungi un componente AudioSource
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        audioSource.clip = breakSound;
+        audioSource.playOnAwake = false;
+    }
 
     void OnCollisionEnter(Collision collision)
     {
@@ -29,6 +43,9 @@ public class MetalBlock : MonoBehaviour
     {
         // Disabilita ulteriori collisioni per evitare che altre istanze di MetalBlock siano sostituite immediatamente
         canCollide = false;
+
+        // Riproduci il suono di rottura
+        audioSource.Play();
 
         // Ottieni la posizione e la rotazione del blocco di metallo
         Vector3 position = transform.position;
