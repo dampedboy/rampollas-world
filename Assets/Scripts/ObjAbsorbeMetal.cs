@@ -18,12 +18,16 @@ public class ObjAbsorbeMetal : MonoBehaviour
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
     public bool isThrown = false; // Indica se l'oggetto è stato lanciato
     private AudioSource audioSource; // Componente AudioSource
+    private Rigidbody rb; // Componente Rigidbody
 
     void Start()
     {
         initialPosition = transform.position; // Memorizza la posizione iniziale dell'oggetto
         risucchio.SetActive(false); // Inizialmente nasconde l'oggetto Risucchio
         audioSource = GetComponent<AudioSource>(); // Ottiene il componente AudioSource
+        rb = GetComponent<Rigidbody>(); // Ottiene il componente Rigidbody
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; // Imposta il modo di rilevamento delle collisioni
+        rb.isKinematic = true;
 
     }
 
@@ -38,6 +42,7 @@ public class ObjAbsorbeMetal : MonoBehaviour
             isHoldingObject = true;
             targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
             risucchio.SetActive(true); // Mostra l'oggetto Risucchio
+            rb.isKinematic = true;
             if (assorbimento != null)
             {
                 audioSource.PlayOneShot(assorbimento);
@@ -70,6 +75,7 @@ public class ObjAbsorbeMetal : MonoBehaviour
                 StartCoroutine(ThrowObject(throwDirection));
                 isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
                 isThrown = true; // Imposta la variabile isThrown su true
+                rb.isKinematic = false;
             }
         }
     }
