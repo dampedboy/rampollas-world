@@ -48,10 +48,9 @@ public class KeyAbsorber : MonoBehaviour
             }
 
             // Rende il Rigidbody kinematic mentre si avvicina al player
-            if (rb != null)
-            {
-                rb.isKinematic = true;
-            }
+
+            rb.isKinematic = true;
+
         }
 
         // Se stiamo tenendo l'oggetto, muovilo lentamente verso il player
