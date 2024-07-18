@@ -19,6 +19,7 @@ public class FroggyController : MonoBehaviour
         {
             _audioSource = gameObject.AddComponent<AudioSource>(); // Add AudioSource if not already present
         }
+        _audioSource.volume = 0.3f; // Set the volume to 0.5
     }
 
     void Update()
