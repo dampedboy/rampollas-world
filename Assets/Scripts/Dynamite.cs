@@ -24,8 +24,11 @@ public class Dynamite : MonoBehaviour
         {
             audioSource.Play();
             Destroy(other.gameObject); // Distruggi il nemico
-            float delay = Mathf.Max(audioSource.clip.length - 1.45f, 0f); // Calcola il tempo di ritardo, assicurandoti che non sia negativo
+            float delay = Mathf.Max(audioSource.clip.length - 1.55f, 0f); // Calcola il tempo di ritardo, assicurandoti che non sia negativo
+            audioSource.Play();
+
             Destroy(gameObject, delay); // Distruggi la dinamite dopo il tempo di ritardo calcolato
+
         }
     }
 
