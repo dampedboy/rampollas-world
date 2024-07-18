@@ -16,7 +16,7 @@ public class TextDisplay : MonoBehaviour
         textMeshPro.enabled = true;
 
         // Avvia la coroutine per nascondere il testo dopo 3 secondi
-        StartCoroutine(HideTextAfterDelay(3f));
+        StartCoroutine(HideTextAfterDelay(2f));
     }
 
     private IEnumerator HideTextAfterDelay(float delay)
