@@ -4,6 +4,14 @@ public class GameManager : MonoBehaviour
 {
     // Variabile statica per memorizzare lo stato di ingresso
     public static bool enteringFromTrapdoor = false;
+    public static bool enteringFromColor = false;
+    public static bool enteringFromAction = false;
+    public static bool enteringFromBreak = false;
+
+    public static bool enteringFromButton = false;
+    public static bool enteringFromPortal = false;
+
+
     private static GameManager instance;
     
      private void Awake()
@@ -29,5 +37,54 @@ public class GameManager : MonoBehaviour
     public static void EnterFromDoor()
     {
         enteringFromTrapdoor = false;
+    }
+    public static void EnterFromColor()
+    {
+        enteringFromColor = true;
+        enteringFromAction = false;
+        enteringFromBreak = false;
+        enteringFromButton = false;
+        enteringFromPortal = false;
+    }
+
+    public static void EnterFromAction()
+    {
+        enteringFromColor = false;
+        enteringFromAction = true;
+        enteringFromBreak = false;
+        enteringFromButton = false;
+        enteringFromPortal = false;
+    }
+    public static void EnterFromBreak()
+    {
+        enteringFromColor = false;
+        enteringFromAction = false;
+        enteringFromBreak = true;
+        enteringFromButton = false;
+        enteringFromPortal = false;
+    }
+    public static void EnterFromButton()
+    {
+        enteringFromColor = false;
+        enteringFromAction = false;
+        enteringFromBreak = false;
+        enteringFromButton = true;
+        enteringFromPortal = false;
+    }
+    public static void EnterFromPortal()
+    {
+        enteringFromColor = false;
+        enteringFromAction = false;
+        enteringFromBreak = false;
+        enteringFromButton = false;
+        enteringFromPortal = true;
+    }
+    public static void  JustNo()
+    {
+        enteringFromColor = false;
+        enteringFromAction = false;
+        enteringFromBreak = false;
+        enteringFromButton = false;
+        enteringFromPortal = false;
     }
 }
