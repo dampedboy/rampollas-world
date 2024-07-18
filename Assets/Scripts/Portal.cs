@@ -40,7 +40,7 @@ public class Portal : MonoBehaviour
 
     public void UpdatePortal()
     {
-        if (CoinManager.CoinCount >= 10)
+        if (CoinManager.CoinCount >= 8)
         {
             portalLevel++;
             Debug.Log("Livello attuale del portale: " + portalLevel);

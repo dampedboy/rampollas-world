@@ -4,6 +4,7 @@ public class WoodBlock : MonoBehaviour
 {
     public GameObject woodBeamPrefab;
     public Transform emptyTransform; // Riferimento all'oggetto Empty
+    public AudioClip breakSound; // Riferimento al suono di rottura
 
     void OnCollisionEnter(Collision collision)
     {
@@ -12,6 +13,7 @@ public class WoodBlock : MonoBehaviour
         // Controlla se l'oggetto che ha causato la collisione è di legno o metallo
         if (otherObject.CompareTag("Wood") || (otherObject.CompareTag("Metal") && IsAbsorbedMetal(otherObject)))
         {
+            PlayBreakSound();
             ReplaceWithBeams(emptyTransform.position, emptyTransform.rotation); // Usa la posizione dell'Empty
             Destroy(gameObject);
         }
@@ -33,4 +35,14 @@ public class WoodBlock : MonoBehaviour
             Instantiate(woodBeamPrefab, randomPosition, Quaternion.Euler(0, Random.Range(0, 360), 0));
         }
     }
+
+    private void PlayBreakSound()
+    {
+        if (breakSound != null)
+        {
+            AudioSource.PlayClipAtPoint(breakSound, transform.position, 100.0f); 
+        }
+    }
 }
+
+

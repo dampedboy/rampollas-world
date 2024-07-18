@@ -5,42 +5,14 @@ using UnityEngine.UI;
 
 public class SpuntoniController : MonoBehaviour
 {
-    private Animator _animator;
-    private AudioSource _audioSource;
+    public Animator spuntoniAnimator;
 
-
-    [SerializeField] AudioClip triggerSpuntoniSound; // Suono di apertura e chiusura del libro
-
-    private bool _up = false;
-
-    void Start()
+    void OnTriggerEnter(Collider other)
     {
-        _animator = GetComponent<Animator>();
-        _audioSource = GetComponent<AudioSource>();
-
-    }
-
-
-
-    // Metodo chiamato quando un altro collider entra nel trigger
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        // Controlla se il player ha toccato il bottone
+        if (other.CompareTag("Player") )
         {
-            if (_animator == null)
-                return;
-
-            _up = true;
-            _animator.SetBool("up", _up);
-
-            // Riproduci il suono di apertura
-            if (_audioSource != null && triggerSpuntoniSound != null)
-            {
-                Debug.Log("sound spuntoni");
-                _audioSource.PlayOneShot(triggerSpuntoniSound);
-            }
+            spuntoniAnimator.SetTrigger("Up"); // Attiva l'animazione del bottone
         }
     }
-
-
 }

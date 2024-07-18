@@ -83,6 +83,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void FallRespawn()
     {
+        // Play damage sound
+        if (damageSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(damageSound);
+        }
         currentLives--;
         PlayerPrefs.SetInt("PlayerLives", currentLives);
         UpdateHearts();
@@ -113,7 +118,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Projectile") || other.CompareTag("Dynamite"))
+        if (other.CompareTag("Projectile") || other.CompareTag("Dynamite") || other.CompareTag("Spuntoni")) 
         {
             TakeDamage();
         }
@@ -126,7 +131,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void AddHeart()
     {
-        if (CoinManager.CoinCount >= 5)
+        if (CoinManager.CoinCount >= 4)
         {
             currentLives++;
             PlayerPrefs.SetInt("PlayerLives", currentLives);

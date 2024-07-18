@@ -9,18 +9,24 @@ public class ObjAbsorbeWood : MonoBehaviour
     public Transform playerHead; // Posizione della testa del player
     public Transform player; // Riferimento al player
     public GameObject risucchio; // Riferimento all'oggetto Risucchio
-
+    public AudioClip assorbimento; // Audio clip per il suono di assorbimento
 
     private Vector3 initialPosition; // Posizione iniziale dell'oggetto
     private Vector3 targetPosition; // Posizione target verso cui muovere l'oggetto
     private bool isHoldingObject = false; // Indica se il player sta tenendo l'oggetto
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
     public bool isThrown = false; // Indica se l'oggetto è stato lanciato
+    private AudioSource audioSource; // Componente AudioSource
+    private Rigidbody rb; // Componente Rigidbody
 
     void Start()
     {
         initialPosition = transform.position; // Memorizza la posizione iniziale dell'oggetto
         risucchio.SetActive(false); // Inizialmente nasconde l'oggetto Risucchio
+        audioSource = GetComponent<AudioSource>(); // Ottiene il componente AudioSource
+        rb = GetComponent<Rigidbody>(); // Ottiene il componente Rigidbody
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; // Imposta il modo di rilevamento delle collisioni
+        rb.isKinematic = true;
     }
 
     void Update()
@@ -34,6 +40,13 @@ public class ObjAbsorbeWood : MonoBehaviour
             isHoldingObject = true;
             targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
             risucchio.SetActive(true); // Mostra l'oggetto Risucchio
+            rb.isKinematic = true;
+
+            // Riproduce il suono di assorbimento
+            if (assorbimento != null)
+            {
+                audioSource.PlayOneShot(assorbimento);
+            }
         }
 
         // Se stiamo tenendo l'oggetto, muovilo lentamente verso il player
@@ -62,6 +75,8 @@ public class ObjAbsorbeWood : MonoBehaviour
                 StartCoroutine(ThrowObject(throwDirection));
                 isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
                 isThrown = true; // Imposta la variabile isThrown su true
+                rb.isKinematic = false;
+
             }
         }
     }

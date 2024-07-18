@@ -56,9 +56,9 @@ public class CoinManager : MonoBehaviour
 
     public void BuyHeart()
     {
-        if (CoinCount >= 5)
+        if (CoinCount >= 4)
         {
-            StartCoroutine(BuyWithDelay(5));
+            StartCoroutine(BuyWithDelay(4));
         }
         else
         {
@@ -68,9 +68,9 @@ public class CoinManager : MonoBehaviour
 
     public void BuyPortal()
     {
-        if (CoinCount >= 10)
+        if (CoinCount >= 8)
         {
-            StartCoroutine(BuyWithDelay(10));
+            StartCoroutine(BuyWithDelay(8));
         }
         else
         {
