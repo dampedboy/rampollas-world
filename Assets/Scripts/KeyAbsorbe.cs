@@ -17,12 +17,16 @@ public class KeyAbsorber : MonoBehaviour
     private bool isHoldingObject = false; // Indica se il player sta tenendo l'oggetto
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
     private AudioSource audioSource; // Componente AudioSource
+    private Rigidbody rb; // Componente Rigidbody
 
     void Start()
     {
         initialPosition = transform.position; // Memorizza la posizione iniziale dell'oggetto
         risucchio.SetActive(false); // Inizialmente nasconde l'oggetto Risucchio
         audioSource = GetComponent<AudioSource>(); // Ottiene il componente AudioSource
+        rb = GetComponent<Rigidbody>(); // Ottiene il componente Rigidbody
+        rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; // Imposta il modo di rilevamento delle collisioni
+        rb.isKinematic = true;
     }
 
     void Update()
@@ -41,6 +45,12 @@ public class KeyAbsorber : MonoBehaviour
             if (assorbimento != null)
             {
                 audioSource.PlayOneShot(assorbimento);
+            }
+
+            // Rende il Rigidbody kinematic mentre si avvicina al player
+            if (rb != null)
+            {
+                rb.isKinematic = true;
             }
         }
 
@@ -69,6 +79,13 @@ public class KeyAbsorber : MonoBehaviour
                 Vector3 throwDirection = player.forward.normalized;
                 StartCoroutine(ThrowObject(throwDirection));
                 isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
+
+                // Rende il Rigidbody non kinematic quando viene lanciato
+                if (rb != null)
+                {
+                    rb.isKinematic = false;
+                    rb.velocity = throwDirection * throwSpeed; // Imposta la velocità del lancio
+                }
             }
         }
     }
@@ -78,7 +95,6 @@ public class KeyAbsorber : MonoBehaviour
         float elapsedTime = 0f;
         while (elapsedTime < 1f)
         {
-            transform.position += direction * throwSpeed * Time.deltaTime;
             elapsedTime += Time.deltaTime;
             yield return null;
         }
