@@ -25,10 +25,13 @@ public class PlayerMovement : MonoBehaviour
     private bool isGrounded;
     private bool isAbsorbing = false; // Variabile per lo stato di assorbimento
     public Transform spawnPoint; // Riferimento al Transform del tappo
-      public GameObject vortexPrefab; // Il prefab del vortice
+    public GameObject vortexPrefab; // Il prefab del vortice
     public Vector3 offset;
     private GameObject vortexInstance;
     private Vector3 initialVortexPosition;
+    public AudioClip assorbimento; // Audio clip per il suono di assorbimento
+
+    public KeyAbsorber keyAbsorber; // Riferimento al KeyAbsorber
 
     // Start is called before the first frame update
     void Start()
@@ -37,43 +40,47 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         originalStepOffset = characterController.stepOffset;
         audioSource = GetComponent<AudioSource>(); // Carica il componente AudioSource
-         
     }
 
-   private IEnumerator ResetAbsorbing()
-{
-    yield return new WaitForSeconds(0.3f);
-    if (vortexPrefab != null && spawnPoint != null)
+    private IEnumerator ResetAbsorbing()
     {
-        Vector3 spawnPosition = spawnPoint.position + offset;
-        Quaternion rotation = Quaternion.LookRotation(transform.forward)* Quaternion.Euler(0, 90, 90);
-      // Instanzia e salva il riferimento all'istanza del vortice
-        vortexInstance = Instantiate(vortexPrefab, spawnPosition, rotation);
-    }
-}
-    // Update is called once per frame
-   void Update()
-{
-    // Controlla se il trigger destro è premuto
-    if (Input.GetButtonDown("Fire1"))
-    {
-        isAbsorbing = true;
-        animator.SetBool("isAbsorbing", true);
-        StartCoroutine(ResetAbsorbing());
-    }
-
-    // Controlla se il trigger destro è rilasciato
-    if (Input.GetButtonUp("Fire1"))
-    {
-        isAbsorbing = false;
-        animator.SetBool("isAbsorbing", false);
-        if (vortexInstance != null)
+        yield return new WaitForSeconds(0.3f);
+        if (vortexPrefab != null && spawnPoint != null)
         {
-            Destroy(vortexInstance);
-            vortexInstance = null; // Resetta il riferimento
+            Vector3 spawnPosition = spawnPoint.position + offset;
+            Quaternion rotation = Quaternion.LookRotation(transform.forward) * Quaternion.Euler(0, 90, 90);
+            // Instanzia e salva il riferimento all'istanza del vortice
+            vortexInstance = Instantiate(vortexPrefab, spawnPosition, rotation);
+            if (assorbimento != null)
+            {
+                audioSource.PlayOneShot(assorbimento);
+            }
         }
-        
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            
+            if (keyAbsorber != null && !keyAbsorber.PerfectPosition && isGrounded){
+            isAbsorbing = true;
+            animator.SetBool("isAbsorbing", true);
+                StartCoroutine(ResetAbsorbing());
+            }
+        }
+
+        if (Input.GetButtonUp("Fire1"))
+        {
+            isAbsorbing = false;
+            animator.SetBool("isAbsorbing", false);
+            if (vortexInstance != null)
+            {
+                Destroy(vortexInstance);
+                vortexInstance = null; // Resetta il riferimento
+            }
+        }
 
         // Blocca il movimento se il personaggio è in stato di assorbimento
         if (isAbsorbing)
