@@ -33,7 +33,7 @@ public class BookController : MonoBehaviour
         {
             uiPanel_talk.SetActive(true);
 
-            if (Input.GetKeyDown(KeyCode.O))
+            if (Input.GetKeyDown(KeyCode.C))
                 Open();
         }
         else
@@ -41,7 +41,7 @@ public class BookController : MonoBehaviour
             uiPanel_talk.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.T))
             Close();
     }
 

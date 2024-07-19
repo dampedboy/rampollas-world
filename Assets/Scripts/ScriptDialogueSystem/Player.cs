@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.C))
         {
             if (Interactable != null)
             {
