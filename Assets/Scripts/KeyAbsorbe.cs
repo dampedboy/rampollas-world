@@ -22,7 +22,7 @@ public class KeyAbsorber : MonoBehaviour
     void Start()
     {
         initialPosition = transform.position; // Memorizza la posizione iniziale dell'oggetto
-        risucchio.SetActive(false); // Inizialmente nasconde l'oggetto Risucchio
+       
         audioSource = GetComponent<AudioSource>(); // Ottiene il componente AudioSource
         rb = GetComponent<Rigidbody>(); // Ottiene il componente Rigidbody
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; // Imposta il modo di rilevamento delle collisioni
@@ -34,12 +34,12 @@ public class KeyAbsorber : MonoBehaviour
         isInRange = Vector3.Distance(transform.position, player.position) <= maxDistance;
 
         // Controlla se il player è nel range dell'oggetto e ha premuto il tasto C
-        if (isInRange && Input.GetKeyDown(KeyCode.C) && !isHoldingObject && CompareTag("Key"))
+        if (isInRange && Input.GetButtonDown("Fire1") && !isHoldingObject && CompareTag("Key"))
         {
             // Se non sta già tenendo l'oggetto, avvicinalo al player
             isHoldingObject = true;
             targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
-            risucchio.SetActive(true); // Mostra l'oggetto Risucchio
+           
 
             // Riproduce il suono di assorbimento
             if (assorbimento != null)

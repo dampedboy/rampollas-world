@@ -1,4 +1,4 @@
- using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +23,12 @@ public class PlayerMovement : MonoBehaviour
     private float? jumpButtonPressedTime;
     private bool isJumping;
     private bool isGrounded;
+    private bool isAbsorbing = false; // Variabile per lo stato di assorbimento
+    public Transform spawnPoint; // Riferimento al Transform del tappo
+      public GameObject vortexPrefab; // Il prefab del vortice
+    public Vector3 offset;
+    private GameObject vortexInstance;
+    private Vector3 initialVortexPosition;
 
     // Start is called before the first frame update
     void Start()
@@ -31,11 +37,50 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         originalStepOffset = characterController.stepOffset;
         audioSource = GetComponent<AudioSource>(); // Carica il componente AudioSource
+         
     }
 
-    // Update is called once per frame
-    void Update()
+   private IEnumerator ResetAbsorbing()
+{
+    yield return new WaitForSeconds(0.3f);
+    if (vortexPrefab != null && spawnPoint != null)
     {
+        Vector3 spawnPosition = spawnPoint.position + offset;
+        Quaternion rotation = Quaternion.LookRotation(transform.forward)* Quaternion.Euler(0, 90, 90);
+      // Instanzia e salva il riferimento all'istanza del vortice
+        vortexInstance = Instantiate(vortexPrefab, spawnPosition, rotation);
+    }
+}
+    // Update is called once per frame
+   void Update()
+{
+    // Controlla se il trigger destro è premuto
+    if (Input.GetButtonDown("Fire1"))
+    {
+        isAbsorbing = true;
+        animator.SetBool("isAbsorbing", true);
+        StartCoroutine(ResetAbsorbing());
+    }
+
+    // Controlla se il trigger destro è rilasciato
+    if (Input.GetButtonUp("Fire1"))
+    {
+        isAbsorbing = false;
+        animator.SetBool("isAbsorbing", false);
+        if (vortexInstance != null)
+        {
+            Destroy(vortexInstance);
+            vortexInstance = null; // Resetta il riferimento
+        }
+        
+    }
+
+        // Blocca il movimento se il personaggio è in stato di assorbimento
+        if (isAbsorbing)
+        {
+            return;
+        }
+
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
@@ -110,7 +155,7 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isMoving", true);
 
-            // Riproduci il suono della camminata se il giocatore � a terra e si sta muovendo
+            // Riproduci il suono della camminata se il giocatore è a terra e si sta muovendo
             if (isGrounded && !audioSource.isPlaying)
             {
                 audioSource.PlayOneShot(walkSound);
@@ -130,15 +175,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
- public void Jump(float jumpForce)
-{
-    
-    
+
+    public void Jump(float jumpForce)
+    {
         ySpeed = Mathf.Sqrt(jumpForce * -2 * Physics.gravity.y * gravityMultiplier);
         animator.SetBool("isJumping", true);
         isJumping = true;
         jumpButtonPressedTime = null;
         lastGroundedTime = null;
-    
-}
+    }
 }
