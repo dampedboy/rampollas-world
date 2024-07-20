@@ -1,12 +1,15 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+using System.Linq;
 
 public class Portal : MonoBehaviour
 {
     private static int portalLevel = 0;
     public TMP_Text portalLevelText;
+<<<<<<< HEAD
     public AudioClip updatePortalSoundClip; // AudioClip per il suono di aggiornamento del portale
     public AudioClip loadLevelSoundClip; // AudioClip per il suono di caricamento del livello
     public AudioSource audioSource; // AudioSource per gestire i suoni
@@ -20,6 +23,10 @@ public class Portal : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
     }
+=======
+    public Animator transition;
+    public float transitionTime = 1f;
+>>>>>>> origin/ernestaBranch
 
     private void OnTriggerEnter(Collider other)
     {
@@ -89,6 +96,7 @@ public class Portal : MonoBehaviour
 
         if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
         {
+<<<<<<< HEAD
             SceneManager.LoadScene(nextSceneIndex);
 
             // Riproduci il suono di caricamento del livello
@@ -97,11 +105,25 @@ public class Portal : MonoBehaviour
                 audioSource.clip = loadLevelSoundClip;
                 audioSource.Play();
             }
+=======
+            // Carica il prossimo livello
+            //SceneManager.LoadScene(nextSceneIndex);
+            StartCoroutine(LoadLevel(nextSceneIndex));
+>>>>>>> origin/ernestaBranch
         }
         else
         {
             Debug.Log("Hai completato tutti i livelli!");
         }
+    }
+
+    IEnumerator LoadLevel(int nextSceneIndex)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+        
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }
 
