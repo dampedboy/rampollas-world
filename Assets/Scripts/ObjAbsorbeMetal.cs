@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ObjAbsorbeMetal : MonoBehaviour
 {
-    public float moveSpeed = 2f; // Velocità di avvicinamento dell'oggetto
+    public float moveSpeed = 4f; // Velocità di avvicinamento dell'oggetto
     public float throwSpeed = 10f; // Velocità di lancio dell'oggetto
     public float maxDistance = 5f; // Distanza massima a cui può essere tenuto l'oggetto
     public Transform playerHead; // Posizione della testa del player
@@ -11,77 +11,88 @@ public class ObjAbsorbeMetal : MonoBehaviour
     public GameObject risucchio; // Riferimento all'oggetto Risucchio
     public AudioClip assorbimento; // Audio clip per il suono di assorbimento
 
-
     private Vector3 initialPosition; // Posizione iniziale dell'oggetto
     private Vector3 targetPosition; // Posizione target verso cui muovere l'oggetto
     private bool isHoldingObject = false; // Indica se il player sta tenendo l'oggetto
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
     public bool isThrown = false; // Indica se l'oggetto è stato lanciato
     private AudioSource audioSource; // Componente AudioSource
+    public bool isLaunching = false; // serve per far partire l animazione di lancio
+    public bool PerfectPosition = false; // Indica se l'oggetto risucchiato ha raggiunto correttamente lo sphere empty
+
     private Rigidbody rb; // Componente Rigidbody
 
     void Start()
     {
         initialPosition = transform.position; // Memorizza la posizione iniziale dell'oggetto
-        risucchio.SetActive(false); // Inizialmente nasconde l'oggetto Risucchio
         audioSource = GetComponent<AudioSource>(); // Ottiene il componente AudioSource
         rb = GetComponent<Rigidbody>(); // Ottiene il componente Rigidbody
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; // Imposta il modo di rilevamento delle collisioni
         rb.isKinematic = true;
-
     }
-
+    private IEnumerator Absorbing()
+    {
+        yield return new WaitForSeconds(0.3f);
+          transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
+    }
     void Update()
     {
         isInRange = Vector3.Distance(transform.position, player.position) <= maxDistance;
-
-        // Controlla se il player è nel range dell'oggetto e ha premuto il tasto C
-        if (isInRange && Input.GetKeyDown(KeyCode.C) && !isHoldingObject && CompareTag("Metal"))
+          targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
+    
+        // Controlla se il player è nel range dell'oggetto e ha premuto il tasto O
+        if (isInRange && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire1")) && !isHoldingObject && CompareTag("Metal"))
         {
             // Se non sta già tenendo l'oggetto, avvicinalo al player
             isHoldingObject = true;
-            targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
-            risucchio.SetActive(true); // Mostra l'oggetto Risucchio
-            rb.isKinematic = true;
-            if (assorbimento != null)
-            {
-                audioSource.PlayOneShot(assorbimento);
-            }
+             rb.isKinematic = true;
+
         }
 
         // Se stiamo tenendo l'oggetto, muovilo lentamente verso il player
         if (isHoldingObject)
         {
-            // Mantieni l'oggetto Risucchio sopra la testa del player
-            risucchio.transform.position = playerHead.position;
-
+         
             // Usa Lerp per muovere gradualmente l'oggetto verso la posizione target
-            transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
-
+              if (PerfectPosition == false){
+                 StartCoroutine(Absorbing());
+              
+            }
             // Se l'oggetto è abbastanza vicino alla testa del player, impostalo esattamente lì
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
             {
                 transform.position = targetPosition;
-                risucchio.SetActive(false); // Nasconde l'oggetto Risucchio quando l'oggetto assorbito è sopra la testa del player
-            }
+                PerfectPosition = true;
+                    }
 
             // Mantieni l'oggetto sopra la testa del player mentre si muove
-            targetPosition = playerHead.position;
+           if(PerfectPosition)
+            transform.position = playerHead.position;
 
-            // Controlla se il player ha premuto il tasto T per lanciare l'oggetto
-            if (Input.GetKeyDown(KeyCode.T))
+            // Controlla se il player ha premuto il tasto P per lanciare l'oggetto
+            if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2") )
             {
+                StartCoroutine(LaunchRoutine());
                 Vector3 throwDirection = player.forward.normalized;
                 StartCoroutine(ThrowObject(throwDirection));
-                isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
-                isThrown = true; // Imposta la variabile isThrown su true
-                rb.isKinematic = false;
+                
+
             }
         }
     }
 
     private IEnumerator ThrowObject(Vector3 direction)
     {
+         yield return new WaitForSeconds(0.4f);  
+                isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
+                PerfectPosition = false;
+                isThrown = true;
+                // Rende il Rigidbody non kinematic quando viene lanciato
+                if (rb != null)
+                {
+                    rb.isKinematic = false;
+                    rb.velocity = direction * throwSpeed; // Imposta la velocità del lancio
+                }    
         float elapsedTime = 0f;
         while (elapsedTime < 1f)
         {
@@ -91,7 +102,13 @@ public class ObjAbsorbeMetal : MonoBehaviour
         }
     }
 
-
+  private IEnumerator LaunchRoutine()
+    {
+        yield return new WaitForSeconds(0.3f);
+        isLaunching = true;
+        yield return new WaitForSeconds(0.3f);
+        isLaunching = false;
+    }
 
     void OnDrawGizmos()
     {

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PositionEmpty : MonoBehaviour
 {
-    public Transform player; // Riferimento al Transform del player
+    public Transform player; // Riferimento al Transform del corck
     public Vector3 offset; // Offset dalla testa del player
 
     void Start()
