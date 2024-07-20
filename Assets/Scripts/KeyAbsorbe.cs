@@ -16,6 +16,7 @@ public class KeyAbsorber : MonoBehaviour
     public bool isHoldingObject = false; // Indica se il player sta tenendo l'oggetto
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
     public bool PerfectPosition = false; // Indica se l'oggetto risucchiato ha raggiunto correttamente lo sphere empty
+    public bool isLaunching = false; // Indicatore per inizio animazione di lancio
     private Rigidbody rb; // Componente Rigidbody
 
     void Start()
@@ -55,10 +56,9 @@ public class KeyAbsorber : MonoBehaviour
             // Usa Lerp per muovere gradualmente l'oggetto verso la posizione target
             if (PerfectPosition == false){
                  StartCoroutine(Absorbing());
-              
             }
             // Se l'oggetto è abbastanza vicino alla testa del player, impostalo esattamente lì
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
             {
                 transform.position = targetPosition;
                 PerfectPosition = true;
@@ -71,22 +71,25 @@ public class KeyAbsorber : MonoBehaviour
             // Controlla se il player ha premuto il tasto T per lanciare l'oggetto
             if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2") )
             {
+                StartCoroutine(LaunchRoutine());
                 Vector3 throwDirection = player.forward.normalized;
                 StartCoroutine(ThrowObject(throwDirection));
-                isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
-                PerfectPosition = false;
-                // Rende il Rigidbody non kinematic quando viene lanciato
-                if (rb != null)
-                {
-                    rb.isKinematic = false;
-                    rb.velocity = throwDirection * throwSpeed; // Imposta la velocità del lancio
-                }
+               
             }
         }
     }
 
     private IEnumerator ThrowObject(Vector3 direction)
     {
+        yield return new WaitForSeconds(0.4f);  
+                isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
+                PerfectPosition = false;
+                // Rende il Rigidbody non kinematic quando viene lanciato
+                if (rb != null)
+                {
+                    rb.isKinematic = false;
+                    rb.velocity = direction * throwSpeed; // Imposta la velocità del lancio
+                }    
         float elapsedTime = 0f;
         while (elapsedTime < 1f)
         {
@@ -94,6 +97,15 @@ public class KeyAbsorber : MonoBehaviour
             yield return null;
         }
     }
+
+     private IEnumerator LaunchRoutine()
+    {
+        yield return new WaitForSeconds(0.3f);
+        isLaunching = true;
+        yield return new WaitForSeconds(0.3f);
+        isLaunching = false;
+    }
+
 
     void OnTriggerEnter(Collider other)
     {

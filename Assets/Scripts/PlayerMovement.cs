@@ -61,6 +61,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (keyAbsorber.isLaunching){
+            animator.SetBool("isLaunching",true);
+        }else{
+            animator.SetBool("isLaunching",false);
+        }
         if (Input.GetButtonDown("Fire1"))
         {
             
