@@ -17,6 +17,7 @@ public class ObjAbsorbeWood : MonoBehaviour
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
     public bool isThrown = false; // Indica se l'oggetto è stato lanciato
     private AudioSource audioSource; // Componente AudioSource
+    public bool isLaunching = false; // serve per far partire l animazione di lancio
     public bool PerfectPosition = false; // Indica se l'oggetto risucchiato ha raggiunto correttamente lo sphere empty
 
     private Rigidbody rb; // Componente Rigidbody
@@ -39,7 +40,7 @@ public class ObjAbsorbeWood : MonoBehaviour
         isInRange = Vector3.Distance(transform.position, player.position) <= maxDistance;
           targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
     
-        // Controlla se il player è nel range dell'oggetto e ha premuto il tasto C
+        // Controlla se il player è nel range dell'oggetto e ha premuto il tasto O
         if (isInRange && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire1")) && !isHoldingObject && CompareTag("Wood"))
         {
             // Se non sta già tenendo l'oggetto, avvicinalo al player
@@ -58,7 +59,7 @@ public class ObjAbsorbeWood : MonoBehaviour
               
             }
             // Se l'oggetto è abbastanza vicino alla testa del player, impostalo esattamente lì
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
             {
                 transform.position = targetPosition;
                 PerfectPosition = true;
@@ -68,15 +69,13 @@ public class ObjAbsorbeWood : MonoBehaviour
            if(PerfectPosition)
             transform.position = playerHead.position;
 
-            // Controlla se il player ha premuto il tasto T per lanciare l'oggetto
+            // Controlla se il player ha premuto il tasto P per lanciare l'oggetto
             if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2") )
             {
+                StartCoroutine(LaunchRoutine());
                 Vector3 throwDirection = player.forward.normalized;
                 StartCoroutine(ThrowObject(throwDirection));
-                isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
-                PerfectPosition = false;
-                isThrown = true; // Imposta la variabile isThrown su true
-                rb.isKinematic = false;
+                
 
             }
         }
@@ -84,6 +83,16 @@ public class ObjAbsorbeWood : MonoBehaviour
 
     private IEnumerator ThrowObject(Vector3 direction)
     {
+         yield return new WaitForSeconds(0.4f);  
+                isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
+                PerfectPosition = false;
+                isThrown = true;
+                // Rende il Rigidbody non kinematic quando viene lanciato
+                if (rb != null)
+                {
+                    rb.isKinematic = false;
+                    rb.velocity = direction * throwSpeed; // Imposta la velocità del lancio
+                }    
         float elapsedTime = 0f;
         while (elapsedTime < 1f)
         {
@@ -93,7 +102,13 @@ public class ObjAbsorbeWood : MonoBehaviour
         }
     }
 
-
+  private IEnumerator LaunchRoutine()
+    {
+        yield return new WaitForSeconds(0.3f);
+        isLaunching = true;
+        yield return new WaitForSeconds(0.3f);
+        isLaunching = false;
+    }
 
     void OnDrawGizmos()
     {
