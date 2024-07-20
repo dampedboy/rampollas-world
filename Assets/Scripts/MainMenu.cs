@@ -10,15 +10,9 @@ public class MainMenu : MonoBehaviour
     public Animator transition;
     public float transitionTime = 1f;
 
-    //private void Start()
-    //{
-        //MusicManager.Instance.PlayMusic("MainMenu");
-    //}
-
     public void Play()
     {
         StartCoroutine(LoadHub());
-        //MusicManager.Instance.PlayMusic("MainMenu");
     }
 
     public void Quit()
