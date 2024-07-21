@@ -118,7 +118,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Projectile") || other.CompareTag("Dynamite") || other.CompareTag("Spuntoni")) 
+        if (other.CompareTag("Projectile") ||  other.CompareTag("Spuntoni")) 
         {
             TakeDamage();
         }
