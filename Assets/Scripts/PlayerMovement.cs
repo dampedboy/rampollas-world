@@ -32,11 +32,9 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip assorbimento; // Audio clip per il suono di assorbimento
 
     public KeyAbsorber keyAbsorber; // Riferimento al KeyAbsorber
-    public ObjAbsorber obj1; // riferimento agli oggetti di legno 
-    public ObjAbsorber obj2; // riferimento agli oggetti di vetro 
-    public ObjAbsorber obj3; // riferimento agli oggetti di metallo
-    public ObjAbsorber obj4; // riferimento agli oggetti di metallo
-
+    public ObjAbsorbeWood objWood; // riferimento agli oggetti di legno 
+    public ObjAbsorbeGlass objGlass; // riferimento agli oggetti di vetro 
+    public ObjAbsorbeMetal objMetal; // riferimento agli oggetti di metallo
 
     // Start is called before the first frame update
     void Start()
@@ -72,29 +70,25 @@ public class PlayerMovement : MonoBehaviour
     {
         isLaunching = true;
     }
-     if (obj4 != null && obj4.isLaunching)
+
+    if (objWood != null && objWood.isLaunching)
     {
         isLaunching = true;
     }
 
-    if (obj1 != null && obj1.isLaunching)
+    if (objGlass != null && objGlass.isLaunching)
     {
         isLaunching = true;
     }
 
-    if (obj2 != null && obj2.isLaunching)
-    {
-        isLaunching = true;
-    }
-
-    if (obj3 != null && obj3.isLaunching)
+    if (objMetal != null && objMetal.isLaunching)
     {
         isLaunching = true;
     }
 
     animator.SetBool("isLaunching", isLaunching);
 
-    if(Input.GetButtonDown("Fire1")||(Input.GetKeyDown(KeyCode.O)))
+    if (Input.GetButtonDown("Fire1"))
     {
         bool perfectPosition = true;
 
@@ -103,22 +97,17 @@ public class PlayerMovement : MonoBehaviour
             perfectPosition = false;
         }
 
-        if (obj4 != null && !obj4.PerfectPosition)
+        if (objWood != null && !objWood.PerfectPosition)
         {
             perfectPosition = false;
         }
 
-        if (obj1 != null && !obj1.PerfectPosition)
+        if (objGlass != null && !objGlass.PerfectPosition)
         {
             perfectPosition = false;
         }
 
-        if (obj2 != null && !obj2.PerfectPosition)
-        {
-            perfectPosition = false;
-        }
-
-        if (obj3 != null && !obj3.PerfectPosition)
+        if (objMetal != null && !objMetal.PerfectPosition)
         {
             perfectPosition = false;
         }
@@ -131,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-   if(Input.GetButtonUp("Fire1")||(Input.GetKeyUp(KeyCode.O)))
+    if (Input.GetButtonUp("Fire1"))
     {
         isAbsorbing = false;
         animator.SetBool("isAbsorbing", false);
