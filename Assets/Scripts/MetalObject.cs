@@ -8,7 +8,7 @@ public class MetalObject : MonoBehaviour
     {
         GameObject otherObject = collision.gameObject;
 
-        if (otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("MetalBlock"))
+        if ((otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("MetalBlock")) && IsAbsorbedMetal())
         {
             metalCollisionCount++;
             Debug.Log($"Metal collision count: {metalCollisionCount}");
@@ -19,5 +19,11 @@ public class MetalObject : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+    }
+
+    private bool IsAbsorbedMetal()
+    {
+        ObjAbsorbeMetal metalScript = GetComponent<ObjAbsorbeMetal>();
+        return metalScript != null && metalScript.isThrown;
     }
 }

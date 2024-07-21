@@ -1,38 +1,107 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System.Collections;
 
 public class Portal : MonoBehaviour
 {
-    // Metodo chiamato quando un altro collider entra nel trigger
+    private static int portalLevel = 0;
+    public TMP_Text portalLevelText;
+    public AudioClip updatePortalSoundClip; // AudioClip per il suono di aggiornamento del portale
+    public AudioClip loadLevelSoundClip; // AudioClip per il suono di caricamento del livello
+    public AudioSource audioSource; // AudioSource per gestire i suoni
+
+    private void Start()
+    {
+        // Ottieni o aggiungi l'AudioSource a questo GameObject
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        // Controlla se l'oggetto che entra nel trigger è il player
         if (other.CompareTag("Player"))
         {
-            // Carica il prossimo livello
             LoadNextLevel();
         }
     }
 
-    // Metodo per caricare il prossimo livello
+    private void Update()
+    {
+        if (portalLevelText != null)
+        {
+            int pl = portalLevel + 1;
+            portalLevelText.text = "Lvl. " + pl;
+        }
+    }
+
+    public void UpdatePortal()
+    {
+        if (CoinManager.CoinCount >= 8)
+        {
+            portalLevel++;
+            Debug.Log("Livello attuale del portale: " + portalLevel);
+
+            StartCoroutine(RotatePortalForTime(2f));
+
+            if (portalLevelText != null)
+            {
+                int pl = portalLevel + 1;
+                portalLevelText.text = "Lvl. " + pl;
+            }
+
+            // Riproduci il suono di aggiornamento del portale
+            if (updatePortalSoundClip != null)
+            {
+                audioSource.clip = updatePortalSoundClip;
+                audioSource.Play();
+            }
+        }
+    }
+
+    private IEnumerator RotatePortalForTime(float duration)
+    {
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            transform.Rotate(Vector3.forward, 90f * Time.deltaTime / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+    }
+
     private void LoadNextLevel()
     {
-        // Ottieni l'indice della scena attuale
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        // Calcola l'indice del prossimo livello
-        int nextSceneIndex = currentSceneIndex + 1;
-
-        // Controlla se l'indice del prossimo livello è valido
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        int nextSceneIndex = currentSceneIndex;
+        if (currentSceneIndex == 0)
         {
-            // Carica il prossimo livello
-            SceneManager.LoadScene(nextSceneIndex);
+            nextSceneIndex = currentSceneIndex + 1 + portalLevel;
         }
         else
         {
-            // Se non ci sono più livelli, ritorna al primo livello o gestisci diversamente
+            nextSceneIndex = currentSceneIndex + 1;
+        }
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+
+            // Riproduci il suono di caricamento del livello
+            if (loadLevelSoundClip != null)
+            {
+                audioSource.clip = loadLevelSoundClip;
+                audioSource.Play();
+            }
+        }
+        else
+        {
             Debug.Log("Hai completato tutti i livelli!");
         }
     }
 }
+

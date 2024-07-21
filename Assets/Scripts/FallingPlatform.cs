@@ -2,26 +2,42 @@ using UnityEngine;
 
 public class FallingPlatform : MonoBehaviour
 {
-    public float fallDelay = 1.0f; // Ritardo prima che la piattaforma inizi a cadere
+    public float fallSpeed = 100f; // Velocità con cui cade la piattaforma
+    public AudioClip fallSound; // AudioClip per il suono della caduta
 
     private Rigidbody rb;
+    private bool isFalling = false;
+    private AudioSource audioSource; // AudioSource per riprodurre il suono
 
-    private void Start()
+    void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true; // Assicurati che la piattaforma non si muova fino a quando non viene toccata
+        rb.isKinematic = true; // Assicurati che inizi come oggetto statico
+
+        // Aggiungi un AudioSource a questo GameObject e assegnalo
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.clip = fallSound;
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isFalling)
         {
-            Invoke("DropPlatform", fallDelay); // Inizia il conto alla rovescia per la caduta
+            Fall(); // Avvia immediatamente la caduta della piattaforma
         }
     }
 
-    private void DropPlatform()
+    void Fall()
     {
-        rb.isKinematic = false; // Permette alla piattaforma di cadere
+        isFalling = true;
+        rb.isKinematic = false; // Ora la gravità influenzerà la piattaforma
+        rb.velocity = new Vector3(0, -fallSpeed, 0); // Fai cadere la piattaforma verso il basso
+
+        // Riproduci il suono della caduta
+        if (audioSource != null && fallSound != null)
+        {
+            audioSource.Play();
+        }
     }
 }

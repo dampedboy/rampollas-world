@@ -3,24 +3,46 @@ using UnityEngine;
 public class WoodBlock : MonoBehaviour
 {
     public GameObject woodBeamPrefab;
+    public Transform emptyTransform; // Riferimento all'oggetto Empty
+    public AudioClip breakSound; // Riferimento al suono di rottura
 
     void OnCollisionEnter(Collision collision)
     {
         GameObject otherObject = collision.gameObject;
 
-        if (otherObject.CompareTag("Wood") || otherObject.CompareTag("Metal"))
+        // Controlla se l'oggetto che ha causato la collisione è di legno o metallo
+        if (otherObject.CompareTag("Wood") || (otherObject.CompareTag("Metal") && IsAbsorbedMetal(otherObject)))
         {
-            ReplaceWithBeams(transform.position, transform.rotation);
+            PlayBreakSound();
+            ReplaceWithBeams(emptyTransform.position, emptyTransform.rotation); // Usa la posizione dell'Empty
             Destroy(gameObject);
         }
+    }
+
+    private bool IsAbsorbedMetal(GameObject otherObject)
+    {
+        ObjAbsorbeMetal metalScript = otherObject.GetComponent<ObjAbsorbeMetal>();
+        return metalScript != null && metalScript.isThrown;
     }
 
     private void ReplaceWithBeams(Vector3 position, Quaternion rotation)
     {
         int beamCount = Random.Range(4, 8);
+        float radius = 2.5f;  // Raggio del cerchio in cui spargere le travi
         for (int i = 0; i < beamCount; i++)
         {
-            Instantiate(woodBeamPrefab, position, Quaternion.Euler(90, 0, 90));
+            Vector3 randomPosition = position + new Vector3(Random.Range(-radius, radius), 0, Random.Range(-radius, radius));
+            Instantiate(woodBeamPrefab, randomPosition, Quaternion.Euler(0, Random.Range(0, 360), 0));
+        }
+    }
+
+    private void PlayBreakSound()
+    {
+        if (breakSound != null)
+        {
+            AudioSource.PlayClipAtPoint(breakSound, transform.position, 100.0f); 
         }
     }
 }
+
+

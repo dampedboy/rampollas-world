@@ -21,6 +21,8 @@ public class EnemyController : MonoBehaviour
 
         if (distanceToPlayer <= detectionRange)
         {
+            RotateFirePointTowardsPlayer();
+
             if (Time.time >= nextFireTime)
             {
                 FireProjectile();
@@ -29,10 +31,21 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    void RotateFirePointTowardsPlayer()
+    {
+        Vector3 direction = (player.position - firePoint.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        firePoint.rotation = Quaternion.Slerp(firePoint.rotation, lookRotation, Time.deltaTime * 5f);
+
+        // Add 90 degrees rotation around the Y axis to the enemy's rotation
+        Quaternion additionalRotation = Quaternion.Euler(0, 90, 0);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation * additionalRotation, Time.deltaTime * 5f);
+    }
+
     void FireProjectile()
     {
         Vector3 direction = (player.position - firePoint.position).normalized;
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
         projectile.GetComponent<Rigidbody>().velocity = direction * 20f; // Adjust the speed as needed
     }
 

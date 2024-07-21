@@ -6,13 +6,15 @@ using UnityEngine.UI;
 public class BookController : MonoBehaviour
 {
     private Animator _animator;
-
-    [SerializeField] GameObject uiPanel; // Il pannello della UI
-
+    [SerializeField] private GameObject uiPanel; // Il pannello della UI
+    [SerializeField] private GameObject uiPanel_talk; // Il pannello della UI talk
 
     private bool _open = false;
-
     private bool isPlayerInside = false;
+
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip openSound;
+    [SerializeField] private AudioClip closeSound;
 
     void Start()
     {
@@ -21,19 +23,25 @@ public class BookController : MonoBehaviour
         if (uiPanel != null)
         {
             uiPanel.SetActive(false);
+            uiPanel_talk.SetActive(false);
         }
     }
 
-
     void Update()
     {
+        if (isPlayerInside)
+        {
+            uiPanel_talk.SetActive(true);
 
+            if (Input.GetKeyDown(KeyCode.C))
+                Open();
+        }
+        else
+        {
+            uiPanel_talk.SetActive(false);
+        }
 
-        if (isPlayerInside && Input.GetKeyDown(KeyCode.O))
-            Open();
-        if ( Input.GetKeyDown(KeyCode.C))
-            Close();
-        if (!isPlayerInside)
+        if (Input.GetKeyDown(KeyCode.T))
             Close();
     }
 
@@ -62,32 +70,39 @@ public class BookController : MonoBehaviour
             return;
 
         _open = true;
-
-
         _animator.SetBool("open", _open);
+
+        if (audioSource != null && openSound != null)
+        {
+            audioSource.clip = openSound;
+            audioSource.Play();
+        }
 
         if (uiPanel != null)
         {
             uiPanel.SetActive(true);
         }
-
     }
 
+    // Metodo per chiudere l'animazione e la UI
     public void Close()
     {
         if (_animator == null)
             return;
 
         _open = false;
-
         _animator.SetBool("open", _open);
 
+        if (audioSource != null && closeSound != null)
+        {
+            audioSource.clip = closeSound;
+            audioSource.Play();
+        }
 
         if (uiPanel != null)
         {
             uiPanel.SetActive(false);
         }
-
     }
-
 }
+

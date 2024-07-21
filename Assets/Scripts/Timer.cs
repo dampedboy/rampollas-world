@@ -1,56 +1,74 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class Timer : MonoBehaviour
 {
     public float respawnTime = 30f; // Tempo di respawn in secondi
     public TextMeshProUGUI timerText; // Testo del timer
-    public TextMeshProUGUI gameOverText; // Testo per la scritta Game Over
+    public AudioClip timerSound; // Clip audio per il suono del timer
+    public AnimationCurve textScaleCurve; // Curva per l'animazione di scala del testo
+    public float textScaleMagnitude = 0.1f; // Magnitudine di scala del testo
 
     private float timer; // Timer di respawn
-    private bool isGameOver = false; // Flag per indicare se il gioco Ã¨ finito
+    private AudioSource audioSource; // AudioSource per riprodurre il suono
+    private bool playedSound = false; // Flag per assicurarsi che il suono parta solo una volta per secondo
 
     void Start()
     {
         timer = respawnTime;
         UpdateTimerText();
-        gameOverText.gameObject.SetActive(false); // Nascondi il testo Game Over inizialmente
+
+        // Aggiungi un AudioSource dinamicamente se non è già presente
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = timerSound;
+        audioSource.loop = false;
     }
 
     void Update()
     {
-        if (!isGameOver)
-        {
-            timer -= Time.deltaTime; // Sottrai il tempo trascorso dal timer
+        timer -= Time.deltaTime; // Sottrai il tempo trascorso dal timer
 
-            if (timer <= 0f)
+        if (timer <= 0f && !playedSound)
+        {
+            StartCoroutine(PlayTimerSoundTwiceAndReload());
+            playedSound = true;
+        }
+
+        UpdateTimerText(); // Aggiorna il testo del timer ogni frame
+
+        // Suono del timer negli ultimi 5 secondi
+        if (timer <= 5f)
+        {
+            int secondsRemaining = Mathf.CeilToInt(timer);
+            if (!playedSound && secondsRemaining <= 5)
             {
-                GameOver(); // Chiamata alla funzione di Game Over quando il timer arriva a zero
+                audioSource.Play();
+                playedSound = true;
+                Invoke("ResetPlayedSound", 1f); // Resetta il flag dopo un secondo
             }
-
-            UpdateTimerText(); // Aggiorna il testo del timer ogni frame
         }
     }
 
-    void GameOver()
+    IEnumerator PlayTimerSoundTwiceAndReload()
     {
-        isGameOver = true;
-        timer = 0f; // Assicurati che il timer sia esattamente zero
-        gameOverText.gameObject.SetActive(true); // Mostra il testo Game Over
-        Invoke("LoadHubScene", 3f); // Carica la scena Hub Centrale dopo 3 secondi
+        // Riproduci il suono del timer la prima volta
+        audioSource.Play();
+        yield return new WaitForSeconds(audioSource.clip.length);
+
+        // Riproduci il suono del timer la seconda volta
+        audioSource.Play();
+        yield return new WaitForSeconds(audioSource.clip.length);
+
+        // Ricarica la scena corrente dopo che il suono è stato riprodotto due volte
+        ReloadCurrentScene();
     }
 
-    void LoadHubScene()
+    void ReloadCurrentScene()
     {
-        if (SceneExists("Hub"))
-        {
-            SceneManager.LoadScene("Hub"); // Carica la scena Hub Centrale
-        }
-        else
-        {
-            Debug.LogError("La scena 'Hub' non esiste o non Ã¨ stata aggiunta alle build settings!");
-        }
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName); // Ricarica la scena corrente
     }
 
     void UpdateTimerText()
@@ -59,18 +77,8 @@ public class Timer : MonoBehaviour
         timerText.text = seconds.ToString(); // Aggiorna il testo del timer con i secondi rimanenti
     }
 
-    // Funzione per verificare se una scena esiste nelle build settings
-    private bool SceneExists(string sceneName)
+    void ResetPlayedSound()
     {
-        for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
-        {
-            string path = SceneUtility.GetScenePathByBuildIndex(i);
-            string scene = System.IO.Path.GetFileNameWithoutExtension(path);
-            if (scene == sceneName)
-            {
-                return true;
-            }
-        }
-        return false;
+        playedSound = false;
     }
 }
