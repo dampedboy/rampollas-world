@@ -21,8 +21,9 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController characterController;
     private float? lastGroundedTime;
     private float? jumpButtonPressedTime;
-    private bool isJumping;
-    private bool isGrounded;
+    public bool isJumping;
+    public bool isMoving;
+    public bool isGrounded;
     private bool isAbsorbing = false; // Variabile per lo stato di assorbimento
     public Transform spawnPoint; // Riferimento al Transform del tappo
     public GameObject vortexPrefab; // Il prefab del vortice
@@ -210,7 +211,7 @@ public class PlayerMovement : MonoBehaviour
     if (movementDirection != Vector3.zero)
     {
         animator.SetBool("isMoving", true);
-
+        isMoving = true;
         // Riproduci il suono della camminata se il giocatore è a terra e si sta muovendo
         if (isGrounded && !audioSource.isPlaying)
         {
@@ -223,9 +224,9 @@ public class PlayerMovement : MonoBehaviour
     else
     {
         animator.SetBool("isMoving", false);
-
-        // Interrompi il suono della camminata se il giocatore si ferma
-        if (audioSource.isPlaying && audioSource.clip == walkSound)
+        isMoving = false;
+            // Interrompi il suono della camminata se il giocatore si ferma
+            if (audioSource.isPlaying && audioSource.clip == walkSound)
         {
             audioSource.Stop();
         }

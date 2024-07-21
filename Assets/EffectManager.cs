@@ -12,13 +12,13 @@ public class EffectManager : MonoBehaviour
     public bool salta;
     public bool corre;
 
-    public GameObject generatoreDiScia = new GameObject();
-    private StarterAssets.ThirdPersonController playerController;
+    public GameObject generatoreDiScia;
+    private PlayerMovement playerController;
     
 
     void Start()
     {
-        playerController = generatoreDiScia.GetComponent<StarterAssets.ThirdPersonController>();
+        playerController = generatoreDiScia.GetComponent<PlayerMovement>();
         
         
     }
@@ -36,11 +36,11 @@ public class EffectManager : MonoBehaviour
     private void SciaCorsa()
     {
         sciaCorsa.gameObject.SetActive(true);
-        ParticleSystem ps = sciaCorsa.GetComponent<ParticleSystem>();
-        var module = ps.emission;
-        if (!staCorrendo())
+        ParticleSystem psCorsa = sciaCorsa.GetComponent<ParticleSystem>();
+        var module = psCorsa.emission;
+        if (playerController.isGrounded)
         {
-            module.rateOverTime = 10.0f;
+            module.rateOverTime = (staCorrendo()) ? 10.0f : 0.0f;
         }
         else
         {
@@ -51,16 +51,15 @@ public class EffectManager : MonoBehaviour
 
     private void SciaSalto()
     {
-        sciaSalto.gameObject.SetActive(staSaltando());
-        
+        sciaSalto.gameObject.SetActive(staSaltando());        
     }
 
     public bool staSaltando()
     {
-        return !playerController.Grounded;
+        return playerController.isJumping;
     }
     public bool staCorrendo()
     {
-        return playerController.Moving;
+        return playerController.isMoving;
     }
 }
