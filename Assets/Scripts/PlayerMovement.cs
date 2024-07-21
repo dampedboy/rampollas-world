@@ -32,9 +32,11 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip assorbimento; // Audio clip per il suono di assorbimento
 
     public KeyAbsorber keyAbsorber; // Riferimento al KeyAbsorber
-    public ObjAbsorbeWood objWood; // riferimento agli oggetti di legno 
-    public ObjAbsorbeGlass objGlass; // riferimento agli oggetti di vetro 
-    public ObjAbsorbeMetal objMetal; // riferimento agli oggetti di metallo
+    public ObjAbsorber obj1; // riferimento agli oggetti di legno 
+    public ObjAbsorber obj2; // riferimento agli oggetti di vetro 
+    public ObjAbsorber obj3; // riferimento agli oggetti di metallo
+    public ObjAbsorber obj4; // riferimento agli oggetti di metallo
+
 
     // Start is called before the first frame update
     void Start()
@@ -70,18 +72,22 @@ public class PlayerMovement : MonoBehaviour
     {
         isLaunching = true;
     }
-
-    if (objWood != null && objWood.isLaunching)
+     if (obj4 != null && obj4.isLaunching)
     {
         isLaunching = true;
     }
 
-    if (objGlass != null && objGlass.isLaunching)
+    if (obj1 != null && obj1.isLaunching)
     {
         isLaunching = true;
     }
 
-    if (objMetal != null && objMetal.isLaunching)
+    if (obj2 != null && obj2.isLaunching)
+    {
+        isLaunching = true;
+    }
+
+    if (obj3 != null && obj3.isLaunching)
     {
         isLaunching = true;
     }
@@ -97,17 +103,22 @@ public class PlayerMovement : MonoBehaviour
             perfectPosition = false;
         }
 
-        if (objWood != null && !objWood.PerfectPosition)
+        if (obj4 != null && !obj4.PerfectPosition)
         {
             perfectPosition = false;
         }
 
-        if (objGlass != null && !objGlass.PerfectPosition)
+        if (obj1 != null && !obj1.PerfectPosition)
         {
             perfectPosition = false;
         }
 
-        if (objMetal != null && !objMetal.PerfectPosition)
+        if (obj2 != null && !obj2.PerfectPosition)
+        {
+            perfectPosition = false;
+        }
+
+        if (obj3 != null && !obj3.PerfectPosition)
         {
             perfectPosition = false;
         }
