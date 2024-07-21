@@ -3,11 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreaScia : MonoBehaviour
+public class EffectManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    public ParticleSystem sciaCorsa = new ParticleSystem();
-    public ParticleSystem sciaSalto = new ParticleSystem();
+    public ParticleSystem sciaCorsa ;
+    public ParticleSystem sciaSalto ;
+
+    public bool salta;
+    public bool corre;
 
     public GameObject generatoreDiScia = new GameObject();
     private StarterAssets.ThirdPersonController playerController;
@@ -16,39 +19,47 @@ public class CreaScia : MonoBehaviour
     void Start()
     {
         playerController = generatoreDiScia.GetComponent<StarterAssets.ThirdPersonController>();
-        sciaSalto = this.sciaSalto;
+        
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
+        corre = staCorrendo();
+        salta = staSaltando();
+        SciaSalto();
+        SciaCorsa();
+
+    }
+
+    private void SciaCorsa()
+    {
+        sciaCorsa.gameObject.SetActive(true);
+        ParticleSystem ps = sciaCorsa.GetComponent<ParticleSystem>();
+        var module = ps.emission;
+        if (!staCorrendo())
+        {
+            module.rateOverTime = 10.0f;
+        }
+        else
+        {
+            module.rateOverTime = 0.0f;
+        }
         
     }
 
     private void SciaSalto()
     {
+        sciaSalto.gameObject.SetActive(staSaltando());
         
-        if (staSaltando())
-        {
-            sciaSalto.gameObject.SetActive(true);
-            sciaCorsa.Stop();
-           
-
-        }
     }
 
-    bool staSaltando()
+    public bool staSaltando()
     {
-        
-        Debug.Log(generatoreDiScia.name 
-            + "salta "+ playerController.Grounded!);
-        return playerController.Grounded!;
-
+        return !playerController.Grounded;
     }
-    bool staCorrendo()
+    public bool staCorrendo()
     {
         return playerController.Moving;
     }
