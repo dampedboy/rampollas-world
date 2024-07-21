@@ -88,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
     animator.SetBool("isLaunching", isLaunching);
 
-    if (Input.GetButtonDown("Fire1"))
+    if(Input.GetButtonDown("Fire1")||(Input.GetKeyDown(KeyCode.O)))
     {
         bool perfectPosition = true;
 
@@ -120,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    if (Input.GetButtonUp("Fire1"))
+   if(Input.GetButtonUp("Fire1")||(Input.GetKeyUp(KeyCode.O)))
     {
         isAbsorbing = false;
         animator.SetBool("isAbsorbing", false);
