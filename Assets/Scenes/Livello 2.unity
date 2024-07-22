@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1727758, g: 0.21590176, b: 0.2978366, a: 1}
+  m_IndirectSpecularColor: {r: 0.17277557, g: 0.21590148, b: 0.29783624, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3200,6 +3200,8 @@ MonoBehaviour:
   updatePortalSoundClip: {fileID: 0}
   loadLevelSoundClip: {fileID: 8300000, guid: f53f2962297a45e40af30f26f77739f5, type: 3}
   audioSource: {fileID: 857515988}
+  transition: {fileID: 0}
+  transitionTime: 1
 --- !u!65 &857515987
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5707,8 +5709,8 @@ MonoBehaviour:
   jumpHeight: 2
   gravityMultiplier: 1.5
   jumpButtonGracePeriod: 0.2
-  jumpSound: {fileID: 0}
-  walkSound: {fileID: 0}
+  jumpSound: {fileID: 8300000, guid: 117acd73be21dcc41a68bdc2f0061ebb, type: 3}
+  walkSound: {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   spawnPoint: {fileID: 1480269506}
   vortexPrefab: {fileID: 1737259191}
   offset: {x: 0.25, y: -1.1, z: 0}
@@ -5942,7 +5944,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208960eb12dc14e49bf84a1dc5efa8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1480269506}
   offset: {x: 0, y: 0, z: 1}
 --- !u!4 &1510589236
 Transform:
@@ -6395,7 +6397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208960eb12dc14e49bf84a1dc5efa8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 556876477}
   offset: {x: 0, y: 1, z: 0}
 --- !u!4 &1782937293 stripped
 Transform:
