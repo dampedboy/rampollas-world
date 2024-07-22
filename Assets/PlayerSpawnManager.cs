@@ -32,7 +32,11 @@ public class PlayerSpawnManager : MonoBehaviour
         }
         else
         {
-            player.transform.position = doorSpawnPosition.position;
+            if (doorSpawnPosition != null)
+            {
+                player.transform.position = doorSpawnPosition.position;
+            }
+            
         }
     }
 }
