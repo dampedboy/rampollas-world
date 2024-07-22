@@ -7,10 +7,15 @@ public class Dynamite : MonoBehaviour
     public AudioClip esplosione; // AudioClip per l'esplosione
     private AudioSource audioSource;
 
+    public GameObject Miccia;
+    public GameObject esplosionePS;
+
     void Start()
     {
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = esplosione;
+        Miccia.SetActive(true);
+        esplosionePS.SetActive(false);
     }
 
     void OnTriggerEnter(Collider other)
@@ -36,7 +41,8 @@ public class Dynamite : MonoBehaviour
     {
         // Riproduci il suono dell'esplosione
         audioSource.Play();
-
+        Miccia.gameObject.SetActive(false);
+        esplosionePS.gameObject.SetActive(true);
         CharacterController controller = player.GetComponent<CharacterController>();
 
         if (controller != null)
@@ -47,9 +53,9 @@ public class Dynamite : MonoBehaviour
             Vector3 pushDirection = explosionDirection * explosionForce;
             StartCoroutine(ApplyExplosionForce(controller, pushDirection));
         }
-
+       
         float delay = Mathf.Max(audioSource.clip.length - 1.4f, 0f); // Calcola il tempo di ritardo, assicurandoti che non sia negativo
-        Destroy(gameObject, delay); // Distruggi la dinamite dopo il tempo di ritardo calcolato
+        Destroy(gameObject, delay+1.0f); // Distruggi la dinamite dopo il tempo di ritardo calcolato
     }
 
     System.Collections.IEnumerator ApplyExplosionForce(CharacterController controller, Vector3 force)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1727758, g: 0.21590176, b: 0.2978366, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1579,7 +1579,7 @@ PrefabInstance:
     - target: {fileID: 85251312879204188, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 5f9babd542d1c614c9c5d5ce0bdb4a6d, type: 2}
+      objectReference: {fileID: -876546973899608171, guid: 1a50a5af24d846a4e9a28d25f4e593a0, type: 3}
     - target: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_Name
       value: Base Platform (9)
@@ -2021,8 +2021,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 0.5, z: 2}
-  m_Center: {x: -4.15, y: 0, z: 0}
+  m_Size: {x: 2, y: 0.47702098, z: 2}
+  m_Center: {x: -4.1500006, y: -0.011489511, z: 0}
 --- !u!65 &817829738
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3676,7 +3676,7 @@ PrefabInstance:
     - target: {fileID: 85251312879204188, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 77b0e1aed439f7142a67052d42ac0adb, type: 2}
+      objectReference: {fileID: 2100000, guid: 773d31432f8766b48a768e2b0e493c38, type: 2}
     - target: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_Name
       value: Base Platform (13)
@@ -4256,15 +4256,17 @@ MonoBehaviour:
   jumpButtonGracePeriod: 0.2
   jumpSound: {fileID: 0}
   walkSound: {fileID: 0}
+  isJumping: 0
+  isMoving: 0
+  isGrounded: 0
   spawnPoint: {fileID: 1571161017}
   vortexPrefab: {fileID: 395104654}
   offset: {x: 0.25, y: -1.1, z: 0}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
   keyAbsorber: {fileID: 1926114053}
-  obj1: {fileID: 0}
-  obj2: {fileID: 0}
-  obj3: {fileID: 0}
-  obj4: {fileID: 0}
+  objWood: {fileID: 0}
+  objGlass: {fileID: 0}
+  objMetal: {fileID: 0}
 --- !u!4 &1655818268 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2991afe0985d4ac4582f4e5daac51651, type: 3}
@@ -4446,12 +4448,12 @@ MonoBehaviour:
   m_RequiresColorTexture: 0
   m_Version: 2
   m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!114 &1712033116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4991,7 +4993,7 @@ PrefabInstance:
     - target: {fileID: 85251312879204188, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 77b0e1aed439f7142a67052d42ac0adb, type: 2}
+      objectReference: {fileID: 2100000, guid: 773d31432f8766b48a768e2b0e493c38, type: 2}
     - target: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
       propertyPath: m_Name
       value: Base Platform (6)
