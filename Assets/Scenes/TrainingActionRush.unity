@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17277557, g: 0.21590148, b: 0.29783624, a: 1}
+  m_IndirectSpecularColor: {r: 0.1727758, g: 0.21590176, b: 0.2978366, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1028,9 +1028,9 @@ MonoBehaviour:
   moveSpeed: 4
   throwSpeed: 10
   maxDistance: 5
-  playerHead: {fileID: 0}
-  player: {fileID: 0}
-  risucchio: {fileID: 0}
+  playerHead: {fileID: 922338051}
+  player: {fileID: 2040918436}
+  risucchio: {fileID: 249622506}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
   isThrown: 0
   isLaunching: 0
@@ -1918,8 +1918,8 @@ MonoBehaviour:
   moveSpeed: 2
   throwSpeed: 10
   maxDistance: 2
-  playerHead: {fileID: 1645498707}
-  player: {fileID: 0}
+  playerHead: {fileID: 922338051}
+  player: {fileID: 2040918436}
   portal: {fileID: 423577543}
   isHoldingObject: 0
   PerfectPosition: 0
@@ -2746,9 +2746,9 @@ MonoBehaviour:
   moveSpeed: 4
   throwSpeed: 10
   maxDistance: 5
-  playerHead: {fileID: 0}
-  player: {fileID: 0}
-  risucchio: {fileID: 0}
+  playerHead: {fileID: 922338051}
+  player: {fileID: 2040918436}
+  risucchio: {fileID: 249622506}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
   isThrown: 0
   isLaunching: 0
@@ -3049,7 +3049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208960eb12dc14e49bf84a1dc5efa8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 2040918428}
   offset: {x: 0.1, y: 0.7, z: 0}
 --- !u!4 &922338051
 Transform:
@@ -4972,7 +4972,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fee33f61d4a5828408cf87bcd544b90d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.59
+      value: -22.11
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fee33f61d4a5828408cf87bcd544b90d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5981,8 +5981,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumSpeed: 7
   rotationSpeed: 720
-  jumpHeight: 2
-  gravityMultiplier: 1.5
+  jumpHeight: 0.8
+  gravityMultiplier: 3.5
   jumpButtonGracePeriod: 0.2
   jumpSound: {fileID: 8300000, guid: 117acd73be21dcc41a68bdc2f0061ebb, type: 3}
   walkSound: {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
@@ -5995,6 +5995,11 @@ MonoBehaviour:
   obj2: {fileID: 211828419}
   obj3: {fileID: 388559971}
   obj4: {fileID: 0}
+--- !u!4 &2040918436 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2991afe0985d4ac4582f4e5daac51651, type: 3}
+  m_PrefabInstance: {fileID: 2040918426}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2041654484 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}

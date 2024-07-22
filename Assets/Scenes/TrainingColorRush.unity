@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028353, g: 0.22571383, b: 0.30692253, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 208960eb12dc14e49bf84a1dc5efa8c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 1288316319}
   offset: {x: 0.1, y: 0.7, z: 0}
 --- !u!4 &626755263
 Transform:
@@ -1448,20 +1448,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fee33f61d4a5828408cf87bcd544b90d, type: 3}
   m_PrefabInstance: {fileID: 1454040960}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &648204483
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 648204482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 208960eb12dc14e49bf84a1dc5efa8c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  offset: {x: 0, y: 1, z: 0}
 --- !u!1001 &654436303
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2063,8 +2049,8 @@ MonoBehaviour:
   moveSpeed: 2
   throwSpeed: 10
   maxDistance: 2
-  playerHead: {fileID: 0}
-  player: {fileID: 0}
+  playerHead: {fileID: 626755263}
+  player: {fileID: 1288316327}
   portal: {fileID: 170164524}
   isHoldingObject: 0
   PerfectPosition: 0
@@ -3179,20 +3165,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maximumSpeed: 7
   rotationSpeed: 720
-  jumpHeight: 2
-  gravityMultiplier: 1.5
+  jumpHeight: 0.8
+  gravityMultiplier: 3.5
   jumpButtonGracePeriod: 0.2
   jumpSound: {fileID: 8300000, guid: 117acd73be21dcc41a68bdc2f0061ebb, type: 3}
   walkSound: {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   spawnPoint: {fileID: 1288316319}
-  vortexPrefab: {fileID: 0}
+  vortexPrefab: {fileID: 648204482}
   offset: {x: 0.25, y: -1.1, z: 0}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
-  keyAbsorber: {fileID: 0}
+  keyAbsorber: {fileID: 792997034}
   obj1: {fileID: 0}
   obj2: {fileID: 0}
   obj3: {fileID: 0}
   obj4: {fileID: 0}
+--- !u!4 &1288316327 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2991afe0985d4ac4582f4e5daac51651, type: 3}
+  m_PrefabInstance: {fileID: 1288316317}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1356465954
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3470,7 +3461,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fee33f61d4a5828408cf87bcd544b90d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.59
+      value: -25.99
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: fee33f61d4a5828408cf87bcd544b90d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3519,10 +3510,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fee33f61d4a5828408cf87bcd544b90d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 648204483}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fee33f61d4a5828408cf87bcd544b90d, type: 3}
 --- !u!1001 &1553328147
 PrefabInstance:
