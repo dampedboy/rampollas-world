@@ -1335,24 +1335,6 @@ MonoBehaviour:
   keyObject: {fileID: 549335580}
   boxCollider: {fileID: 423577545}
   portalSoundClip: {fileID: 8300000, guid: 66c9dd4a3bab416459755e527505f338, type: 3}
---- !u!114 &423577547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 423577543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 711a97659673347468a00e03cfc78b25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  portalLevelText: {fileID: 0}
-  updatePortalSoundClip: {fileID: 0}
-  loadLevelSoundClip: {fileID: 8300000, guid: f53f2962297a45e40af30f26f77739f5, type: 3}
-  audioSource: {fileID: 423577544}
-  transition: {fileID: 0}
-  transitionTime: 1
 --- !u!111 &423577548
 Animation:
   m_ObjectHideFlags: 0
@@ -1369,6 +1351,19 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &423577549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 423577543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa74c4e9e2b9e54da742d4826eddd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Hub_Training
 --- !u!1001 &470769733
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3779,9 +3774,6 @@ PrefabInstance:
       addedObject: {fileID: 423577548}
     - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 423577547}
-    - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 423577546}
     - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       insertIndex: -1
@@ -3789,6 +3781,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       insertIndex: -1
       addedObject: {fileID: 423577544}
+    - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 423577549}
   m_SourcePrefab: {fileID: 100100000, guid: 8759da7e004cfb54492e4342de935682, type: 3}
 --- !u!1 &1290410651 stripped
 GameObject:

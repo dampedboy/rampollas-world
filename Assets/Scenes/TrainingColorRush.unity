@@ -500,13 +500,13 @@ PrefabInstance:
       addedObject: {fileID: 170164532}
     - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 170164531}
-    - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 170164530}
     - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       insertIndex: -1
       addedObject: {fileID: 170164529}
+    - targetCorrespondingSourceObject: {fileID: 6005786623999422215, guid: 8759da7e004cfb54492e4342de935682, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 170164533}
   m_SourcePrefab: {fileID: 100100000, guid: 8759da7e004cfb54492e4342de935682, type: 3}
 --- !u!1 &170164524 stripped
 GameObject:
@@ -573,24 +573,6 @@ MonoBehaviour:
   keyObject: {fileID: 792997029}
   boxCollider: {fileID: 170164529}
   portalSoundClip: {fileID: 8300000, guid: 66c9dd4a3bab416459755e527505f338, type: 3}
---- !u!114 &170164531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 170164524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 711a97659673347468a00e03cfc78b25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  portalLevelText: {fileID: 0}
-  updatePortalSoundClip: {fileID: 0}
-  loadLevelSoundClip: {fileID: 8300000, guid: f53f2962297a45e40af30f26f77739f5, type: 3}
-  audioSource: {fileID: 0}
-  transition: {fileID: 0}
-  transitionTime: 1
 --- !u!111 &170164532
 Animation:
   m_ObjectHideFlags: 0
@@ -607,6 +589,19 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &170164533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170164524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5aa74c4e9e2b9e54da742d4826eddd4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: Hub_Training
 --- !u!1001 &198293359
 PrefabInstance:
   m_ObjectHideFlags: 0
