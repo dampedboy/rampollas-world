@@ -31,14 +31,22 @@ public class BookController : MonoBehaviour
     {
         if (isPlayerInside)
         {
-            uiPanel_talk.SetActive(true);
+            if (uiPanel_talk != null)
+            {
+                uiPanel_talk.SetActive(true);
+            }
+            
 
             if (Input.GetKeyDown(KeyCode.C))
                 Open();
         }
         else
         {
-            uiPanel_talk.SetActive(false);
+            if (uiPanel_talk != null)
+            {
+                uiPanel_talk.SetActive(false);
+            }
+            
         }
 
         if (Input.GetKeyDown(KeyCode.T))

@@ -29,7 +29,10 @@ public class PlayerHealth : MonoBehaviour
         }
 
         UpdateHearts();
-        gameOverText.gameObject.SetActive(false);
+        if (gameOverText != null)
+        {
+            gameOverText.gameObject.SetActive(false);
+        }
 
         // Initialize audio source
         audioSource = GetComponent<AudioSource>();
@@ -118,7 +121,8 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Projectile") ||  other.CompareTag("Spuntoni")) 
+        //if (other.CompareTag("Projectile") ||  other.CompareTag("Spuntoni")) 
+        if (other.CompareTag("Spuntoni")) 
         {
             TakeDamage();
         }
