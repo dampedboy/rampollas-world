@@ -28,7 +28,7 @@ public class Player : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.I)||Input.GetButtonDown("Fire3"))
         {
             if (Interactable != null)
             {
