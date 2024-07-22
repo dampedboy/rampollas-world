@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
+using System.Linq;
 
 public class Portal : MonoBehaviour
 {
@@ -20,6 +22,9 @@ public class Portal : MonoBehaviour
             audioSource = gameObject.AddComponent<AudioSource>();
         }
     }
+    
+    public Animator transition;
+    public float transitionTime = 1f;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -97,11 +102,23 @@ public class Portal : MonoBehaviour
                 audioSource.clip = loadLevelSoundClip;
                 audioSource.Play();
             }
+            // Carica il prossimo livello
+            //SceneManager.LoadScene(nextSceneIndex);
+            StartCoroutine(LoadLevel(nextSceneIndex));
         }
         else
         {
             Debug.Log("Hai completato tutti i livelli!");
         }
+    }
+
+    IEnumerator LoadLevel(int nextSceneIndex)
+    {
+        transition.SetTrigger("Start");
+
+        yield return new WaitForSeconds(transitionTime);
+        
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }
 
