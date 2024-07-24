@@ -37,7 +37,7 @@ public class BookController : MonoBehaviour
             }
             
 
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.I))
                 Open();
         }
         else
@@ -49,7 +49,7 @@ public class BookController : MonoBehaviour
             
         }
 
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.U))
             Close();
     }
 

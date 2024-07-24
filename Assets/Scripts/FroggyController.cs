@@ -24,7 +24,7 @@ public class FroggyController : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerInside && Input.GetKeyDown(KeyCode.C))
+        if (isPlayerInside && Input.GetKeyDown(KeyCode.I))
             Wake();
         if (!isPlayerInside)
             Sleep();
