@@ -32,7 +32,7 @@ public class CoinManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        if (currentSceneIndex != 0 && currentSceneIndex != 1 && currentSceneIndex != 7 && currentSceneIndex != 13 && currentSceneIndex != 19 && !visitedScenes.Contains(currentSceneIndex))
+        if (currentSceneIndex != 0 && currentSceneIndex != 1 && currentSceneIndex != 2 && currentSceneIndex != 8 && currentSceneIndex != 14 && currentSceneIndex != 20 && !visitedScenes.Contains(currentSceneIndex))
         {
             CoinCount++;
             UpdateCoinText();
