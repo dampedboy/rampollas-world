@@ -28,6 +28,12 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
+        // Controlla se il tasto "E" è stato premuto
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            LoadNextLevel();
+        }
+
         timer -= Time.deltaTime; // Sottrai il tempo trascorso dal timer
 
         if (timer <= 0f && !playedSound)
@@ -81,4 +87,38 @@ public class Timer : MonoBehaviour
     {
         playedSound = false;
     }
+
+    private void LoadNextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        int nextSceneIndex = currentSceneIndex;
+        if (currentSceneIndex == 1)
+        {
+            nextSceneIndex = currentSceneIndex + 1;
+        }
+        else
+        {
+            nextSceneIndex = currentSceneIndex + 1;
+        }
+
+        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+
+        SceneManager.LoadScene(nextSceneIndex);
+
+  
+        }
+        else
+        {
+            Debug.Log("Hai completato tutti i livelli!");
+        }
+    }
+
+
 }
+
+
+
+
