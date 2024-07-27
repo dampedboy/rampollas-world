@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +14,8 @@ public class BookController : MonoBehaviour
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip openSound;
     [SerializeField] private AudioClip closeSound;
+
+  
 
     void Start()
     {
@@ -35,7 +36,6 @@ public class BookController : MonoBehaviour
             {
                 uiPanel_talk.SetActive(true);
             }
-            
 
             if (Input.GetKeyDown(KeyCode.I))
                 Open();
@@ -46,7 +46,6 @@ public class BookController : MonoBehaviour
             {
                 uiPanel_talk.SetActive(false);
             }
-            
         }
 
         if (Input.GetKeyDown(KeyCode.U))
@@ -68,6 +67,7 @@ public class BookController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInside = false;
+           
         }
     }
 
@@ -112,5 +112,6 @@ public class BookController : MonoBehaviour
             uiPanel.SetActive(false);
         }
     }
-}
 
+   
+}
