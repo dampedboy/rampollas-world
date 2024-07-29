@@ -1,15 +1,61 @@
 using UnityEngine;
+using System.Collections;
 
 public class WoodObject : MonoBehaviour
 {
+    public AudioClip breakSound; // Reference to the audio clip
+    private AudioSource audioSource; // Reference to the audio source component
+    private MeshRenderer meshRenderer; // Reference to the MeshRenderer component
+
+    void Start()
+    {
+        // Add an AudioSource component to the game object if it doesn't already have one
+        audioSource = gameObject.GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        // Get the MeshRenderer component
+        meshRenderer = gameObject.GetComponent<MeshRenderer>();
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         GameObject otherObject = collision.gameObject;
 
-        if (otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("MetalBlock"))
+        if (otherObject.CompareTag("MetalBlock"))
+        {
+            // Disable the MeshRenderer immediately
+            if (meshRenderer != null)
+            {
+                meshRenderer.enabled = false;
+            }
+
+            // Play the break sound if available and start the coroutine to destroy the object
+            if (breakSound != null)
+            {
+                audioSource.PlayOneShot(breakSound);
+                StartCoroutine(DestroyAfterSound());
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+        else if (otherObject.CompareTag("WoodBlock"))
         {
             Debug.Log("Wood object destroyed.");
             Destroy(gameObject);
         }
+    }
+
+    private IEnumerator DestroyAfterSound()
+    {
+        // Wait for the sound to finish playing
+        yield return new WaitForSeconds(breakSound.length);
+
+        // Destroy the game object
+        Destroy(gameObject);
     }
 }

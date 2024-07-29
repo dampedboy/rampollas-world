@@ -59,7 +59,7 @@ public class MetalBlock : MonoBehaviour
     private IEnumerator ReplaceAfterDelay(Vector3 position, Quaternion rotation)
     {
         // Attendi un certo periodo prima di sostituire con il blocco di legno
-        yield return new WaitForSeconds(1f); // Modifica il valore 1f a seconda del ritardo desiderato
+        yield return new WaitForSeconds(0.8f); // Modifica il valore 1f a seconda del ritardo desiderato
 
         // Sostituisci con un nuovo blocco di legno
         Instantiate(woodBlockPrefab, position, rotation);
