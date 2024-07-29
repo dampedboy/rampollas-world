@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        // Disabilita il movimento del giocatore solo quando il dialogo è aperto
         if (dialogueUI.IsOpen)
         {
             playerMovementScript.enabled = false;
@@ -26,11 +27,7 @@ public class Player : MonoBehaviour
         {
             playerMovementScript.enabled = true;
 
-        }
-
-        if (Input.GetKeyDown(KeyCode.I)||Input.GetButtonDown("Fire3"))
-        {
-            if (Interactable != null)
+            if ((Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("Fire3")) && Interactable != null)
             {
                 Interactable.Interact(this);
             }
