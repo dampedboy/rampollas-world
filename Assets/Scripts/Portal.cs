@@ -83,6 +83,11 @@ public class Portal : MonoBehaviour
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         int nextSceneIndex = currentSceneIndex;
+
+        if (currentSceneIndex == 24)
+        {
+            SceneManager.LoadScene(1);
+        }
         if (currentSceneIndex == 1)
         {
             nextSceneIndex = currentSceneIndex + 1 + portalLevel;
@@ -92,7 +97,7 @@ public class Portal : MonoBehaviour
             nextSceneIndex = currentSceneIndex + 1;
         }
 
-        if (nextSceneIndex < SceneManager.sceneCountInBuildSettings)
+        if (nextSceneIndex < 25)
         {
             SceneManager.LoadScene(nextSceneIndex);
 
