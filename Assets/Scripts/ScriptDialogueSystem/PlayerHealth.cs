@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections; // Importa lo spazio dei nomi per le coroutine
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -107,22 +108,33 @@ public class PlayerHealth : MonoBehaviour
     private void GameOver()
     {
         gameOverText.gameObject.SetActive(true);
-        currentLives = startingLives; // Reset lives
-        PlayerPrefs.SetInt("PlayerLives", currentLives);
-        UpdateHearts();
-        SceneManager.LoadScene(0);
 
         // Play game over sound
         if (gameOverSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(gameOverSound);
         }
+
+        StartCoroutine(HandleGameOver()); // Avvia la coroutine per gestire il game over
+    }
+
+    private IEnumerator HandleGameOver()
+    {
+        yield return new WaitForSeconds(3f); // Attendi 3 secondi
+
+        // Resetta le vite e aggiorna l'interfaccia
+        currentLives = startingLives;
+        PlayerPrefs.SetInt("PlayerLives", currentLives);
+        UpdateHearts();
+
+        // Carica la scena di gioco (0 rappresenta la scena principale, modificare se necessario)
+        SceneManager.LoadScene(0);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         //if (other.CompareTag("Projectile") ||  other.CompareTag("Spuntoni")) 
-        if (other.CompareTag("Spuntoni")) 
+        if (other.CompareTag("Spuntoni"))
         {
             TakeDamage();
         }
@@ -147,6 +159,4 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 }
-
-
 
