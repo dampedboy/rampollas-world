@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 using System.Collections; // Importa lo spazio dei nomi per le coroutine
 
 public class PlayerHealth : MonoBehaviour
@@ -11,7 +10,7 @@ public class PlayerHealth : MonoBehaviour
     static private bool isInitialized = false;
     public Transform respawnPoint;
     public GameObject[] hearts;
-    public TMP_Text gameOverText;
+    public GameObject gameOverCanvas; // Cambiato da TMP_Text a GameObject
     public float fallThreshold = -10f;
     private bool hasRespawned = false;
 
@@ -30,9 +29,9 @@ public class PlayerHealth : MonoBehaviour
         }
 
         UpdateHearts();
-        if (gameOverText != null)
+        if (gameOverCanvas != null)
         {
-            gameOverText.gameObject.SetActive(false);
+            gameOverCanvas.SetActive(false); // Disattiva il Canvas all'inizio
         }
 
         // Initialize audio source
@@ -107,7 +106,10 @@ public class PlayerHealth : MonoBehaviour
 
     private void GameOver()
     {
-        gameOverText.gameObject.SetActive(true);
+        if (gameOverCanvas != null)
+        {
+            gameOverCanvas.SetActive(true); // Attiva il Canvas di game over
+        }
 
         // Play game over sound
         if (gameOverSound != null && audioSource != null)
@@ -120,7 +122,7 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator HandleGameOver()
     {
-        yield return new WaitForSeconds(3f); // Attendi 3 secondi
+        yield return new WaitForSeconds(1f); // Attendi 3 secondi
 
         // Resetta le vite e aggiorna l'interfaccia
         currentLives = startingLives;
@@ -159,4 +161,5 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 }
+
 
