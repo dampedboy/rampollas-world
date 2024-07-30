@@ -220,7 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1a78f2937714ab78e152b8cd720f76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glassBreakSound: {fileID: 8300000, guid: 1c7f36b4a607b90479849b008affccd4, type: 3}
+  glassBreakSound: {fileID: 8300000, guid: be829603568f34e4c9b1abf9b471be25, type: 3}
 --- !u!54 &29029874
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4860,6 +4860,7 @@ MonoBehaviour:
   BreakPosition: {fileID: 0}
   ButtonPosition: {fileID: 0}
   PortalPosition: {fileID: 0}
+  spawnBotolaClip: {fileID: 0}
 --- !u!143 &1944446851
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4929,7 +4930,7 @@ MonoBehaviour:
   spawnPoint: {fileID: 1944446845}
   vortexPrefab: {fileID: 1559578623}
   offset: {x: 0.25, y: -1.1, z: 0}
-  assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
+  assorbimento: {fileID: 8300000, guid: 5124ec37d6f90364fb598c775e218264, type: 3}
   keyAbsorber: {fileID: 501052722}
   obj1: {fileID: 29029881}
   obj2: {fileID: 264433174}
@@ -5053,6 +5054,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5650433541817064978, guid: d41372a168fbe496e961d838baede0f3, type: 3}
+      propertyPath: breakSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fed6d2012c38f5e49b9b2c4ef16e14f5, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5070,6 +5075,10 @@ PrefabInstance:
       propertyPath: m_audioClip
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2221210495227771626, guid: b2e09af1333f047e7a5314aad93e3269, type: 3}
+      propertyPath: breakSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fed6d2012c38f5e49b9b2c4ef16e14f5, type: 3}
     - target: {fileID: 8562495794772645827, guid: b2e09af1333f047e7a5314aad93e3269, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.89
@@ -5131,6 +5140,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WoodBlockRight
       objectReference: {fileID: 0}
+    - target: {fileID: 3198329302608018698, guid: 01f292d40336e498b852af6aaac3ec39, type: 3}
+      propertyPath: breakSound
+      value: 
+      objectReference: {fileID: 8300000, guid: fed6d2012c38f5e49b9b2c4ef16e14f5, type: 3}
     - target: {fileID: 3443146928130310309, guid: 01f292d40336e498b852af6aaac3ec39, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.27

@@ -61,13 +61,13 @@ public class MusicPlayer : MonoBehaviour
         float startVolume = 0f;
         audioSource.volume = startVolume;
 
-        while (audioSource.volume < 0.05f)
+        while (audioSource.volume < 0.03f)
         {
             audioSource.volume += Time.deltaTime / duration;
             yield return null;
         }
 
-        audioSource.volume = 0.05f;
+        audioSource.volume = 0.03f;
     }
 
     private IEnumerator FadeOut(AudioSource audioSource, float duration)
