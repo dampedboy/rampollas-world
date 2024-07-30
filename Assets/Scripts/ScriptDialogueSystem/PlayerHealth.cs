@@ -122,7 +122,7 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator HandleGameOver()
     {
-        yield return new WaitForSeconds(1f); // Attendi 3 secondi
+        yield return new WaitForSeconds(2f); // Attendi 3 secondi
 
         // Resetta le vite e aggiorna l'interfaccia
         currentLives = startingLives;
@@ -130,7 +130,7 @@ public class PlayerHealth : MonoBehaviour
         UpdateHearts();
 
         // Carica la scena di gioco (0 rappresenta la scena principale, modificare se necessario)
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     private void OnTriggerEnter(Collider other)
