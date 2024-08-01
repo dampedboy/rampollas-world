@@ -18,6 +18,7 @@ public class PlayerHealth : MonoBehaviour
     public AudioClip damageSound;
     public AudioClip gameOverSound;
     private AudioSource audioSource;
+    private bool hasPlayedGameOverSound = false;
 
     private void Start()
     {
@@ -109,12 +110,15 @@ public class PlayerHealth : MonoBehaviour
         if (gameOverCanvas != null)
         {
             gameOverCanvas.SetActive(true); // Attiva il Canvas di game over
-        }
+            // Play game over sound
+            if (gameOverSound != null && audioSource != null && !hasPlayedGameOverSound)
+            {
+                audioSource.PlayOneShot(gameOverSound);
+                hasPlayedGameOverSound = true; // Segna il suono come già riprodotto
+            }
 
-        // Play game over sound
-        if (gameOverSound != null && audioSource != null)
-        {
-            audioSource.PlayOneShot(gameOverSound);
+            // Blocca il gioco
+            Time.timeScale = 0f;
         }
 
         StartCoroutine(HandleGameOver()); // Avvia la coroutine per gestire il game over
@@ -122,12 +126,18 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator HandleGameOver()
     {
-        yield return new WaitForSeconds(2f); // Attendi 3 secondi
+        yield return new WaitForSecondsRealtime(2f); // Usa WaitForSecondsRealtime per aspettare 2 secondi reali
 
         // Resetta le vite e aggiorna l'interfaccia
         currentLives = startingLives;
         PlayerPrefs.SetInt("PlayerLives", currentLives);
         UpdateHearts();
+
+        // Resetta la variabile del suono di game over
+        hasPlayedGameOverSound = false;
+
+        // Riavvia il gioco
+        Time.timeScale = 1f;
 
         // Carica la scena di gioco (0 rappresenta la scena principale, modificare se necessario)
         SceneManager.LoadScene(1);
@@ -161,5 +171,3 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 }
-
-
