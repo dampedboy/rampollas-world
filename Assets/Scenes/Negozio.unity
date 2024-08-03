@@ -1602,6 +1602,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2991afe0985d4ac4582f4e5daac51651, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.72305
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2991afe0985d4ac4582f4e5daac51651, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.72305
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2991afe0985d4ac4582f4e5daac51651, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.72305
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 2991afe0985d4ac4582f4e5daac51651, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.8
       objectReference: {fileID: 0}
@@ -1732,7 +1744,7 @@ MonoBehaviour:
   - {fileID: 1175359732}
   - {fileID: 1773063011}
   - {fileID: 140895266}
-  gameOverText: {fileID: 0}
+  gameOverCanvas: {fileID: 0}
   fallThreshold: -10
   damageSound: {fileID: 8300000, guid: 92afee33c890e4a46a1856337322a397, type: 3}
   gameOverSound: {fileID: 8300000, guid: 86b67b19185911b43a09cecab57740af, type: 3}
@@ -1851,6 +1863,7 @@ MonoBehaviour:
   BreakPosition: {fileID: 0}
   ButtonPosition: {fileID: 0}
   PortalPosition: {fileID: 0}
+  spawnBotolaClip: {fileID: 0}
 --- !u!143 &811687143
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1910,10 +1923,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f09f345679c404b9d81cf3170cc907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maximumSpeed: 7
+  maximumSpeed: 5.5
   rotationSpeed: 720
-  jumpHeight: 0.8
-  gravityMultiplier: 3.5
+  jumpHeight: 0.7
+  gravityMultiplier: 2
   jumpButtonGracePeriod: 0.2
   jumpSound: {fileID: 8300000, guid: 117acd73be21dcc41a68bdc2f0061ebb, type: 3}
   walkSound: {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
