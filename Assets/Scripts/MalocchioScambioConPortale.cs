@@ -6,6 +6,7 @@ public class MalocchioScambioConPortale : MonoBehaviour
 
     public GameObject malocchio; // Riferimento a Malocchio
     public GameObject portal; // Riferimento all'oggetto Portal
+    public GameObject canvaTalk; // Riferimento all'oggetto canvaTalk
 
     void Start()
     {
@@ -15,12 +16,14 @@ public class MalocchioScambioConPortale : MonoBehaviour
 
 
 
-    void CambioScena(Collider other)
+    public void CambioScena()
     {
 
      Destroy(gameObject); // Distruggi l'oggetto chiave
      Destroy(malocchio); // Distruggi l'oggetto Malocchio
-     portal.SetActive(true); // Rendi il portale visibile
+     Destroy(canvaTalk); // Distruggi l'oggetto canvaTalk
+
+        portal.SetActive(true); // Rendi il portale visibile
 
     }
 
