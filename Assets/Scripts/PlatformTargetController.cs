@@ -2,46 +2,35 @@ using UnityEngine;
 
 public class PlatformTargetController : MonoBehaviour
 {
-    // Oggetto da assegnare nel Inspector per il blocco
     public GameObject block;
-
-    // Trasform del blocco (posizione di partenza)
     public Transform OriginalPosition;
-
-    // Trasform della piattaforma (posizione di arrivo)
     public Transform PlatformPosition;
-
-    // Variabile per determinare se il blocco è stato rilasciato
-    private bool isTriggered = false;
-
-    // Velocità di caduta del blocco
     public float dropSpeed = 7.0f;
-
-    // Clip audio per il suono di caduta
     public AudioClip fallSoundClip;
-
-    // Clip audio per il suono di inizio caduta
     public AudioClip startFallSoundClip;
-
-    private AudioSource fallAudioSource; // AudioSource per riprodurre il suono di caduta
-    private AudioSource startFallAudioSource; // AudioSource per riprodurre il suono di inizio caduta
-
-    // Distanza minima considerata "arrivato" alla piattaforma
     public float arrivalThreshold = 0.1f;
 
-    // Flag per controllare se il suono di caduta è stato già riprodotto
+    private bool isTriggered = false;
     private bool hasPlayedFallSound = false;
+    private AudioSource fallAudioSource;
+    private AudioSource startFallAudioSource;
+    private Rigidbody blockRigidbody;
 
     void Start()
     {
-        // Imposta la posizione iniziale del blocco
         block.transform.position = OriginalPosition.position;
 
-        // Inizializza l'AudioSource e assegna l'AudioClip per il suono di caduta
+        // Aggiungi un Rigidbody al blocco
+        blockRigidbody = block.GetComponent<Rigidbody>();
+        if (blockRigidbody == null)
+        {
+            blockRigidbody = block.AddComponent<Rigidbody>();
+        }
+        blockRigidbody.isKinematic = true; // Assicurati che il blocco non si muova prima che sia stato attivato
+
         fallAudioSource = gameObject.AddComponent<AudioSource>();
         fallAudioSource.clip = fallSoundClip;
 
-        // Inizializza un secondo AudioSource e assegna l'AudioClip per il suono di inizio caduta
         startFallAudioSource = gameObject.AddComponent<AudioSource>();
         startFallAudioSource.clip = startFallSoundClip;
     }
@@ -50,18 +39,17 @@ public class PlatformTargetController : MonoBehaviour
     {
         if (isTriggered)
         {
-            // Se il blocco non è ancora partito, riproduci il suono di inizio caduta
             if (!startFallAudioSource.isPlaying && !hasPlayedFallSound)
             {
                 startFallAudioSource.Play();
             }
 
-            // Movimento del blocco verso la posizione della piattaforma
-            block.transform.position = Vector3.MoveTowards(block.transform.position, PlatformPosition.position, dropSpeed * Time.deltaTime);
+            // Cambia il blocco in modo che sia gestito dalla fisica
+            blockRigidbody.isKinematic = false;
+            blockRigidbody.velocity = (PlatformPosition.position - block.transform.position).normalized * dropSpeed;
 
-            if (Vector3.Distance(block.transform.position, PlatformPosition.position) <= arrivalThreshold+5)
+            if (Vector3.Distance(block.transform.position, PlatformPosition.position) <= arrivalThreshold + 5)
             {
-                // Riproduci il suono di caduta solo se non è stato già riprodotto
                 if (!hasPlayedFallSound)
                 {
                     fallAudioSource.Play();
@@ -69,30 +57,21 @@ public class PlatformTargetController : MonoBehaviour
                 }
             }
 
-
-                // Verifica se il blocco è vicino abbastanza alla piattaforma per considerarsi "arrivato"
-                if (Vector3.Distance(block.transform.position, PlatformPosition.position) <= arrivalThreshold)
+            if (Vector3.Distance(block.transform.position, PlatformPosition.position) <= arrivalThreshold)
             {
-
-
-                // Blocca il movimento quando raggiunge la piattaforma
-                
                 isTriggered = false;
-
-
+                blockRigidbody.isKinematic = true; // Ferma il blocco
+                blockRigidbody.velocity = Vector3.zero;
+                block.transform.position = PlatformPosition.position;
             }
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Verifica se il player entra nel collider
         if (other.CompareTag("Player"))
         {
-            // Imposta il flag per iniziare il conto alla rovescia per la caduta
             isTriggered = true;
         }
     }
 }
-
-
