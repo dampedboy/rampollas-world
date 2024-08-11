@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip assorbimento; // Audio clip per il suono di assorbimento
 
     public KeyAbsorber keyAbsorber; // Riferimento al KeyAbsorber
+    public KeyMalocchioAbsorber keyAbsorber2; // Riferimento al KeyAbsorber
     public ObjAbsorber obj1; // riferimento agli oggetti di legno 
     public ObjAbsorber obj2; // riferimento agli oggetti di vetro 
     public ObjAbsorber obj3; // riferimento agli oggetti di metallo
@@ -72,6 +73,10 @@ public class PlayerMovement : MonoBehaviour
     {
         isLaunching = true;
     }
+    if (keyAbsorber2 != null && keyAbsorber2.isLaunching)
+    {
+        isLaunching = true;
+    }
      if (obj4 != null && obj4.isLaunching)
     {
         isLaunching = true;
@@ -102,6 +107,10 @@ public class PlayerMovement : MonoBehaviour
         {
             perfectPosition = false;
         }
+        if (keyAbsorber2 != null && !keyAbsorber2.PerfectPosition)
+            {
+                perfectPosition = false;
+            }
 
         if (obj4 != null && !obj4.PerfectPosition)
         {
