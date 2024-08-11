@@ -70,6 +70,12 @@ public class TimerProve : MonoBehaviour
         {
             timer -= Time.deltaTime; // Sottrai il tempo trascorso dal timer
 
+            // Controlla se il tasto "E" è stato premuto
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                LoadNextLevel();
+            }
+
             if (timer <= 0f && !playedSound)
             {
                 StartCoroutine(ShowGameOverAndReturnToHub());
@@ -145,5 +151,39 @@ public class TimerProve : MonoBehaviour
         return sceneName == "Prima Prova" || sceneName == "Seconda Prova" ||
                sceneName == "Terza Prova" || sceneName == "Quarta Prova" ||
                sceneName == "Quinta Prova";
+    }
+
+    private void LoadNextLevel()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        int nextSceneIndex = currentSceneIndex;
+
+        if (currentSceneIndex == 30)
+        {
+            SceneManager.LoadScene(1);
+        }
+
+        if (currentSceneIndex == 1)
+        {
+            nextSceneIndex = currentSceneIndex + 1;
+        }
+        else
+        {
+            nextSceneIndex = currentSceneIndex + 1;
+        }
+
+        if (nextSceneIndex < 31)
+        {
+            SceneManager.LoadScene(nextSceneIndex);
+
+            SceneManager.LoadScene(nextSceneIndex);
+
+
+        }
+        else
+        {
+            Debug.Log("Hai completato tutti i livelli!");
+        }
     }
 }
