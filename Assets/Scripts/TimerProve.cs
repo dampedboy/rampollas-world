@@ -6,7 +6,6 @@ using System.Collections;
 public class TimerProve : MonoBehaviour
 {
     public float respawnTime = 150f; // Timer impostato su 2 minuti e 30 secondi (150 secondi)
-    public TextMeshProUGUI timerText; // Testo del timer
     public TextMeshProUGUI gameOverText; // Testo per Game Over
     public AudioClip timerSound; // Clip audio per il suono del timer
     public AnimationCurve textScaleCurve; // Curva per l'animazione di scala del testo
@@ -16,6 +15,7 @@ public class TimerProve : MonoBehaviour
     private AudioSource audioSource; // AudioSource per riprodurre il suono
     private bool playedSound = false; // Flag per assicurarsi che il suono parta solo una volta per secondo
     private bool isGameOver = false; // Flag per verificare se è terminato il tempo
+    private TextMeshProUGUI timerText; // Riferimento al TextMeshPro che mostra il timer
 
     private static TimerProve instance; // Per assicurarsi che ci sia solo un'istanza del timer
 
@@ -45,6 +45,7 @@ public class TimerProve : MonoBehaviour
     void Start()
     {
         timer = respawnTime;
+        FindAndSetTimerText(); // Trova e assegna il riferimento a TimerText
         UpdateTimerText();
 
         // Aggiungi un AudioSource dinamicamente se non è già presente
@@ -57,17 +58,13 @@ public class TimerProve : MonoBehaviour
         {
             gameOverText.gameObject.SetActive(false);
         }
+
+        SceneManager.sceneLoaded += OnSceneLoaded; // Registrati per ricevere eventi di caricamento della scena
     }
 
     void Update()
     {
         string currentSceneName = SceneManager.GetActiveScene().name;
-
-        // Controlla se il tasto "E" è stato premuto
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            LoadNextLevel();
-        }
 
         if (!isGameOver && IsProvaScene(currentSceneName))
         {
@@ -96,6 +93,23 @@ public class TimerProve : MonoBehaviour
         }
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (IsProvaScene(scene.name))
+        {
+            FindAndSetTimerText(); // Ricarica il riferimento al TimerText nella nuova scena
+        }
+    }
+
+    private void FindAndSetTimerText()
+    {
+        timerText = GameObject.Find("TimerText")?.GetComponent<TextMeshProUGUI>();
+        if (timerText == null)
+        {
+            Debug.LogError("TimerText non trovato nella scena corrente. Assicurati che l'oggetto abbia il nome corretto.");
+        }
+    }
+
     IEnumerator ShowGameOverAndReturnToHub()
     {
         // Mostra la scritta "Game Over"
@@ -113,43 +127,16 @@ public class TimerProve : MonoBehaviour
 
     void UpdateTimerText()
     {
-        int seconds = Mathf.CeilToInt(timer);
-        timerText.text = seconds.ToString(); // Aggiorna il testo del timer con i secondi rimanenti
+        if (timerText != null)
+        {
+            int seconds = Mathf.CeilToInt(timer);
+            timerText.text = seconds.ToString(); // Aggiorna il testo del timer con i secondi rimanenti
+        }
     }
 
     void ResetPlayedSound()
     {
         playedSound = false;
-    }
-
-    private void LoadNextLevel()
-    {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        int nextSceneIndex = currentSceneIndex;
-
-        if (currentSceneIndex == 24)
-        {
-            SceneManager.LoadScene(1);
-        }
-
-        if (currentSceneIndex == 1)
-        {
-            nextSceneIndex = currentSceneIndex + 1;
-        }
-        else
-        {
-            nextSceneIndex = currentSceneIndex + 1;
-        }
-
-        if (nextSceneIndex < 25)
-        {
-            SceneManager.LoadScene(nextSceneIndex);
-        }
-        else
-        {
-            Debug.Log("Hai completato tutti i livelli!");
-        }
     }
 
     private bool IsProvaScene(string sceneName)
