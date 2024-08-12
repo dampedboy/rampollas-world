@@ -7,48 +7,41 @@ public class DialogueUI : MonoBehaviour
 {
     [SerializeField] private GameObject dialogueBox;
     [SerializeField] private TMP_Text textLabel;
-    [SerializeField] private AudioClip nextDialogueClip; // Campo per l'audio clip
-    [SerializeField] private AudioSource audioSource; // Campo per l'AudioSource
-    [SerializeField] private AudioClip backgroundMusicClip; // Campo per la musica di sottofondo
+    [SerializeField] private AudioClip nextDialogueClip;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip backgroundMusicClip;
 
-    public GameObject malocchio; // Riferimento a Malocchio
-    public GameObject portal; // Riferimento all'oggetto Portal
-    public GameObject canvaTalk; // Riferimento all'oggetto canvaTalk
+    public GameObject malocchio;
+    public GameObject portal;
+    public GameObject canvaTalk;
 
     public bool IsOpen { get; private set; }
 
-    // per le opzioni
     private ResponseHandler responseHandler;
     private TypewriterEffect typewriterEffect;
-
     private static bool musicPlaying = false;
 
     private void Start()
     {
         if (SceneManager.GetActiveScene().name == "Malocchio")
         {
-            portal.SetActive(false); // Rende il portale invisibile all'inizio
+            portal.SetActive(false);
         }
 
         typewriterEffect = GetComponent<TypewriterEffect>();
-
-        // per le opzioni:
         responseHandler = GetComponent<ResponseHandler>();
 
-        // Aggiungi il componente AudioSource se non è già assegnato
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
 
-        // Chiude dialogo
         CloseDialogueBox();
     }
 
     public void ShowDialogue(DialogueObject dialogueObject)
     {
         IsOpen = true;
-        // mostra dialogo all'inizio mettendolo attivo
         dialogueBox.SetActive(true);
         StartCoroutine(StepThroughDialogue(dialogueObject));
     }
@@ -60,7 +53,6 @@ public class DialogueUI : MonoBehaviour
 
     private IEnumerator StepThroughDialogue(DialogueObject dialogueObject)
     {
-        // per le opzioni, non fa premere spazio se ci sono:
         for (int i = 0; i < dialogueObject.Dialogue.Length; i++)
         {
             string dialogue = dialogueObject.Dialogue[i];
@@ -69,15 +61,10 @@ public class DialogueUI : MonoBehaviour
 
             textLabel.text = dialogue;
 
-            // per scrivere passo passo:
             if (i == dialogueObject.Dialogue.Length - 1 && dialogueObject.HasResponses) break;
 
             yield return null;
-
-            // aspetta che premo spazio per passare al prossimo dialogo
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
-
-            // Riproduce il suono next_dialogue
             PlayNextDialogueSound();
         }
 
@@ -98,7 +85,6 @@ public class DialogueUI : MonoBehaviour
         while (typewriterEffect.IsRunning)
         {
             yield return null;
-
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 typewriterEffect.Stop();
@@ -106,7 +92,6 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-    // per chiudere dialogo quando finisce
     public void CloseDialogueBox()
     {
         IsOpen = false;
@@ -120,24 +105,26 @@ public class DialogueUI : MonoBehaviour
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
 
-        if (SceneManager.GetActiveScene().name == "Malocchio")
+        string sceneName = SceneManager.GetActiveScene().name;
+        if (sceneName == "Malocchio")
         {
-            Destroy(gameObject); // Distruggi l'oggetto chiave
-            Destroy(malocchio); // Distruggi l'oggetto Malocchio
-            Destroy(canvaTalk); // Distruggi l'oggetto canvaTalk
-
-            portal.SetActive(true); // Rendi il portale visibile
+            Destroy(gameObject);
+            Destroy(malocchio);
+            Destroy(canvaTalk);
+            portal.SetActive(true);
         }
 
-
-         PlayBackgroundMusic();
-         Debug.Log("playing music");
-         musicPlaying = true;
-         DontDestroyOnLoad(audioSource.gameObject); // Mantieni la musica nelle prossime scene
-
+        if (sceneName != "Malocchio" && sceneName != "Prima Prova" &&
+            sceneName != "Seconda Prova" && sceneName != "Terza Prova" &&
+            sceneName != "Quarta Prova" && sceneName != "Quinta Prova")
+        {
+            PlayBackgroundMusic();
+            Debug.Log("playing music");
+            musicPlaying = true;
+            DontDestroyOnLoad(audioSource.gameObject);
+        }
     }
 
-    // Funzione per riprodurre il suono next_dialogue
     private void PlayNextDialogueSound()
     {
         if (nextDialogueClip != null)
@@ -146,7 +133,6 @@ public class DialogueUI : MonoBehaviour
         }
     }
 
-    // Funzione per riprodurre la musica di sottofondo
     private void PlayBackgroundMusic()
     {
         if (backgroundMusicClip != null)
@@ -159,11 +145,10 @@ public class DialogueUI : MonoBehaviour
 
     private void Update()
     {
-        // Ferma la musica se si lascia l'ultima scena in cui deve essere riprodotta
         string sceneName = SceneManager.GetActiveScene().name;
-        if (musicPlaying && sceneName != "Malocchio" && sceneName != "Prima Prova" &&
-            sceneName != "Seconda Prova" && sceneName != "Terza Prova" &&
-            sceneName != "Quarta Prova" && sceneName != "Quinta Prova")
+        if (musicPlaying && (sceneName == "Malocchio" || sceneName == "Prima Prova" ||
+            sceneName == "Seconda Prova" || sceneName == "Terza Prova" ||
+            sceneName == "Quarta Prova" || sceneName == "Quinta Prova"))
         {
             StopBackgroundMusic();
         }
@@ -172,7 +157,7 @@ public class DialogueUI : MonoBehaviour
     private void StopBackgroundMusic()
     {
         audioSource.Stop();
-        Destroy(audioSource.gameObject); // Distrugge l'oggetto per fermare la musica
+        Destroy(audioSource.gameObject);
         musicPlaying = false;
     }
 }

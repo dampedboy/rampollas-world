@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,9 +6,9 @@ public class MusicPlayer : MonoBehaviour
 {
     public static MusicPlayer Instance;
 
-    public AudioSource audioSource;      // La sorgente audio da cui verranno riprodotti i clip
-    public AudioClip[] audioClips;       // L'array di clip audio
-    public float fadeDuration = 1.0f;    // Durata della dissolvenza in secondi
+    public AudioSource audioSource;      // The audio source to play clips from
+    public AudioClip[] audioClips;       // The array of audio clips
+    public float fadeDuration = 1.0f;    // Fade duration in seconds
 
     private int currentClipIndex = 0;
 
@@ -26,20 +25,23 @@ public class MusicPlayer : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
         if (audioClips.Length > 0)
         {
             StartCoroutine(PlayNextClip());
         }
 
-        SceneManager.sceneLoaded += OnSceneLoaded; // Aggiungi l'evento per monitorare il cambio di scena
+        SceneManager.sceneLoaded += OnSceneLoaded; // Register scene change event
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Verifica se la scena corrente è tra quelle in cui la musica deve essere messa in pausa
-        if (scene.buildIndex >= 25 && scene.buildIndex <= 30)
+        string sceneName = scene.name;
+
+        if (sceneName == "Malocchio" || sceneName == "Prima Prova" ||
+            sceneName == "Seconda Prova" || sceneName == "Terza Prova" ||
+            sceneName == "Quarta Prova" || sceneName == "Quinta Prova")
         {
             PauseMusic();
         }
@@ -72,19 +74,13 @@ public class MusicPlayer : MonoBehaviour
             audioSource.clip = audioClips[currentClipIndex];
             audioSource.Play();
 
-            Debug.Log("sto suonando la traccia " + currentClipIndex);
-
             yield return StartCoroutine(FadeIn(audioSource, fadeDuration));
 
             yield return new WaitForSeconds(audioSource.clip.length - fadeDuration);
 
             yield return StartCoroutine(FadeOut(audioSource, fadeDuration));
 
-            currentClipIndex = (currentClipIndex + 1);
-            if (currentClipIndex == audioClips.Length)
-            {
-                currentClipIndex = 0;
-            }
+            currentClipIndex = (currentClipIndex + 1) % audioClips.Length;
         }
     }
 
@@ -117,6 +113,6 @@ public class MusicPlayer : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded; // Rimuovi l'evento quando l'oggetto viene distrutto
+        SceneManager.sceneLoaded -= OnSceneLoaded; // Unregister scene change event
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.1727758, g: 0.21590176, b: 0.2978366, a: 1}
+  m_IndirectSpecularColor: {r: 0.17277557, g: 0.21590148, b: 0.29783624, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1502,7 +1502,6 @@ GameObject:
   - component: {fileID: 661756717}
   - component: {fileID: 661756716}
   - component: {fileID: 661756715}
-  - component: {fileID: 661756714}
   m_Layer: 5
   m_Name: Canvas_dialogue
   m_TagString: Untagged
@@ -1510,102 +1509,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!82 &661756714
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 661756713}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!82 &661756715
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1717,7 +1620,7 @@ MonoBehaviour:
   responseBox: {fileID: 2127574024}
   responseButtonTemplate: {fileID: 1906879562}
   responseContainer: {fileID: 390613673}
-  responseAudioSource: {fileID: 661756714}
+  responseAudioSource: {fileID: 661756715}
   responseAudioClip: {fileID: 8300000, guid: b653393ecdbc95b48a80a42c08c5ed83, type: 3}
 --- !u!114 &661756717
 MonoBehaviour:
@@ -1748,6 +1651,7 @@ MonoBehaviour:
   textLabel: {fileID: 1521207688}
   nextDialogueClip: {fileID: 8300000, guid: b029f1e301a83e24c864f6d29af2f698, type: 3}
   audioSource: {fileID: 661756715}
+  backgroundMusicClip: {fileID: 8300000, guid: fa19a04128f4944ae904e53b186518a7, type: 3}
   malocchio: {fileID: 2054066703}
   portal: {fileID: 1043397573}
   canvaTalk: {fileID: 38929852}
@@ -3056,15 +2960,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de8cf584d79c073498fbabe26f4663f2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2054066704}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de8cf584d79c073498fbabe26f4663f2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2054066711}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de8cf584d79c073498fbabe26f4663f2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2054066712}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de8cf584d79c073498fbabe26f4663f2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2054066713}
   m_SourcePrefab: {fileID: 100100000, guid: de8cf584d79c073498fbabe26f4663f2, type: 3}
 --- !u!1 &1198282740
 GameObject:
@@ -5244,100 +5139,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.5, y: 12.4, z: 4.5}
   m_Center: {x: 0.14, y: -2.68, z: 0}
---- !u!114 &2054066711
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054066703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eeb4eeb5ba776344aee241f27b6b013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueObject: {fileID: 11400000, guid: 8ce8db97d5fe2c74a9edc4f55fea0dac, type: 2}
-  events:
-  - name: prova
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 350601644}
-          m_TargetAssemblyTypeName: MalocchioScambioConPortale, Assembly-CSharp
-          m_MethodName: CambioScena
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &2054066712
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054066703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eeb4eeb5ba776344aee241f27b6b013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueObject: {fileID: 11400000, guid: c470bdab23157094285f45f70b95dce3, type: 2}
-  events:
-  - name: How did you get here?
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2054066706}
-          m_TargetAssemblyTypeName: DialogueActivator, Assembly-CSharp
-          m_MethodName: UpdateDialogueObject
-          m_Mode: 2
-          m_Arguments:
-            m_ObjectArgument: {fileID: 11400000, guid: 8ce8db97d5fe2c74a9edc4f55fea0dac, type: 2}
-            m_ObjectArgumentAssemblyTypeName: DialogueObject, Assembly-CSharp
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - name: Why were you imprisoned?
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls: []
---- !u!114 &2054066713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2054066703}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eeb4eeb5ba776344aee241f27b6b013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueObject: {fileID: 11400000, guid: 1c9687640c361dc43968eb0e07b2045c, type: 2}
-  events:
-  - name: I WON'T LET YOU!
-    onPickedResponse:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 350601644}
-          m_TargetAssemblyTypeName: MalocchioScambioConPortale, Assembly-CSharp
-          m_MethodName: CambioScena
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &2072748643 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ad40eb46df78c4601a497b6b3b2c43cc, type: 3}
