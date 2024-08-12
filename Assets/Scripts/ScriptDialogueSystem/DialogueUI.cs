@@ -139,6 +139,7 @@ public class DialogueUI : MonoBehaviour
     {
         if (backgroundMusicClip != null)
         {
+            Debug.Log("playing music 2");
             audioSource.clip = backgroundMusicClip;
             audioSource.loop = true;
             audioSource.Play();
