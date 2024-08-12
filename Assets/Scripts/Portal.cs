@@ -13,6 +13,7 @@ public class Portal : MonoBehaviour
     public AudioClip loadLevelSoundClip; // AudioClip per il suono di caricamento del livello
     public AudioSource audioSource; // AudioSource per gestire i suoni
 
+
     private void Start()
     {
         // Ottieni o aggiungi l'AudioSource a questo GameObject
@@ -21,6 +22,7 @@ public class Portal : MonoBehaviour
         {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
+       
     }
     
     public Animator transition;

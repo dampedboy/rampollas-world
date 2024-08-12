@@ -27,6 +27,8 @@ public class KeyMalocchioAbsorber : MonoBehaviour
         rb.isKinematic = true;
 
         portal.SetActive(false); // Rende il portale invisibile all'inizio
+       
+       
     }
 
     private IEnumerator Absorbing()
