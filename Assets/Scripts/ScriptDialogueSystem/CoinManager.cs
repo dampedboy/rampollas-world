@@ -5,20 +5,22 @@ using System.Collections;
 
 public class CoinManager : MonoBehaviour
 {
-    public static CoinManager instance; // Singleton instance
-    public TextMeshProUGUI coinText; // UI text element for displaying coins
-    public float textChangeDuration = 1.0f; // Duration of text change effect
-    public float buyDelay = 0.5f; // Delay before purchasing an item
+    public static CoinManager instance; // Istanza singleton
+    public TextMeshProUGUI coinText; // Elemento UI per visualizzare le monete
+    public float textChangeDuration = 1.0f; // Durata dell'effetto di cambio testo
+    public float buyDelay = 0.5f; // Ritardo prima dell'acquisto di un oggetto
 
-    public AudioClip soldi_denied; // Sound played when purchase is denied
-    public AudioClip soldi_spesi; // Sound played when purchase is successful
+    public AudioClip soldi_denied; // Suono riprodotto quando l'acquisto viene negato
+    public AudioClip soldi_spesi; // Suono riprodotto quando l'acquisto è riuscito
 
-    public AudioSource audioSource; // Audio source for playing sounds
+    public AudioSource audioSource; // Sorgente audio per riprodurre i suoni
 
-    private static int coinCount = 0; // Internal coin count
+    private static int coinCount = 0; // Contatore interno delle monete
 
-    // Variable to track if a respawn is happening
+    // Variabile per tracciare se è in corso una respawn
     public static bool isRespawning = false;
+
+    private static int previousSceneIndex = -1; // Traccia l'indice della scena precedente
 
     public static int CoinCount
     {
@@ -34,21 +36,32 @@ public class CoinManager : MonoBehaviour
 
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-        // Check if the player is respawning
-        if (!isRespawning && currentSceneIndex != 0 && currentSceneIndex != 1 && currentSceneIndex != 2 && currentSceneIndex != 8 && currentSceneIndex != 14 && currentSceneIndex != 20 && currentSceneIndex != 26)
+        // Verifica se la scena è stata ricaricata tramite ReloadSceneOnKeyPress
+        if (ReloadSceneOnKeyPress.isSceneReloaded)
+        {
+            ReloadSceneOnKeyPress.isSceneReloaded = false;
+        }
+        else if (!isRespawning &&
+                 (currentSceneIndex != 0 && currentSceneIndex != 1 && currentSceneIndex != 2 &&
+                  currentSceneIndex != 8 && currentSceneIndex != 14 && currentSceneIndex != 20 &&
+                  currentSceneIndex != 26) ||
+                 (currentSceneIndex == 1 && previousSceneIndex == 30))
         {
             CoinCount++;
             UpdateCoinText();
-            Debug.Log("Coin added, current count: " + CoinCount);
+            Debug.Log("Moneta aggiunta, conteggio attuale: " + CoinCount);
         }
 
-        // Reset the respawn flag after scene load
+        // Aggiorna l'indice della scena precedente dopo il caricamento
+        previousSceneIndex = currentSceneIndex;
+
+        // Resetta il flag di respawn dopo il caricamento della scena
         isRespawning = false;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // This function can be left empty or removed since logic is handled in Start
+        // Questa funzione può essere lasciata vuota o rimossa poiché la logica è gestita in Start
     }
 
     void UpdateCoinText()
@@ -88,7 +101,7 @@ public class CoinManager : MonoBehaviour
         yield return new WaitForSeconds(buyDelay);
 
         CoinCount -= cost;
-        Debug.Log("Item purchased, coins left: " + CoinCount);
+        Debug.Log("Oggetto acquistato, monete rimanenti: " + CoinCount);
         UpdateCoinText();
 
         if (audioSource != null && soldi_spesi != null)
@@ -114,9 +127,11 @@ public class CoinManager : MonoBehaviour
         }
 
         coinText.color = Color.red;
-        coinText.fontSize *= 1.2f; // Increase font size by 20%
+        coinText.fontSize *= 1.2f; // Aumenta la dimensione del font del 20%
         yield return new WaitForSeconds(textChangeDuration);
         coinText.color = Color.white;
-        coinText.fontSize /= 1.2f; // Restore original font size
+        coinText.fontSize /= 1.2f; // Ripristina la dimensione originale del font
     }
 }
+
+
