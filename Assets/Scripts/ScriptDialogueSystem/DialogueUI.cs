@@ -108,23 +108,15 @@ public class DialogueUI : MonoBehaviour
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "Malocchio")
         {
+            // Distruggi gli oggetti come prima
             Destroy(gameObject);
             Destroy(malocchio);
             Destroy(canvaTalk);
             portal.SetActive(true);
 
-            if (sceneName == "Malocchio" || sceneName == "Prima Prova" ||
-                sceneName == "Seconda Prova" || sceneName == "Terza Prova" ||
-                sceneName == "Quarta Prova" || sceneName == "Quinta Prova")
-            {
-                PlayBackgroundMusic();
-                Debug.Log("playing music");
-                musicPlaying = true;
-                DontDestroyOnLoad(audioSource.gameObject);
-            }
+            // Avvia la nuova musica di sottofondo
+            PlayBackgroundMusic();
         }
-
-
     }
 
     private void PlayNextDialogueSound()
@@ -139,28 +131,7 @@ public class DialogueUI : MonoBehaviour
     {
         if (backgroundMusicClip != null)
         {
-            Debug.Log("playing music 2");
-            audioSource.clip = backgroundMusicClip;
-            audioSource.loop = true;
-            audioSource.Play();
+            MusicPlayer.Instance.PlayNewBackgroundMusic(backgroundMusicClip);
         }
-    }
-
-    private void Update()
-    {
-        string sceneName = SceneManager.GetActiveScene().name;
-        if (musicPlaying && (sceneName != "Malocchio" || sceneName != "Prima Prova" ||
-            sceneName != "Seconda Prova" || sceneName != "Terza Prova" ||
-            sceneName != "Quarta Prova" || sceneName != "Quinta Prova"))
-        {
-            StopBackgroundMusic();
-        }
-    }
-
-    private void StopBackgroundMusic()
-    {
-        audioSource.Stop();
-        Destroy(audioSource.gameObject);
-        musicPlaying = false;
     }
 }

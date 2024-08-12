@@ -9,6 +9,7 @@ public class MusicPlayer : MonoBehaviour
     public AudioSource audioSource;      // The audio source to play clips from
     public AudioClip[] audioClips;       // The array of audio clips
     public float fadeDuration = 1.0f;    // Fade duration in seconds
+    public static bool isMalocchioMusicPlaying = false;
 
     private int currentClipIndex = 0;
 
@@ -39,15 +40,35 @@ public class MusicPlayer : MonoBehaviour
     {
         string sceneName = scene.name;
 
-        if (sceneName == "Malocchio" || sceneName == "Prima Prova" ||
-            sceneName == "Seconda Prova" || sceneName == "Terza Prova" ||
-            sceneName == "Quarta Prova" || sceneName == "Quinta Prova")
+        if (sceneName == "Malocchio")
         {
-            PauseMusic();
+            // Fermare la musica corrente
+            StopCurrentMusic();
+        }
+        else if (isMalocchioMusicPlaying && IsProvaScene(sceneName))
+        {
+            ResumeMusic();
         }
         else
         {
             ResumeMusic();
+        }
+    }
+
+    public void PlayNewBackgroundMusic(AudioClip newClip)
+    {
+        isMalocchioMusicPlaying = true;
+        audioSource.clip = newClip;
+        audioSource.loop = true;
+        audioSource.Play();
+        DontDestroyOnLoad(audioSource.gameObject);
+    }
+
+    private void StopCurrentMusic()
+    {
+        if (audioSource.isPlaying)
+        {
+            audioSource.Stop();
         }
     }
 
@@ -61,7 +82,7 @@ public class MusicPlayer : MonoBehaviour
 
     private void ResumeMusic()
     {
-        if (!audioSource.isPlaying)
+        if (!audioSource.isPlaying && !isMalocchioMusicPlaying)
         {
             audioSource.UnPause();
         }
@@ -69,7 +90,7 @@ public class MusicPlayer : MonoBehaviour
 
     private IEnumerator PlayNextClip()
     {
-        while (true)
+        while (!isMalocchioMusicPlaying)
         {
             audioSource.clip = audioClips[currentClipIndex];
             audioSource.Play();
@@ -114,5 +135,12 @@ public class MusicPlayer : MonoBehaviour
     private void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded; // Unregister scene change event
+    }
+
+    private bool IsProvaScene(string sceneName)
+    {
+        return sceneName == "Prima Prova" || sceneName == "Seconda Prova" ||
+               sceneName == "Terza Prova" || sceneName == "Quarta Prova" ||
+               sceneName == "Quinta Prova";
     }
 }
