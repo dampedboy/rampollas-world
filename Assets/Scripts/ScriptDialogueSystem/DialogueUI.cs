@@ -112,17 +112,19 @@ public class DialogueUI : MonoBehaviour
             Destroy(malocchio);
             Destroy(canvaTalk);
             portal.SetActive(true);
+
+            if (sceneName == "Malocchio" && sceneName == "Prima Prova" &&
+                sceneName == "Seconda Prova" && sceneName == "Terza Prova" &&
+                sceneName == "Quarta Prova" && sceneName == "Quinta Prova")
+            {
+                PlayBackgroundMusic();
+                Debug.Log("playing music");
+                musicPlaying = true;
+                DontDestroyOnLoad(audioSource.gameObject);
+            }
         }
 
-        if (sceneName != "Malocchio" && sceneName != "Prima Prova" &&
-            sceneName != "Seconda Prova" && sceneName != "Terza Prova" &&
-            sceneName != "Quarta Prova" && sceneName != "Quinta Prova")
-        {
-            PlayBackgroundMusic();
-            Debug.Log("playing music");
-            musicPlaying = true;
-            DontDestroyOnLoad(audioSource.gameObject);
-        }
+
     }
 
     private void PlayNextDialogueSound()
@@ -146,9 +148,9 @@ public class DialogueUI : MonoBehaviour
     private void Update()
     {
         string sceneName = SceneManager.GetActiveScene().name;
-        if (musicPlaying && (sceneName == "Malocchio" || sceneName == "Prima Prova" ||
-            sceneName == "Seconda Prova" || sceneName == "Terza Prova" ||
-            sceneName == "Quarta Prova" || sceneName == "Quinta Prova"))
+        if (musicPlaying && (sceneName != "Malocchio" || sceneName != "Prima Prova" ||
+            sceneName != "Seconda Prova" || sceneName != "Terza Prova" ||
+            sceneName != "Quarta Prova" || sceneName != "Quinta Prova"))
         {
             StopBackgroundMusic();
         }
