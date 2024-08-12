@@ -8,6 +8,9 @@ public class DialogueUI : MonoBehaviour
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private AudioClip nextDialogueClip; // Campo per l'audio clip
     [SerializeField] private AudioSource audioSource; // Campo per l'AudioSource
+    public GameObject malocchio; // Riferimento a Malocchio
+    public GameObject portal; // Riferimento all'oggetto Portal
+    public GameObject canvaTalk; // Riferimento all'oggetto canvaTalk
 
     public bool IsOpen { get; private set; }
 
@@ -17,6 +20,7 @@ public class DialogueUI : MonoBehaviour
 
     private void Start()
     {
+        portal.SetActive(false); // Rende il portale invisibile all'inizio
         typewriterEffect = GetComponent<TypewriterEffect>();
 
         // per le opzioni:
@@ -74,7 +78,7 @@ public class DialogueUI : MonoBehaviour
         }
         else
         {
-            CloseDialogueBox();
+            CloseDialogueBoxFinal();
         }
     }
 
@@ -100,6 +104,19 @@ public class DialogueUI : MonoBehaviour
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
     }
+
+    public void CloseDialogueBoxFinal()
+    {
+        IsOpen = false;
+        dialogueBox.SetActive(false);
+        textLabel.text = string.Empty;
+        Destroy(gameObject); // Distruggi l'oggetto chiave
+        Destroy(malocchio); // Distruggi l'oggetto Malocchio
+        Destroy(canvaTalk); // Distruggi l'oggetto canvaTalk
+
+        portal.SetActive(true); // Rendi il portale visibile
+    }
+
 
     // Funzione per riprodurre il suono next_dialogue
     private void PlayNextDialogueSound()
