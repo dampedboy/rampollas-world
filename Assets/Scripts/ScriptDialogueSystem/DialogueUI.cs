@@ -114,7 +114,7 @@ public class DialogueUI : MonoBehaviour
             Destroy(canvaTalk);
             portal.SetActive(true);
 
-            // Avvia la nuova musica di sottofondo
+            // Avvia la nuova musica di sottofondo per le scene delle prove
             PlayBackgroundMusic();
         }
     }

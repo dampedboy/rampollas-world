@@ -45,13 +45,21 @@ public class MusicPlayer : MonoBehaviour
             // Fermare la musica corrente
             StopCurrentMusic();
         }
-        else if (isMalocchioMusicPlaying && IsProvaScene(sceneName))
+        else if (IsProvaScene(sceneName))
         {
-            ResumeMusic();
+            if (!isMalocchioMusicPlaying)
+            {
+                StopCurrentMusic();
+                ResumeMusic();
+            }
         }
         else
         {
-            ResumeMusic();
+            if (!audioSource.isPlaying || isMalocchioMusicPlaying)
+            {
+                isMalocchioMusicPlaying = false;
+                StartCoroutine(PlayNextClip());
+            }
         }
     }
 
