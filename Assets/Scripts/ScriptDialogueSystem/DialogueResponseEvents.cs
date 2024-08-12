@@ -17,7 +17,7 @@ public class DialogueResponseEvents : MonoBehaviour
         if (dialogueObject.Responses == null) return;
         if (events != null && events.Length == dialogueObject.Responses.Length) return;
 
-        if (events ==  null)
+        if (events == null)
         {
             events = new ResponseEvent[dialogueObject.Responses.Length];
         }
@@ -37,7 +37,7 @@ public class DialogueResponseEvents : MonoBehaviour
                 continue;
             }
 
-            events[i] = new ResponseEvent() {name=response.ResponseText };
+            events[i] = new ResponseEvent() { name = response.ResponseText };
         }
     }
 }

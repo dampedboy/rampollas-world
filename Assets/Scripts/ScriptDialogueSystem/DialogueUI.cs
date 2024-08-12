@@ -1,6 +1,8 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
+
 
 public class DialogueUI : MonoBehaviour
 {
@@ -20,13 +22,17 @@ public class DialogueUI : MonoBehaviour
 
     private void Start()
     {
-        portal.SetActive(false); // Rende il portale invisibile all'inizio
+        if (SceneManager.GetActiveScene().name == "Malocchio")
+        {
+            portal.SetActive(false); // Rende il portale invisibile all'inizio
+        }
+            
         typewriterEffect = GetComponent<TypewriterEffect>();
 
         // per le opzioni:
         responseHandler = GetComponent<ResponseHandler>();
 
-        // Aggiungi il componente AudioSource se non è già assegnato
+        // Aggiungi il componente AudioSource se non ï¿½ giï¿½ assegnato
         if (audioSource == null)
         {
             audioSource = gameObject.AddComponent<AudioSource>();
@@ -110,11 +116,15 @@ public class DialogueUI : MonoBehaviour
         IsOpen = false;
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
-        Destroy(gameObject); // Distruggi l'oggetto chiave
-        Destroy(malocchio); // Distruggi l'oggetto Malocchio
-        Destroy(canvaTalk); // Distruggi l'oggetto canvaTalk
+        if (SceneManager.GetActiveScene().name == "Malocchio")
+        {
+            Destroy(gameObject); // Distruggi l'oggetto chiave
+            Destroy(malocchio); // Distruggi l'oggetto Malocchio
+            Destroy(canvaTalk); // Distruggi l'oggetto canvaTalk
 
-        portal.SetActive(true); // Rendi il portale visibile
+            portal.SetActive(true); // Rendi il portale visibile
+        }
+        
     }
 
 
