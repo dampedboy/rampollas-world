@@ -87,6 +87,9 @@ public class PlayerHealth : MonoBehaviour
 
     private void FallRespawn()
     {
+        // Imposta il flag di respawn
+        CoinManager.isRespawning = true;
+
         // Play damage sound
         if (damageSound != null && audioSource != null)
         {
@@ -114,7 +117,7 @@ public class PlayerHealth : MonoBehaviour
             if (gameOverSound != null && audioSource != null && !hasPlayedGameOverSound)
             {
                 audioSource.PlayOneShot(gameOverSound);
-                hasPlayedGameOverSound = true; // Segna il suono come già riprodotto
+                hasPlayedGameOverSound = true; // Segna il suono come giï¿½ riprodotto
             }
 
             // Blocca il gioco
