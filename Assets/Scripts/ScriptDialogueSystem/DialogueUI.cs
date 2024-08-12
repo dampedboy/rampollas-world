@@ -113,9 +113,9 @@ public class DialogueUI : MonoBehaviour
             Destroy(canvaTalk);
             portal.SetActive(true);
 
-            if (sceneName == "Malocchio" && sceneName == "Prima Prova" &&
-                sceneName == "Seconda Prova" && sceneName == "Terza Prova" &&
-                sceneName == "Quarta Prova" && sceneName == "Quinta Prova")
+            if (sceneName == "Malocchio" || sceneName == "Prima Prova" ||
+                sceneName == "Seconda Prova" || sceneName == "Terza Prova" ||
+                sceneName == "Quarta Prova" || sceneName == "Quinta Prova")
             {
                 PlayBackgroundMusic();
                 Debug.Log("playing music");
