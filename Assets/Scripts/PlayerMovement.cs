@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+   void Update()
 {
     bool isLaunching = false;
 
@@ -99,55 +99,72 @@ public class PlayerMovement : MonoBehaviour
 
     animator.SetBool("isLaunching", isLaunching);
 
-    if(Input.GetButtonDown("Fire1")||(Input.GetKeyDown(KeyCode.O)))
+   if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.O))
+{
+    bool perfectPosition = true;
+
+    if (keyAbsorber != null && !keyAbsorber.PerfectPosition)
     {
-        bool perfectPosition = true;
-
-        if (keyAbsorber != null && !keyAbsorber.PerfectPosition)
-        {
-            perfectPosition = false;
-        }
-        if (keyAbsorber2 != null && !keyAbsorber2.PerfectPosition)
-            {
-                perfectPosition = false;
-            }
-
-        if (obj4 != null && !obj4.PerfectPosition)
-        {
-            perfectPosition = false;
-        }
-
-        if (obj1 != null && !obj1.PerfectPosition)
-        {
-            perfectPosition = false;
-        }
-
-        if (obj2 != null && !obj2.PerfectPosition)
-        {
-            perfectPosition = false;
-        }
-
-        if (obj3 != null && !obj3.PerfectPosition)
-        {
-            perfectPosition = false;
-        }
-
-        if (!perfectPosition && isGrounded)
-        {
-            isAbsorbing = true;
-            animator.SetBool("isAbsorbing", true);
-            StartCoroutine(ResetAbsorbing());
-        }
+        perfectPosition = false;
+    }
+    if (keyAbsorber2 != null && !keyAbsorber2.PerfectPosition)
+    {
+        perfectPosition = false;
     }
 
-   if(Input.GetButtonUp("Fire1")||(Input.GetKeyUp(KeyCode.O)))
+    if (obj4 != null && !obj4.PerfectPosition)
+    {
+        perfectPosition = false;
+    }
+
+    if (obj1 != null && !obj1.PerfectPosition)
+    {
+        perfectPosition = false;
+    }
+
+    if (obj2 != null && !obj2.PerfectPosition)
+    {
+        perfectPosition = false;
+    }
+
+    if (obj3 != null && !obj3.PerfectPosition)
+    {
+        perfectPosition = false;
+    }
+
+    if (!perfectPosition && isGrounded)
+    {
+        isAbsorbing = true;
+        animator.SetBool("isAbsorbing", true);
+
+        // Crea il vortice istantaneamente
+        if (vortexPrefab != null && spawnPoint != null)
+        {
+            Vector3 spawnPosition = spawnPoint.position + offset;
+            Quaternion rotation = Quaternion.LookRotation(transform.forward) * Quaternion.Euler(0, 90, 90);
+            vortexInstance = Instantiate(vortexPrefab, spawnPosition, rotation);
+
+            if (assorbimento != null)
+            {
+                audioSource.PlayOneShot(assorbimento);
+            }
+
+            // Avvia la coroutine per rendere il tornado visibile dopo 0,3 secondi
+            StartCoroutine(MakeTornadoVisible(vortexInstance));
+        }
+    }
+}
+
+    if(Input.GetButtonUp("Fire1") || Input.GetKeyUp(KeyCode.O))
     {
         isAbsorbing = false;
         animator.SetBool("isAbsorbing", false);
+        
+        // Elimina il vortice immediatamente
         if (vortexInstance != null)
         {
             Destroy(vortexInstance);
-            vortexInstance = null; // Resetta il riferimento
+            vortexInstance = null;
         }
     }
 
@@ -251,7 +268,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 }
-
     public void Jump(float jumpForce)
     {
         ySpeed = Mathf.Sqrt(jumpForce * -2 * Physics.gravity.y * gravityMultiplier);
@@ -260,4 +276,24 @@ public class PlayerMovement : MonoBehaviour
         jumpButtonPressedTime = null;
         lastGroundedTime = null;
     }
+    private IEnumerator MakeTornadoVisible(GameObject tornado)
+{
+    // Imposta il tornado come invisibile disabilitando i componenti di rendering
+    SetTornadoVisibility(tornado, false);
+
+    // Attendi per 0,3 secondi
+    yield return new WaitForSeconds(0.3f);
+
+    // Rendi il tornado visibile
+    SetTornadoVisibility(tornado, true);
+}
+
+private void SetTornadoVisibility(GameObject tornado, bool visible)
+{
+    Renderer[] renderers = tornado.GetComponentsInChildren<Renderer>();
+    foreach (Renderer renderer in renderers)
+    {
+        renderer.enabled = visible;
+    }
+}
 }
