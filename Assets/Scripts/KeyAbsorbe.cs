@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class KeyAbsorber : MonoBehaviour
 {
-    public float moveSpeed = 4f; // Velocità di avvicinamento dell'oggetto
+    public float moveSpeed = 8f; // Velocità di avvicinamento dell'oggetto
     public float throwSpeed = 10f; // Velocità di lancio dell'oggetto
     public float maxDistance = 8f; // Distanza massima a cui può essere tenuto l'oggetto
     public Transform playerHead; // Posizione della testa del player
