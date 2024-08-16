@@ -1736,6 +1736,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e603a14512954ac49f343167b587074, type: 3}
       insertIndex: -1
       addedObject: {fileID: 549335582}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e603a14512954ac49f343167b587074, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 549335587}
     - targetCorrespondingSourceObject: {fileID: -1687626306933666848, guid: 7e603a14512954ac49f343167b587074, type: 3}
       insertIndex: -1
       addedObject: {fileID: 549335586}
@@ -1947,6 +1950,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &549335587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549335579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f59cb8baa240640a3919c612e83ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 6
+  throwSpeed: 10
+  maxDistance: 5
+  playerHead: {fileID: 922338051}
+  player: {fileID: 2040918436}
+  risucchio: {fileID: 249622506}
+  assorbimento: {fileID: 0}
+  isThrown: 0
+  isLaunching: 0
+  PerfectPosition: 0
 --- !u!1001 &558915484
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6092,7 +6117,7 @@ MonoBehaviour:
   vortexPrefab: {fileID: 249622506}
   offset: {x: 0.25, y: -1.1, z: 0}
   assorbimento: {fileID: 8300000, guid: 5124ec37d6f90364fb598c775e218264, type: 3}
-  keyAbsorber: {fileID: 549335585}
+  keyAbsorber: {fileID: 549335587}
   keyAbsorber2: {fileID: 0}
   obj1: {fileID: 841428652}
   obj2: {fileID: 0}
