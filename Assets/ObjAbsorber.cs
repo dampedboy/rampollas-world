@@ -17,10 +17,13 @@ public class ObjAbsorber : MonoBehaviour
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
     public bool isThrown = false; // Indica se l'oggetto è stato lanciato
     private AudioSource audioSource; // Componente AudioSource
-    public bool isLaunching = false; // serve per far partire l animazione di lancio
+    public bool isLaunching = false; // Serve per far partire l'animazione di lancio
     public bool PerfectPosition = false; // Indica se l'oggetto risucchiato ha raggiunto correttamente lo sphere empty
 
     private Rigidbody rb; // Componente Rigidbody
+
+    // Variabile statica per tenere traccia dell'oggetto attualmente assorbito
+    private static ObjAbsorber currentAbsorbedObject = null;
 
     void Start()
     {
@@ -30,79 +33,79 @@ public class ObjAbsorber : MonoBehaviour
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; // Imposta il modo di rilevamento delle collisioni
         rb.isKinematic = true;
     }
+
     private IEnumerator Absorbing()
     {
         yield return new WaitForSeconds(0.3f);
-          transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
     }
+
     void Update()
     {
         isInRange = Vector3.Distance(transform.position, player.position) <= maxDistance;
-          targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
-    
-        // Controlla se il player è nel range dell'oggetto e ha premuto il tasto O
-        if (isInRange && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire1")) && !isHoldingObject && (CompareTag("Glass")||CompareTag("Wood")||CompareTag("Metal")||CompareTag("Dynamite")))
-        {
-            // Se non sta già tenendo l'oggetto, avvicinalo al player
-            isHoldingObject = true;
-             rb.isKinematic = true;
+        targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
 
+        // Controlla se il player è nel range dell'oggetto e ha premuto il tasto O
+        if (isInRange && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire1")) && !isHoldingObject && (CompareTag("Glass") || CompareTag("Wood") || CompareTag("Metal") || CompareTag("Dynamite")))
+        {
+            // Se non sta già tenendo l'oggetto e nessun altro oggetto è attualmente assorbito
+            if (currentAbsorbedObject == null)
+            {
+                isHoldingObject = true;
+                rb.isKinematic = true;
+                currentAbsorbedObject = this; // Imposta questo oggetto come l'oggetto attualmente assorbito
+            }
         }
 
         // Se stiamo tenendo l'oggetto, muovilo lentamente verso il player
         if (isHoldingObject)
         {
-         
             // Usa Lerp per muovere gradualmente l'oggetto verso la posizione target
-              if (PerfectPosition == false){
-                 StartCoroutine(Absorbing());
-              
+            if (!PerfectPosition)
+            {
+                StartCoroutine(Absorbing());
             }
+
             // Se l'oggetto è abbastanza vicino alla testa del player, impostalo esattamente lì
             if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
             {
                 transform.position = targetPosition;
                 PerfectPosition = true;
-                    }
+            }
 
             // Mantieni l'oggetto sopra la testa del player mentre si muove
-           if(PerfectPosition)
-            transform.position = playerHead.position;
+            if (PerfectPosition)
+                transform.position = playerHead.position;
 
             // Controlla se il player ha premuto il tasto P per lanciare l'oggetto
-            if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2") )
+            if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2"))
             {
                 StartCoroutine(LaunchRoutine());
                 Vector3 throwDirection = player.forward.normalized;
                 StartCoroutine(ThrowObject(throwDirection));
-                
-
             }
         }
     }
 
     private IEnumerator ThrowObject(Vector3 direction)
     {
-         yield return new WaitForSeconds(0.4f);  
-                isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
-                PerfectPosition = false;
-                isThrown = true;
-                // Rende il Rigidbody non kinematic quando viene lanciato
-                if (rb != null)
-                {
-                    rb.isKinematic = false;
-                    rb.velocity = direction * throwSpeed; // Imposta la velocità del lancio
-                }    
-        float elapsedTime = 0f;
-        while (elapsedTime < 1f)
+        yield return new WaitForSeconds(0.4f);
+        isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
+        PerfectPosition = false;
+        isThrown = true;
+
+        // Rende il Rigidbody non kinematic quando viene lanciato
+        if (rb != null)
         {
-            transform.position += direction * throwSpeed * Time.deltaTime;
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            rb.isKinematic = false;
+            rb.velocity = direction * throwSpeed; // Imposta la velocità del lancio
         }
+
+        // Resetta la variabile statica dell'oggetto assorbito
+        currentAbsorbedObject = null;
     }
 
-  private IEnumerator LaunchRoutine()
+    private IEnumerator LaunchRoutine()
     {
         yield return new WaitForSeconds(0.3f);
         isLaunching = true;
