@@ -21,7 +21,7 @@ public class WoodBlock : MonoBehaviour
 
     private bool IsAbsorbedMetal(GameObject otherObject)
     {
-        ObjAbsorbeMetal metalScript = otherObject.GetComponent<ObjAbsorbeMetal>();
+        ObjAbsorber metalScript = otherObject.GetComponent<ObjAbsorber>();
         return metalScript != null && metalScript.isThrown;
     }
 

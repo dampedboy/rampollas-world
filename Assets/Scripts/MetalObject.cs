@@ -23,7 +23,7 @@ public class MetalObject : MonoBehaviour
 
     private bool IsAbsorbedMetal()
     {
-        ObjAbsorbeMetal metalScript = GetComponent<ObjAbsorbeMetal>();
+        ObjAbsorber metalScript = GetComponent<ObjAbsorber>();
         return metalScript != null && metalScript.isThrown;
     }
 }

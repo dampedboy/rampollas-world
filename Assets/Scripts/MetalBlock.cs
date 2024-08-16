@@ -29,7 +29,7 @@ public class MetalBlock : MonoBehaviour
         if (canCollide && otherObject.CompareTag("Metal"))
         {
             // Ottieni lo script ObjAbsorbeMetal dall'oggetto che ha causato la collisione
-            ObjAbsorbeMetal metalScript = otherObject.GetComponent<ObjAbsorbeMetal>();
+            ObjAbsorber metalScript = otherObject.GetComponent<ObjAbsorber>();
 
             // Controlla se l'oggetto di metallo è stato avvicinato al player
             if (metalScript != null && metalScript.isThrown)
