@@ -21,7 +21,7 @@ public class KeyMalocchioAbsorber : MonoBehaviour
 
     void Start()
     {
-        initialPosition = transform.position; // Memorizza la posizione iniziale dell'oggetto        
+           
         rb = GetComponent<Rigidbody>(); // Ottiene il componente Rigidbody
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; // Imposta il modo di rilevamento delle collisioni
         rb.isKinematic = true;
@@ -31,82 +31,9 @@ public class KeyMalocchioAbsorber : MonoBehaviour
        
     }
 
-    private IEnumerator Absorbing()
-    {
-        yield return new WaitForSeconds(0.3f);
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
-    }
+    
 
-    void Update()
-    {
-        isInRange = Vector3.Distance(transform.position, player.position) <= maxDistance;
-        targetPosition = playerHead.position;
-
-        // Controlla se il player è nel range dell'oggetto e ha premuto il tasto O o il pulsante Fire1
-        if (isInRange && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire1")) && !isHoldingObject && CompareTag("Key"))
-        {
-            isHoldingObject = true; // Imposta la posizione target come la testa del player
-            rb.isKinematic = true; // Rende il Rigidbody kinematic mentre si avvicina al player
-        }
-
-        // Se stiamo tenendo l'oggetto, muovilo lentamente verso il player
-        if (isHoldingObject)
-        {
-            if (!PerfectPosition)
-            {
-                StartCoroutine(Absorbing());
-            }
-
-            // Se l'oggetto è abbastanza vicino alla testa del player, impostalo esattamente lì
-            if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
-            {
-                transform.position = targetPosition;
-                PerfectPosition = true;
-            }
-
-            // Mantieni l'oggetto sopra la testa del player mentre si muove
-            if (PerfectPosition)
-            {
-                transform.position = playerHead.position;
-            }
-
-            // Controlla se il player ha premuto il tasto P o il pulsante Fire2 per lanciare l'oggetto
-            if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2"))
-            {
-                StartCoroutine(LaunchRoutine());
-                Vector3 throwDirection = player.forward.normalized;
-                StartCoroutine(ThrowObject(throwDirection));
-            }
-        }
-    }
-
-    private IEnumerator ThrowObject(Vector3 direction)
-    {
-        yield return new WaitForSeconds(0.4f);
-        isHoldingObject = false; // L'oggetto viene lanciato, non lo stiamo più tenendo
-        PerfectPosition = false;
-
-        if (rb != null)
-        {
-            rb.isKinematic = false;
-            rb.velocity = direction * throwSpeed; // Imposta la velocità del lancio
-        }
-
-        float elapsedTime = 0f;
-        while (elapsedTime < 1f)
-        {
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-    }
-
-    private IEnumerator LaunchRoutine()
-    {
-        yield return new WaitForSeconds(0.3f);
-        isLaunching = true;
-        yield return new WaitForSeconds(0.3f);
-        isLaunching = false;
-    }
+    
 
     void OnTriggerEnter(Collider other)
     {

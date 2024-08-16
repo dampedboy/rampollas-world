@@ -2162,7 +2162,7 @@ MonoBehaviour:
   offset: {x: 0.25, y: -1.1, z: 0}
   assorbimento: {fileID: 8300000, guid: 5124ec37d6f90364fb598c775e218264, type: 3}
   keyAbsorber: {fileID: 0}
-  keyAbsorber2: {fileID: 1774049545}
+  keyAbsorber2: {fileID: 1774049550}
   obj1: {fileID: 1979057100}
   obj2: {fileID: 1653036734}
   obj3: {fileID: 240571318}
@@ -5157,7 +5157,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Heavy (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1642942822079981425, guid: 49407ca82b8884e95b2b9b203c510974, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -5185,7 +5186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f59cb8baa240640a3919c612e83ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 6
   throwSpeed: 10
   maxDistance: 5
   playerHead: {fileID: 0}
@@ -5437,6 +5438,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e603a14512954ac49f343167b587074, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1774049545}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e603a14512954ac49f343167b587074, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1774049550}
     - targetCorrespondingSourceObject: {fileID: -1687626306933666848, guid: 7e603a14512954ac49f343167b587074, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1774049549}
@@ -5644,6 +5648,28 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1774049550
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774049543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f59cb8baa240640a3919c612e83ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 6
+  throwSpeed: 10
+  maxDistance: 5
+  playerHead: {fileID: 0}
+  player: {fileID: 0}
+  risucchio: {fileID: 0}
+  assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
+  isThrown: 0
+  isLaunching: 0
+  PerfectPosition: 0
 --- !u!1 &1797591838
 GameObject:
   m_ObjectHideFlags: 0
@@ -5834,7 +5860,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Heavy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1642942822079981425, guid: 49407ca82b8884e95b2b9b203c510974, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -5862,7 +5889,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8f59cb8baa240640a3919c612e83ef9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 4
+  moveSpeed: 6
   throwSpeed: 10
   maxDistance: 5
   playerHead: {fileID: 0}

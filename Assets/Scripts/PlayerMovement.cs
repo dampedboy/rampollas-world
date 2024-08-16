@@ -31,8 +31,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 initialVortexPosition;
     public AudioClip assorbimento; // Audio clip per il suono di assorbimento
 
-    public KeyAbsorber keyAbsorber; // Riferimento al KeyAbsorber
-    public KeyMalocchioAbsorber keyAbsorber2; // Riferimento al KeyAbsorber
+    public ObjAbsorber keyAbsorber; // Riferimento al KeyAbsorber
+    public ObjAbsorber keyAbsorber2; // Riferimento al KeyAbsorber
     public ObjAbsorber obj1; // riferimento agli oggetti di legno 
     public ObjAbsorber obj2; // riferimento agli oggetti di vetro 
     public ObjAbsorber obj3; // riferimento agli oggetti di metallo

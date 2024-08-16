@@ -1730,7 +1730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
-  throwSpeed: 10
+  throwSpeed: 20
   maxDistance: 5
   playerHead: {fileID: 1144478123}
   player: {fileID: 1480269514}
@@ -2618,6 +2618,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e603a14512954ac49f343167b587074, type: 3}
       insertIndex: -1
       addedObject: {fileID: 742397444}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e603a14512954ac49f343167b587074, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 742397450}
     - targetCorrespondingSourceObject: {fileID: -1687626306933666848, guid: 7e603a14512954ac49f343167b587074, type: 3}
       insertIndex: -1
       addedObject: {fileID: 742397448}
@@ -2829,6 +2832,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7e603a14512954ac49f343167b587074, type: 3}
   m_PrefabInstance: {fileID: 742397441}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &742397450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 742397442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f59cb8baa240640a3919c612e83ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 6
+  throwSpeed: 10
+  maxDistance: 5
+  playerHead: {fileID: 1144478123}
+  player: {fileID: 1480269514}
+  risucchio: {fileID: 1737259191}
+  assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
+  isThrown: 0
+  isLaunching: 0
+  PerfectPosition: 0
 --- !u!1 &756629960 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6bc427fe4638a49adb8b793b1071344b, type: 3}
@@ -5237,7 +5262,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 6
-  throwSpeed: 10
+  throwSpeed: 20
   maxDistance: 8
   playerHead: {fileID: 1144478123}
   player: {fileID: 1480269514}
@@ -6330,7 +6355,7 @@ MonoBehaviour:
   vortexPrefab: {fileID: 1737259191}
   offset: {x: 0.25, y: -1.1, z: 0}
   assorbimento: {fileID: 8300000, guid: 5124ec37d6f90364fb598c775e218264, type: 3}
-  keyAbsorber: {fileID: 742397447}
+  keyAbsorber: {fileID: 742397450}
   keyAbsorber2: {fileID: 0}
   obj1: {fileID: 1359607503}
   obj2: {fileID: 487328400}
