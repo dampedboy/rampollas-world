@@ -1,18 +1,23 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections; // Importa lo spazio dei nomi per le coroutine
+using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
     public int startingLives = 3;
-    public int maxLives = 6;
+    int maxLives = 4;
     static public int currentLives;
     static private bool isInitialized = false;
     public Transform respawnPoint;
-    public GameObject[] hearts;
-    public GameObject gameOverCanvas; // Cambiato da TMP_Text a GameObject
+    public GameObject gameOverCanvas;
     public float fallThreshold = -10f;
     private bool hasRespawned = false;
+
+    // Immagini per le vite
+    public GameObject cuore1;
+    public GameObject cuore2;
+    public GameObject cuore3;
+    public GameObject cuore4;
 
     // Audio variables
     public AudioClip damageSound;
@@ -29,7 +34,8 @@ public class PlayerHealth : MonoBehaviour
             isInitialized = true;
         }
 
-        UpdateHearts();
+        UpdateHeartsDisplay();
+
         if (gameOverCanvas != null)
         {
             gameOverCanvas.SetActive(false); // Disattiva il Canvas all'inizio
@@ -52,11 +58,29 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    private void UpdateHearts()
+    private void UpdateHeartsDisplay()
     {
-        for (int i = 0; i < hearts.Length; i++)
+        // Disattiva tutte le immagini
+        cuore1.SetActive(false);
+        cuore2.SetActive(false);
+        cuore3.SetActive(false);
+        cuore4.SetActive(false);
+
+        // Attiva l'immagine corrispondente al numero di vite
+        switch (currentLives)
         {
-            hearts[i].SetActive(i < currentLives);
+            case 1:
+                cuore1.SetActive(true);
+                break;
+            case 2:
+                cuore2.SetActive(true);
+                break;
+            case 3:
+                cuore3.SetActive(true);
+                break;
+            case 4:
+                cuore4.SetActive(true);
+                break;
         }
     }
 
@@ -64,7 +88,7 @@ public class PlayerHealth : MonoBehaviour
     {
         currentLives--;
         PlayerPrefs.SetInt("PlayerLives", currentLives);
-        UpdateHearts();
+        UpdateHeartsDisplay();
         if (currentLives <= 0)
         {
             GameOver();
@@ -97,7 +121,7 @@ public class PlayerHealth : MonoBehaviour
         }
         currentLives--;
         PlayerPrefs.SetInt("PlayerLives", currentLives);
-        UpdateHearts();
+        UpdateHeartsDisplay();
         if (currentLives <= 0)
         {
             GameOver();
@@ -117,7 +141,7 @@ public class PlayerHealth : MonoBehaviour
             if (gameOverSound != null && audioSource != null && !hasPlayedGameOverSound)
             {
                 audioSource.PlayOneShot(gameOverSound);
-                hasPlayedGameOverSound = true; // Segna il suono come gi� riprodotto
+                hasPlayedGameOverSound = true; // Segna il suono come già riprodotto
             }
 
             // Blocca il gioco
@@ -134,7 +158,7 @@ public class PlayerHealth : MonoBehaviour
         // Resetta le vite e aggiorna l'interfaccia
         currentLives = startingLives;
         PlayerPrefs.SetInt("PlayerLives", currentLives);
-        UpdateHearts();
+        UpdateHeartsDisplay();
 
         // Resetta la variabile del suono di game over
         hasPlayedGameOverSound = false;
@@ -148,7 +172,6 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.CompareTag("Projectile") ||  other.CompareTag("Spuntoni")) 
         if (other.CompareTag("Spuntoni"))
         {
             TakeDamage();
@@ -166,7 +189,7 @@ public class PlayerHealth : MonoBehaviour
         {
             currentLives++;
             PlayerPrefs.SetInt("PlayerLives", currentLives);
-            UpdateHearts();
+            UpdateHeartsDisplay();
         }
         else
         {
