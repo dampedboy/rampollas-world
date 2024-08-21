@@ -375,6 +375,42 @@ MonoBehaviour:
   - {fileID: 21300000, guid: d1296dac151b64581921808041d4f9f3, type: 3}
   - {fileID: 21300000, guid: e4b0ec1ea1c28494b94d133b8efc31cc, type: 3}
   interactionDistance: 3
+--- !u!114 &162802150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162802148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96321a031ab5d7640bff5bac8e038e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawn: {fileID: 919132149155446097, guid: 013c0acf29c8d364e9d584eaa8edffef, type: 3}
+  spawnHeight: 2
+  animationDuration: 0.5
+--- !u!135 &162802154
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162802148}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.025
+  m_Center: {x: 2.3283064e-10, y: 1.3028095e-23, z: 0.000000001833541}
 --- !u!1 &216386423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,11 +2601,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingLives: 3
-  maxLives: 6
   respawnPoint: {fileID: 0}
-  hearts: []
   gameOverCanvas: {fileID: 0}
   fallThreshold: -10
+  cuore1: {fileID: 0}
+  cuore2: {fileID: 0}
+  cuore3: {fileID: 0}
+  cuore4: {fileID: 0}
   damageSound: {fileID: 8300000, guid: 92afee33c890e4a46a1856337322a397, type: 3}
   gameOverSound: {fileID: 8300000, guid: 86b67b19185911b43a09cecab57740af, type: 3}
 --- !u!82 &958934151
@@ -2892,6 +2930,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a5f70aab4b2a4d24aab5cfce086ef3b7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 162802149}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a5f70aab4b2a4d24aab5cfce086ef3b7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 162802150}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a5f70aab4b2a4d24aab5cfce086ef3b7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 162802154}
   m_SourcePrefab: {fileID: 100100000, guid: a5f70aab4b2a4d24aab5cfce086ef3b7, type: 3}
 --- !u!1001 &1135397580
 PrefabInstance:

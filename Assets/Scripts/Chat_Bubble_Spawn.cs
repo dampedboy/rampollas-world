@@ -26,21 +26,19 @@ public class Chat_Bubble_Spawn : MonoBehaviour
             }
         }
     }
-
-    // Metodo per spawnare l'oggetto
-    private void SpawnObject()
+private void SpawnObject()
+{
+    if (objectToSpawn == null)
     {
-        if (objectToSpawn == null)
-        {
-            Debug.LogError("Object to spawn is not assigned.");
-            return;
-        }
-
-        Vector3 spawnPosition = transform.position + new Vector3(0, spawnHeight, 0);
-        Quaternion spawnRotation = Quaternion.Euler(0, 90, 0); // Rotazione di 90 gradi sull'asse x
-        spawnedObject = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
-        StartCoroutine(AnimateScale(spawnedObject));
+        Debug.LogError("Object to spawn is not assigned.");
+        return;
     }
+
+    Vector3 spawnPosition = transform.position + new Vector3(0, spawnHeight, 0);
+    Quaternion spawnRotation = Quaternion.Euler(0, 270, 0); // Rotazione di 180 gradi sull'asse Y
+    spawnedObject = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
+    StartCoroutine(AnimateScale(spawnedObject));
+}
 
     // Coroutine per animare l'ingrandimento dell'oggetto
     private IEnumerator AnimateScale(GameObject obj)
