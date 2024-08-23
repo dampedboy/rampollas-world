@@ -25,6 +25,13 @@ public class ObjAbsorber : MonoBehaviour
     // Variabile statica per tenere traccia dell'oggetto attualmente assorbito
     private static ObjAbsorber currentAbsorbedObject = null;
 
+    public GameObject empty;
+    public GameObject key;
+    public GameObject dynamite;
+    public GameObject metal;
+    public GameObject glass;
+    public GameObject wood;
+
     void Start()
     {
         initialPosition = transform.position; // Memorizza la posizione iniziale dell'oggetto
@@ -32,6 +39,9 @@ public class ObjAbsorber : MonoBehaviour
         rb = GetComponent<Rigidbody>(); // Ottiene il componente Rigidbody
         rb.collisionDetectionMode = CollisionDetectionMode.ContinuousDynamic; // Imposta il modo di rilevamento delle collisioni
         rb.isKinematic = true;
+
+        // All'inizio della scena, solo "empty" è attivo
+        SetActiveGameObject(empty);
     }
 
     private IEnumerator Absorbing()
@@ -54,6 +64,18 @@ public class ObjAbsorber : MonoBehaviour
                 isHoldingObject = true;
                 rb.isKinematic = true;
                 currentAbsorbedObject = this; // Imposta questo oggetto come l'oggetto attualmente assorbito
+
+                // Imposta la visibilità degli oggetti in base al tag dell'oggetto assorbito
+                if (CompareTag("Metal"))
+                    SetActiveGameObject(metal);
+                else if (CompareTag("Wood"))
+                    SetActiveGameObject(wood);
+                else if (CompareTag("Glass"))
+                    SetActiveGameObject(glass);
+                else if (CompareTag("Dynamite"))
+                    SetActiveGameObject(dynamite);
+                else if (CompareTag("Key"))
+                    SetActiveGameObject(key);
             }
         }
 
@@ -103,6 +125,9 @@ public class ObjAbsorber : MonoBehaviour
 
         // Resetta la variabile statica dell'oggetto assorbito
         currentAbsorbedObject = null;
+
+        // Riporta la visibilità a "empty" quando l'oggetto viene lanciato
+        SetActiveGameObject(empty);
     }
 
     private IEnumerator LaunchRoutine()
@@ -118,5 +143,16 @@ public class ObjAbsorber : MonoBehaviour
         // Disegna il range di interazione come una sfera rossa quando il player è nel range
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, maxDistance);
+    }
+
+    // Funzione helper per gestire la visibilità dei GameObject
+    private void SetActiveGameObject(GameObject activeGameObject)
+    {
+        empty.SetActive(activeGameObject == empty);
+        metal.SetActive(activeGameObject == metal);
+        wood.SetActive(activeGameObject == wood);
+        glass.SetActive(activeGameObject == glass);
+        dynamite.SetActive(activeGameObject == dynamite);
+        key.SetActive(activeGameObject == key);
     }
 }

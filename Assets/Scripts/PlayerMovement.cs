@@ -38,13 +38,10 @@ public class PlayerMovement : MonoBehaviour
     public ObjAbsorber obj3; // riferimento agli oggetti di metallo
     public ObjAbsorber obj4; // riferimento agli oggetti di metallo
 
-    // GameObjects da mostrare/nascondere
-    public GameObject empty;
-    public GameObject key;
-    public GameObject dynamite;
-    public GameObject metal;
-    public GameObject glass;
-    public GameObject wood;
+
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -53,14 +50,6 @@ public class PlayerMovement : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         originalStepOffset = characterController.stepOffset;
         audioSource = GetComponent<AudioSource>(); // Carica il componente AudioSource
-
-        // Inizialmente mostra solo l'oggetto 'empty'
-        SetObjectVisibility(empty, true);
-        SetObjectVisibility(key, false);
-        SetObjectVisibility(dynamite, false);
-        SetObjectVisibility(metal, false);
-        SetObjectVisibility(glass, false);
-        SetObjectVisibility(wood, false);
     }
 
     private IEnumerator ResetAbsorbing()
@@ -78,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
 
     // Update is called once per frame
     void Update()
@@ -165,32 +155,6 @@ public class PlayerMovement : MonoBehaviour
 
                     // Avvia la coroutine per rendere il tornado visibile dopo 0,3 secondi
                     StartCoroutine(MakeTornadoVisible(vortexInstance));
-                }
-
-                // Controlla quale oggetto è stato assorbito e aggiorna la visibilità dei GameObject
-                if (keyAbsorber.PerfectPosition && keyAbsorber.CompareTag("Key"))
-                {
-                    SetObjectVisibility(key, true);
-                }
-                else if (keyAbsorber2.PerfectPosition && keyAbsorber2.CompareTag("Dynamite"))
-                {
-                    SetObjectVisibility(dynamite, true);
-                }
-                else if (obj4.PerfectPosition && obj4.CompareTag("Metal"))
-                {
-                    SetObjectVisibility(metal, true);
-                }
-                else if (obj1.PerfectPosition && obj1.CompareTag("Wood"))
-                {
-                    SetObjectVisibility(wood, true);
-                }
-                else if (obj2.PerfectPosition && obj2.CompareTag("Glass"))
-                {
-                    SetObjectVisibility(glass, true);
-                }
-                else if (obj3.PerfectPosition && obj3.CompareTag("Metal"))
-                {
-                    SetObjectVisibility(metal, true);
                 }
             }
         }
@@ -309,7 +273,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
     public void Jump(float jumpForce)
     {
         ySpeed = Mathf.Sqrt(jumpForce * -2 * Physics.gravity.y * gravityMultiplier);
@@ -318,7 +281,6 @@ public class PlayerMovement : MonoBehaviour
         jumpButtonPressedTime = null;
         lastGroundedTime = null;
     }
-
     private IEnumerator MakeTornadoVisible(GameObject tornado)
     {
         // Imposta il tornado come invisibile disabilitando i componenti di rendering
@@ -337,14 +299,6 @@ public class PlayerMovement : MonoBehaviour
         foreach (Renderer renderer in renderers)
         {
             renderer.enabled = visible;
-        }
-    }
-
-    private void SetObjectVisibility(GameObject obj, bool visible)
-    {
-        if (obj != null)
-        {
-            obj.SetActive(visible);
         }
     }
 }
