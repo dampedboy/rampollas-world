@@ -5,7 +5,7 @@ public class Chat_Bubble_Spawn : MonoBehaviour
 {
     [SerializeField] private GameObject objectToSpawn; // L'oggetto prefab da spawnare
     [SerializeField] private float spawnHeight = 3.0f; // Altezza a cui spawnare l'oggetto
-    [SerializeField] private float animationDuration = 1.0f; // Durata dell'animazione di ingrandimento
+    [SerializeField] private float animationDuration = 0.5f; // Durata dell'animazione di ingrandimento
     private GameObject spawnedObject; // Riferimento all'oggetto istanziato
 
     private void OnTriggerEnter(Collider other)
