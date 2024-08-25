@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isAbsorbing = false; // Variabile per lo stato di assorbimento
     public Transform spawnPoint; // Riferimento al Transform del tappo
     public GameObject vortexPrefab; // Il prefab del vortice
-    public Vector3 offset;
+    private Vector3 offset = new Vector3(0.25f, -0.8f, 0f);
     private GameObject vortexInstance;
     private Vector3 initialVortexPosition;
     public AudioClip assorbimento; // Audio clip per il suono di assorbimento
@@ -54,7 +54,7 @@ public class PlayerMovement : MonoBehaviour
 
     private IEnumerator ResetAbsorbing()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.4f);
         if (vortexPrefab != null && spawnPoint != null)
         {
             Vector3 spawnPosition = spawnPoint.position + offset;
