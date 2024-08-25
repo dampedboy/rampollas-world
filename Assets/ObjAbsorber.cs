@@ -16,6 +16,7 @@ public class ObjAbsorber : MonoBehaviour
     private bool isHoldingObject = false; // Indica se il player sta tenendo l'oggetto
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
     public bool isThrown = false; // Indica se l'oggetto è stato lanciato
+    [SerializeField] private Chat_Bubble_Spawn chatBubbleScript;
     private AudioSource audioSource; // Componente AudioSource
     public bool isLaunching = false; // Serve per far partire l'animazione di lancio
     public bool PerfectPosition = false; // Indica se l'oggetto risucchiato ha raggiunto correttamente lo sphere empty
@@ -32,6 +33,8 @@ public class ObjAbsorber : MonoBehaviour
     public GameObject glass;
     public GameObject wood;
 
+    // Riferimento allo script Chat_Bubble_Spawn
+    
     void Start()
     {
         initialPosition = transform.position; // Memorizza la posizione iniziale dell'oggetto
@@ -42,13 +45,20 @@ public class ObjAbsorber : MonoBehaviour
 
         // All'inizio della scena, solo "empty" è attivo
         SetActiveGameObject(empty);
-    }
+        
 
-    private IEnumerator Absorbing()
+        // Assicurati che il riferimento allo script Chat_Bubble_Spawn sia assegnato
+        if (chatBubbleScript == null)
+        {
+            Debug.LogError("Chat_Bubble_Spawn script reference not set in ObjAbsorber.");
+        }
+    }
+      private IEnumerator Absorbing()
     {
         yield return new WaitForSeconds(0.3f);
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
     }
+
 
     void Update()
     {
@@ -65,6 +75,12 @@ public class ObjAbsorber : MonoBehaviour
                 rb.isKinematic = true;
                 currentAbsorbedObject = this; // Imposta questo oggetto come l'oggetto attualmente assorbito
 
+                // Distruggi la chat bubble quando l'oggetto viene risucchiato
+                if (chatBubbleScript != null)
+                {
+                    chatBubbleScript.DestroyChatBubble();
+                }
+
                 // Imposta la visibilità degli oggetti in base al tag dell'oggetto assorbito
                 if (CompareTag("Metal"))
                     SetActiveGameObject(metal);
@@ -78,6 +94,7 @@ public class ObjAbsorber : MonoBehaviour
                     SetActiveGameObject(key);
             }
         }
+
 
         // Se stiamo tenendo l'oggetto, muovilo lentamente verso il player
         if (isHoldingObject)
@@ -155,4 +172,6 @@ public class ObjAbsorber : MonoBehaviour
         dynamite.SetActive(activeGameObject == dynamite);
         key.SetActive(activeGameObject == key);
     }
+    
 }
+

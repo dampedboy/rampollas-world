@@ -1,12 +1,20 @@
 using System.Collections;
 using UnityEngine;
-
 public class Chat_Bubble_Spawn : MonoBehaviour
 {
     [SerializeField] private GameObject objectToSpawn; // L'oggetto prefab da spawnare
     [SerializeField] private float spawnHeight = 3.0f; // Altezza a cui spawnare l'oggetto
     [SerializeField] private float animationDuration = 0.5f; // Durata dell'animazione di ingrandimento
     private GameObject spawnedObject; // Riferimento all'oggetto istanziato
+
+    // Il metodo per distruggere la chat bubble
+    public void DestroyChatBubble()
+    {
+        if (spawnedObject != null)
+        {
+            StartCoroutine(AnimateScaleDownAndDestroy(spawnedObject));
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,25 +28,23 @@ public class Chat_Bubble_Spawn : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (spawnedObject != null)
-            {
-                StartCoroutine(AnimateScaleDownAndDestroy(spawnedObject));
-            }
+            DestroyChatBubble();
         }
     }
-private void SpawnObject()
-{
-    if (objectToSpawn == null)
-    {
-        Debug.LogError("Object to spawn is not assigned.");
-        return;
-    }
 
-    Vector3 spawnPosition = transform.position + new Vector3(0, spawnHeight, 0);
-    Quaternion spawnRotation = Quaternion.Euler(0, 270, 0); // Rotazione di 180 gradi sull'asse Y
-    spawnedObject = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
-    StartCoroutine(AnimateScale(spawnedObject));
-}
+    private void SpawnObject()
+    {
+        if (objectToSpawn == null)
+        {
+            Debug.LogError("Object to spawn is not assigned.");
+            return;
+        }
+
+        Vector3 spawnPosition = transform.position + new Vector3(0, spawnHeight, 0);
+        Quaternion spawnRotation = Quaternion.Euler(0, 270, 0); // Rotazione di 180 gradi sull'asse Y
+        spawnedObject = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
+        StartCoroutine(AnimateScale(spawnedObject));
+    }
 
     // Coroutine per animare l'ingrandimento dell'oggetto
     private IEnumerator AnimateScale(GameObject obj)
