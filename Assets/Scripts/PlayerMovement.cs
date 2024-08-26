@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isLaunching", isLaunching);
 
         // Aspirazione/sputo con pulsante sinistro
-        if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.O)) // Cambia "Fire2" con l'azione che vuoi utilizzare per il pulsante sinistro
+        if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.O)) 
         {
             bool perfectPosition = true;
 

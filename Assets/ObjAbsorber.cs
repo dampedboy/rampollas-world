@@ -66,7 +66,7 @@ public class ObjAbsorber : MonoBehaviour
         targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
 
         // Controlla se il player è nel range dell'oggetto e ha premuto il tasto O
-        if (isInRange && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire1")) && !isHoldingObject && (CompareTag("Glass") || CompareTag("Wood") || CompareTag("Metal") || CompareTag("Dynamite") || CompareTag("Key")))
+        if (isInRange && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3")) && !isHoldingObject && (CompareTag("Glass") || CompareTag("Wood") || CompareTag("Metal") || CompareTag("Dynamite") || CompareTag("Key")))
         {
             // Se non sta già tenendo l'oggetto e nessun altro oggetto è attualmente assorbito
             if (currentAbsorbedObject == null)
@@ -117,7 +117,7 @@ public class ObjAbsorber : MonoBehaviour
                 transform.position = playerHead.position;
 
             // Controlla se il player ha premuto il tasto P per lanciare l'oggetto
-            if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2"))
+            if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Jump"))
             {
                 StartCoroutine(LaunchRoutine());
                 Vector3 throwDirection = player.forward.normalized;
