@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028353, g: 0.22571383, b: 0.30692253, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -435,7 +435,10 @@ PrefabInstance:
     - {fileID: 5755425656184657463, guid: 7e603a14512954ac49f343167b587074, type: 3}
     - {fileID: -5937767786786818983, guid: 7e603a14512954ac49f343167b587074, type: 3}
     - {fileID: 3189568956737088859, guid: 7e603a14512954ac49f343167b587074, type: 3}
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7e603a14512954ac49f343167b587074, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 727352679}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7e603a14512954ac49f343167b587074, type: 3}
       insertIndex: -1
@@ -683,6 +686,7 @@ MonoBehaviour:
   risucchio: {fileID: 1642124388}
   assorbimento: {fileID: 0}
   isThrown: 0
+  chatBubbleScript: {fileID: 727352677}
   isLaunching: 0
   PerfectPosition: 0
   empty: {fileID: 0}
@@ -1957,6 +1961,75 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &727352676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727352679}
+  - component: {fileID: 727352678}
+  - component: {fileID: 727352677}
+  m_Layer: 0
+  m_Name: Trigger_Bubble(1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &727352677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727352676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96321a031ab5d7640bff5bac8e038e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawn: {fileID: 919132149155446097, guid: fd84ddf90d513ab47b749fe55fd78f66, type: 3}
+  spawnHeight: 3
+  animationDuration: 0.5
+--- !u!65 &727352678
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727352676}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5, y: 5, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &727352679
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727352676}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.70679885, z: -0, w: 0.7074147}
+  m_LocalPosition: {x: 0.69, y: -1.6800001, z: 0.67}
+  m_LocalScale: {x: 1.2584898, y: 1.25849, z: 1.2584898}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 120666327}
+  m_LocalEulerAnglesHint: {x: 0, y: 29.95, z: 0}
 --- !u!1 &862775439
 GameObject:
   m_ObjectHideFlags: 0
@@ -3345,7 +3418,6 @@ MonoBehaviour:
   walkSound: {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
   spawnPoint: {fileID: 1455651256}
   vortexPrefab: {fileID: 1642124388}
-  offset: {x: 0.25, y: -1.1, z: 0}
   assorbimento: {fileID: 8300000, guid: 5124ec37d6f90364fb598c775e218264, type: 3}
   keyAbsorber: {fileID: 120666334}
   keyAbsorber2: {fileID: 0}
