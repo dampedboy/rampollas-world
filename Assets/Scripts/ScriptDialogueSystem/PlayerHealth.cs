@@ -5,7 +5,7 @@ using System.Collections;
 public class PlayerHealth : MonoBehaviour
 {
     public int startingLives = 3;
-    int maxLives = 4;
+    int maxLives = 6;
     static public int currentLives;
     static private bool isInitialized = false;
     public Transform respawnPoint;
@@ -18,6 +18,8 @@ public class PlayerHealth : MonoBehaviour
     public GameObject cuore2;
     public GameObject cuore3;
     public GameObject cuore4;
+    public GameObject cuore5;
+    public GameObject cuore6;
 
     // Audio variables
     public AudioClip damageSound;
@@ -65,6 +67,8 @@ public class PlayerHealth : MonoBehaviour
         cuore2.SetActive(false);
         cuore3.SetActive(false);
         cuore4.SetActive(false);
+        cuore5.SetActive(false);
+        cuore6.SetActive(false);
 
         // Attiva l'immagine corrispondente al numero di vite
         switch (currentLives)
@@ -80,6 +84,12 @@ public class PlayerHealth : MonoBehaviour
                 break;
             case 4:
                 cuore4.SetActive(true);
+                break;
+            case 5:
+                cuore5.SetActive(true);
+                break;
+            case 6:
+                cuore6.SetActive(true);
                 break;
         }
     }
