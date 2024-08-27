@@ -38,11 +38,6 @@ public class PlayerMovement : MonoBehaviour
     public ObjAbsorber obj3; // riferimento agli oggetti di metallo
     public ObjAbsorber obj4; // riferimento agli oggetti di metallo
 
-
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -67,7 +62,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
 
     // Update is called once per frame
     void Update()
@@ -102,8 +96,8 @@ public class PlayerMovement : MonoBehaviour
 
         animator.SetBool("isLaunching", isLaunching);
 
-        // Aspirazione/sputo con pulsante sinistro
-        if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.O)) 
+        // Aspirazione/sputo con pulsante sinistro o tasto O
+        if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.O))
         {
             bool perfectPosition = true;
 
@@ -159,7 +153,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonUp("Fire3") || Input.GetKeyDown(KeyCode.O))
+        if (Input.GetButtonUp("Fire3") || Input.GetKeyUp(KeyCode.O))
         {
             isAbsorbing = false;
             animator.SetBool("isAbsorbing", false);
@@ -195,8 +189,8 @@ public class PlayerMovement : MonoBehaviour
 
         float gravity = Physics.gravity.y * gravityMultiplier;
 
-        // Salto con pulsante in basso
-        if (isJumping && ySpeed > 0 && Input.GetButton("Fire1") == false)
+        // Salto con tasto spazio o tasto di salto da controller
+        if (isJumping && ySpeed > 0 && !Input.GetButton("Jump") && !Input.GetKey(KeyCode.Space))
         {
             gravity *= 2;
         }
@@ -206,7 +200,7 @@ public class PlayerMovement : MonoBehaviour
         {
             lastGroundedTime = Time.time;
         }
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Jump") || Input.GetKeyDown(KeyCode.Space))
         {
             jumpButtonPressedTime = Time.time;
         }
@@ -273,6 +267,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
     public void Jump(float jumpForce)
     {
         ySpeed = Mathf.Sqrt(jumpForce * -2 * Physics.gravity.y * gravityMultiplier);
@@ -281,6 +276,7 @@ public class PlayerMovement : MonoBehaviour
         jumpButtonPressedTime = null;
         lastGroundedTime = null;
     }
+
     private IEnumerator MakeTornadoVisible(GameObject tornado)
     {
         // Imposta il tornado come invisibile disabilitando i componenti di rendering
