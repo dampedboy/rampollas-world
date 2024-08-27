@@ -136,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
                 animator.SetBool("isAbsorbing", true);
 
                 // Crea il vortice istantaneamente
-                if (vortexPrefab != null && spawnPoint != null)
+                if (vortexPrefab != null && spawnPoint != null && Input.GetKeyDown(KeyCode.O))
                 {
                     Vector3 spawnPosition = spawnPoint.position + offset;
                     Quaternion rotation = Quaternion.LookRotation(transform.forward) * Quaternion.Euler(0, 90, 90);
