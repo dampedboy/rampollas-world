@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+public class PauseMenuTraining : MonoBehaviour
 {
     public GameObject pauseMenu;
     public static bool IsPaused = false;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -61,6 +61,6 @@ public class PauseMenu : MonoBehaviour
     public void Hub()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Hub");
+        SceneManager.LoadScene("Hub_Training");
     }
 }
