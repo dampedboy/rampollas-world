@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private float? lastGroundedTime;
     private float? jumpButtonPressedTime;
     private bool isJumping;
-    private bool isGrounded;
+    public bool isGrounded;
     public bool isAbsorbing = false;
     public Transform spawnPoint;
     public GameObject vortexPrefab;
