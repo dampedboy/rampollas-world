@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip walkSound; // Suono per la camminata
     private AudioSource audioSource;
 
+    public bool launchable = false;
     private float ySpeed;
     private Animator animator;
     private float originalStepOffset;
@@ -22,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     private float? jumpButtonPressedTime;
     private bool isJumping;
     private bool isGrounded;
-    private bool isAbsorbing = false; 
+    public bool isAbsorbing = false; 
     public Transform spawnPoint; 
     public GameObject vortexPrefab;
     private Vector3 offset = new Vector3(0.25f, -0.8f, 0f);
@@ -101,7 +102,7 @@ void Update()
     animator.SetBool("isLaunching", isLaunching);
     
         // Aspirazione/sputo con pulsante Fire3 o tasto O
-    if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.O))
+    if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.O) && !launchable)
     {
         
             bool perfectPosition = true;
@@ -135,7 +136,7 @@ void Update()
                 perfectPosition = false;
             }
 
-            if (!perfectPosition && isGrounded)
+            if (!perfectPosition && isGrounded && !launchable)
             {
                 isAbsorbing = true;
                 animator.SetBool("isAbsorbing", true);
@@ -161,7 +162,9 @@ void Update()
     {
         isAbsorbing = false;
         animator.SetBool("isAbsorbing", false);
-
+        if(obj1.isHoldingObject||obj2.isHoldingObject||obj3.isHoldingObject||obj4.isHoldingObject||keyAbsorber.isHoldingObject||keyAbsorber2.isHoldingObject){
+            launchable = true;
+        }
         if (vortexInstance != null)
         {
             Destroy(vortexInstance);
