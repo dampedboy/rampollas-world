@@ -1,11 +1,15 @@
 using System.Collections;
 using UnityEngine;
+
 public class Chat_Bubble_Spawn : MonoBehaviour
 {
     [SerializeField] private GameObject objectToSpawn; // L'oggetto prefab da spawnare
     [SerializeField] private float spawnHeight = 3.0f; // Altezza a cui spawnare l'oggetto
     [SerializeField] private float animationDuration = 0.5f; // Durata dell'animazione di ingrandimento
+    [SerializeField] private float respawnDelay = 3.0f; // Ritardo di 3 secondi per il respawn della chat bubble
+
     private GameObject spawnedObject; // Riferimento all'oggetto istanziato
+    private bool canRespawn = true; // Variabile di controllo per gestire il ritardo di respawn
 
     // Il metodo per distruggere la chat bubble
     public void DestroyChatBubble()
@@ -13,12 +17,13 @@ public class Chat_Bubble_Spawn : MonoBehaviour
         if (spawnedObject != null)
         {
             StartCoroutine(AnimateScaleDownAndDestroy(spawnedObject));
+            StartCoroutine(RespawnCooldown()); // Avvia il cooldown per il respawn
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && canRespawn)
         {
             SpawnObject();
         }
@@ -39,9 +44,8 @@ public class Chat_Bubble_Spawn : MonoBehaviour
             Debug.LogError("Object to spawn is not assigned.");
             return;
         }
-
         Vector3 spawnPosition = transform.position + new Vector3(0, spawnHeight, 0);
-        Quaternion spawnRotation = Quaternion.Euler(0, 270, 0); // Rotazione di 180 gradi sull'asse Y
+        Quaternion spawnRotation = Quaternion.Euler(0, 270, 0); // Rotazione di 270 gradi sull'asse Y
         spawnedObject = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
         StartCoroutine(AnimateScale(spawnedObject));
     }
@@ -60,7 +64,6 @@ public class Chat_Bubble_Spawn : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
         obj.transform.localScale = finalScale;
     }
 
@@ -81,10 +84,20 @@ public class Chat_Bubble_Spawn : MonoBehaviour
         Destroy(obj);
     }
 
-    void Update(){
-        if(spawnedObject!=null){
-        Vector3 updatedPosition = transform.position + new Vector3(0, spawnHeight, 0);
-        spawnedObject.transform.position = updatedPosition;
+    // Coroutine per gestire il cooldown del respawn
+    private IEnumerator RespawnCooldown()
+    {
+        canRespawn = false; // Disabilita il respawn della chat bubble
+        yield return new WaitForSeconds(respawnDelay); // Attendi per il tempo specificato
+        canRespawn = true; // Riabilita il respawn della chat bubble
+    }
+
+    void Update()
+    {
+        if (spawnedObject != null)
+        {
+            Vector3 updatedPosition = transform.position + new Vector3(0, spawnHeight, 0);
+            spawnedObject.transform.position = updatedPosition;
         }
     }
 }

@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     public AudioClip walkSound; // Suono per la camminata
     private AudioSource audioSource;
 
-    // ySpeed is needed for jump gravity
     private float ySpeed;
     private Animator animator;
     private float originalStepOffset;
@@ -23,28 +22,29 @@ public class PlayerMovement : MonoBehaviour
     private float? jumpButtonPressedTime;
     private bool isJumping;
     private bool isGrounded;
-    private bool isAbsorbing = false; // Variabile per lo stato di assorbimento
-    public Transform spawnPoint; // Riferimento al Transform del tappo
-    public GameObject vortexPrefab; // Il prefab del vortice
+    private bool isAbsorbing = false; 
+    public Transform spawnPoint; 
+    public GameObject vortexPrefab;
     private Vector3 offset = new Vector3(0.25f, -0.8f, 0f);
     private GameObject vortexInstance;
     private Vector3 initialVortexPosition;
-    public AudioClip assorbimento; // Audio clip per il suono di assorbimento
+    public AudioClip assorbimento;
 
-    public ObjAbsorber keyAbsorber; // Riferimento al KeyAbsorber
-    public ObjAbsorber keyAbsorber2; // Riferimento al KeyAbsorber
-    public ObjAbsorber obj1; // riferimento agli oggetti di legno 
-    public ObjAbsorber obj2; // riferimento agli oggetti di vetro 
-    public ObjAbsorber obj3; // riferimento agli oggetti di metallo
-    public ObjAbsorber obj4; // riferimento agli oggetti di metallo
+    public ObjAbsorber keyAbsorber; 
+    public ObjAbsorber keyAbsorber2; 
+    public ObjAbsorber obj1; 
+    public ObjAbsorber obj2; 
+    public ObjAbsorber obj3; 
+    public ObjAbsorber obj4;
 
-    // Start is called before the first frame update
+    private bool hasAbsorbedObject = false; 
+
     void Start()
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         originalStepOffset = characterController.stepOffset;
-        audioSource = GetComponent<AudioSource>(); // Carica il componente AudioSource
+        audioSource = GetComponent<AudioSource>(); 
     }
 
     private IEnumerator ResetAbsorbing()
@@ -54,7 +54,6 @@ public class PlayerMovement : MonoBehaviour
         {
             Vector3 spawnPosition = spawnPoint.position + offset;
             Quaternion rotation = Quaternion.LookRotation(transform.forward) * Quaternion.Euler(0, 90, 90);
-            // Instanzia e salva il riferimento all'istanza del vortice
             vortexInstance = Instantiate(vortexPrefab, spawnPosition, rotation);
             if (assorbimento != null)
             {
@@ -63,42 +62,48 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+void Update()
+{
+    bool isLaunching = false;
+
+    // Controlla se ci sono oggetti da lanciare
+    if (keyAbsorber != null && keyAbsorber.isLaunching)
     {
-        bool isLaunching = false;
+        isLaunching = true;
+      
+    }
+    if (keyAbsorber2 != null && keyAbsorber2.isLaunching)
+    {
+        isLaunching = true;
+      
+    }
+    if (obj4 != null && obj4.isLaunching)
+    {
+        isLaunching = true;
+     
+    }
+    if (obj1 != null && obj1.isLaunching)
+    {
+        isLaunching = true;
+       
+    }
+    if (obj2 != null && obj2.isLaunching)
+    {
+        isLaunching = true;
+        
+    }
+    if (obj3 != null && obj3.isLaunching)
+    {
+        isLaunching = true;
+       
+    }
 
-        // Controlla se ci sono oggetti da lanciare
-        if (keyAbsorber != null && keyAbsorber.isLaunching)
-        {
-            isLaunching = true;
-        }
-        if (keyAbsorber2 != null && keyAbsorber2.isLaunching)
-        {
-            isLaunching = true;
-        }
-        if (obj4 != null && obj4.isLaunching)
-        {
-            isLaunching = true;
-        }
-        if (obj1 != null && obj1.isLaunching)
-        {
-            isLaunching = true;
-        }
-        if (obj2 != null && obj2.isLaunching)
-        {
-            isLaunching = true;
-        }
-        if (obj3 != null && obj3.isLaunching)
-        {
-            isLaunching = true;
-        }
-
-        animator.SetBool("isLaunching", isLaunching);
-
-        // Aspirazione/sputo con pulsante sinistro o tasto O
-        if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.O))
-        {
+    animator.SetBool("isLaunching", isLaunching);
+    
+        // Aspirazione/sputo con pulsante Fire3 o tasto O
+    if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.O))
+    {
+        
             bool perfectPosition = true;
 
             if (keyAbsorber != null && !keyAbsorber.PerfectPosition)
@@ -135,8 +140,7 @@ public class PlayerMovement : MonoBehaviour
                 isAbsorbing = true;
                 animator.SetBool("isAbsorbing", true);
 
-                // Crea il vortice istantaneamente
-                if (vortexPrefab != null && spawnPoint != null && Input.GetKeyDown(KeyCode.O))
+                if (vortexPrefab != null && spawnPoint != null)
                 {
                     Vector3 spawnPosition = spawnPoint.position + offset;
                     Quaternion rotation = Quaternion.LookRotation(transform.forward) * Quaternion.Euler(0, 90, 90);
@@ -147,30 +151,28 @@ public class PlayerMovement : MonoBehaviour
                         audioSource.PlayOneShot(assorbimento);
                     }
 
-                    // Avvia la coroutine per rendere il tornado visibile dopo 0,3 secondi
                     StartCoroutine(MakeTornadoVisible(vortexInstance));
                 }
             }
-        }
+        
+    }
+    
+    if (Input.GetButtonUp("Fire3") || Input.GetKeyUp(KeyCode.O))
+    {
+        isAbsorbing = false;
+        animator.SetBool("isAbsorbing", false);
 
-        if (Input.GetButtonUp("Fire3") || Input.GetKeyUp(KeyCode.O))
+        if (vortexInstance != null)
         {
-            isAbsorbing = false;
-            animator.SetBool("isAbsorbing", false);
-
-            // Elimina il vortice immediatamente
-            if (vortexInstance != null)
-            {
-                Destroy(vortexInstance);
-                vortexInstance = null;
-            }
+            Destroy(vortexInstance);
+            vortexInstance = null;
         }
+    }
 
-        // Blocca il movimento se il personaggio è in stato di assorbimento
-        if (isAbsorbing)
-        {
-            return;
-        }
+    if (isAbsorbing)
+    {
+        return;
+    }
 
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
@@ -189,7 +191,6 @@ public class PlayerMovement : MonoBehaviour
 
         float gravity = Physics.gravity.y * gravityMultiplier;
 
-        // Salto con tasto spazio o tasto di salto da controller
         if (isJumping && ySpeed > 0 && !Input.GetButton("Jump") && !Input.GetKey(KeyCode.Space))
         {
             gravity *= 2;
@@ -223,7 +224,6 @@ public class PlayerMovement : MonoBehaviour
                 jumpButtonPressedTime = null;
                 lastGroundedTime = null;
 
-                // Riproduci il suono del salto
                 audioSource.PlayOneShot(jumpSound);
             }
         }
@@ -247,7 +247,6 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isMoving", true);
 
-            // Riproduci il suono della camminata se il giocatore è a terra e si sta muovendo
             if (isGrounded && !audioSource.isPlaying)
             {
                 audioSource.PlayOneShot(walkSound);
@@ -260,13 +259,13 @@ public class PlayerMovement : MonoBehaviour
         {
             animator.SetBool("isMoving", false);
 
-            // Interrompi il suono della camminata se il giocatore si ferma
             if (audioSource.isPlaying && audioSource.clip == walkSound)
             {
                 audioSource.Stop();
             }
         }
     }
+
 
     public void Jump(float jumpForce)
     {

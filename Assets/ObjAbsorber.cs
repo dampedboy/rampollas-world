@@ -13,7 +13,7 @@ public class ObjAbsorber : MonoBehaviour
 
     private Vector3 initialPosition; // Posizione iniziale dell'oggetto
     private Vector3 targetPosition; // Posizione target verso cui muovere l'oggetto
-    private bool isHoldingObject = false; // Indica se il player sta tenendo l'oggetto
+    public bool isHoldingObject = false; // Indica se il player sta tenendo l'oggetto
     private bool isInRange = false; // Indica se il player è nel range dell'oggetto
     public bool isThrown = false; // Indica se l'oggetto è stato lanciato
     [SerializeField] private Chat_Bubble_Spawn chatBubbleScript;
@@ -117,7 +117,7 @@ public class ObjAbsorber : MonoBehaviour
                 transform.position = playerHead.position;
 
             // Controlla se il player ha premuto il tasto P per lanciare l'oggetto
-            if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
             {
                 StartCoroutine(LaunchRoutine());
                 Vector3 throwDirection = player.forward.normalized;
