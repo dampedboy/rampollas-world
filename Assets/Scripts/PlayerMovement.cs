@@ -10,8 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public float gravityMultiplier;
     public float jumpButtonGracePeriod;
 
-    public AudioClip jumpSound; // Suono per il salto
-    public AudioClip walkSound; // Suono per la camminata
+    public AudioClip jumpSound;
+    public AudioClip walkSound;
     private AudioSource audioSource;
 
     public bool launchable = false;
@@ -23,160 +23,123 @@ public class PlayerMovement : MonoBehaviour
     private float? jumpButtonPressedTime;
     private bool isJumping;
     private bool isGrounded;
-    public bool isAbsorbing = false; 
-    public Transform spawnPoint; 
+    public bool isAbsorbing = false;
+    public Transform spawnPoint;
     public GameObject vortexPrefab;
     private Vector3 offset = new Vector3(0.25f, -0.8f, 0f);
     private GameObject vortexInstance;
     private Vector3 initialVortexPosition;
     public AudioClip assorbimento;
 
-    public ObjAbsorber keyAbsorber; 
-    public ObjAbsorber keyAbsorber2; 
-    public ObjAbsorber obj1; 
-    public ObjAbsorber obj2; 
-    public ObjAbsorber obj3; 
+    public ObjAbsorber keyAbsorber;
+    public ObjAbsorber keyAbsorber2;
+    public ObjAbsorber obj1;
+    public ObjAbsorber obj2;
+    public ObjAbsorber obj3;
     public ObjAbsorber obj4;
 
-    private bool hasAbsorbedObject = false; 
+    private bool hasAbsorbedObject = false;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
         originalStepOffset = characterController.stepOffset;
-        audioSource = GetComponent<AudioSource>(); 
+        audioSource = GetComponent<AudioSource>();
     }
 
-    private IEnumerator ResetAbsorbing()
+    void Update()
     {
-        yield return new WaitForSeconds(0.4f);
-        if (vortexPrefab != null && spawnPoint != null)
+        bool isLaunching = CheckIfLaunching();
+
+        animator.SetBool("isLaunching", isLaunching);
+
+        // Aspirazione/sputo con pulsante Fire3 o tasto O
+        if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.O))
         {
-            Vector3 spawnPosition = spawnPoint.position + offset;
-            Quaternion rotation = Quaternion.LookRotation(transform.forward) * Quaternion.Euler(0, 90, 90);
-            vortexInstance = Instantiate(vortexPrefab, spawnPosition, rotation);
-            if (assorbimento != null)
+            StartAbsorbing();
+        }
+
+        if (Input.GetButtonUp("Fire3") || Input.GetKeyUp(KeyCode.O))
+        {
+            StopAbsorbing();
+        }
+
+        if (isAbsorbing)
+        {
+            return;
+        }
+
+        HandleMovement();
+    }
+
+    private bool CheckIfLaunching()
+    {
+        return (keyAbsorber != null && keyAbsorber.isLaunching) ||
+               (keyAbsorber2 != null && keyAbsorber2.isLaunching) ||
+               (obj1 != null && obj1.isLaunching) ||
+               (obj2 != null && obj2.isLaunching) ||
+               (obj3 != null && obj3.isLaunching) ||
+               (obj4 != null && obj4.isLaunching);
+    }
+
+    private void StartAbsorbing()
+    {
+        bool perfectPosition = CheckPerfectPosition();
+
+        if (!perfectPosition && isGrounded && !launchable)
+        {
+            isAbsorbing = true;
+            animator.SetBool("isAbsorbing", true);
+
+            // Creazione del vortice
+            if (vortexPrefab != null && spawnPoint != null)
             {
-                audioSource.PlayOneShot(assorbimento);
+                Vector3 spawnPosition = spawnPoint.position + offset;
+                Quaternion rotation = Quaternion.LookRotation(transform.forward) * Quaternion.Euler(0, 90, 90);
+                vortexInstance = Instantiate(vortexPrefab, spawnPosition, rotation);
+
+                if (assorbimento != null)
+                {
+                    audioSource.PlayOneShot(assorbimento);
+                }
+
+                StartCoroutine(MakeTornadoVisible(vortexInstance));
             }
         }
     }
 
-void Update()
-{
-    bool isLaunching = false;
-
-    // Controlla se ci sono oggetti da lanciare
-    if (keyAbsorber != null && keyAbsorber.isLaunching)
-    {
-        isLaunching = true;
-      
-    }
-    if (keyAbsorber2 != null && keyAbsorber2.isLaunching)
-    {
-        isLaunching = true;
-      
-    }
-    if (obj4 != null && obj4.isLaunching)
-    {
-        isLaunching = true;
-     
-    }
-    if (obj1 != null && obj1.isLaunching)
-    {
-        isLaunching = true;
-       
-    }
-    if (obj2 != null && obj2.isLaunching)
-    {
-        isLaunching = true;
-        
-    }
-    if (obj3 != null && obj3.isLaunching)
-    {
-        isLaunching = true;
-       
-    }
-
-    animator.SetBool("isLaunching", isLaunching);
-    
-        // Aspirazione/sputo con pulsante Fire3 o tasto O
-    if (Input.GetButtonDown("Fire3") || Input.GetKeyDown(KeyCode.O) && !launchable)
-    {
-        
-            bool perfectPosition = true;
-
-            if (keyAbsorber != null && !keyAbsorber.PerfectPosition)
-            {
-                perfectPosition = false;
-            }
-            if (keyAbsorber2 != null && !keyAbsorber2.PerfectPosition)
-            {
-                perfectPosition = false;
-            }
-
-            if (obj4 != null && !obj4.PerfectPosition)
-            {
-                perfectPosition = false;
-            }
-
-            if (obj1 != null && !obj1.PerfectPosition)
-            {
-                perfectPosition = false;
-            }
-
-            if (obj2 != null && !obj2.PerfectPosition)
-            {
-                perfectPosition = false;
-            }
-
-            if (obj3 != null && !obj3.PerfectPosition)
-            {
-                perfectPosition = false;
-            }
-
-            if (!perfectPosition && isGrounded && !launchable)
-            {
-                isAbsorbing = true;
-                animator.SetBool("isAbsorbing", true);
-
-                if (vortexPrefab != null && spawnPoint != null)
-                {
-                    Vector3 spawnPosition = spawnPoint.position + offset;
-                    Quaternion rotation = Quaternion.LookRotation(transform.forward) * Quaternion.Euler(0, 90, 90);
-                    vortexInstance = Instantiate(vortexPrefab, spawnPosition, rotation);
-
-                    if (assorbimento != null)
-                    {
-                        audioSource.PlayOneShot(assorbimento);
-                    }
-
-                    StartCoroutine(MakeTornadoVisible(vortexInstance));
-                }
-            }
-        
-    }
-    
-    if (Input.GetButtonUp("Fire3") || Input.GetKeyUp(KeyCode.O))
+    private void StopAbsorbing()
     {
         isAbsorbing = false;
         animator.SetBool("isAbsorbing", false);
-        if(obj1.isHoldingObject||obj2.isHoldingObject||obj3.isHoldingObject||obj4.isHoldingObject||keyAbsorber.isHoldingObject||keyAbsorber2.isHoldingObject){
-            launchable = true;
-        }
+
+        // Se esiste un vortice, distruggilo
         if (vortexInstance != null)
         {
             Destroy(vortexInstance);
-            vortexInstance = null;
+            vortexInstance = null; // Assicurati che l'istanza sia null dopo la distruzione
+        }
+
+        // Gestione del lancio
+        if (obj1.isHoldingObject || obj2.isHoldingObject || obj3.isHoldingObject || obj4.isHoldingObject || keyAbsorber.isHoldingObject || keyAbsorber2.isHoldingObject)
+        {
+            launchable = true;
         }
     }
 
-    if (isAbsorbing)
+    private bool CheckPerfectPosition()
     {
-        return;
+        return (keyAbsorber == null || keyAbsorber.PerfectPosition) &&
+               (keyAbsorber2 == null || keyAbsorber2.PerfectPosition) &&
+               (obj1 == null || obj1.PerfectPosition) &&
+               (obj2 == null || obj2.PerfectPosition) &&
+               (obj3 == null || obj3.PerfectPosition) &&
+               (obj4 == null || obj4.PerfectPosition);
     }
 
+    private void HandleMovement()
+    {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
@@ -267,16 +230,6 @@ void Update()
                 audioSource.Stop();
             }
         }
-    }
-
-
-    public void Jump(float jumpForce)
-    {
-        ySpeed = Mathf.Sqrt(jumpForce * -2 * Physics.gravity.y * gravityMultiplier);
-        animator.SetBool("isJumping", true);
-        isJumping = true;
-        jumpButtonPressedTime = null;
-        lastGroundedTime = null;
     }
 
     private IEnumerator MakeTornadoVisible(GameObject tornado)

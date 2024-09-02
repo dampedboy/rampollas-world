@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Jumping_Platform : MonoBehaviour
 {
+    /*
     public float jumpForce = 15f; // Forza del salto
 
     private void OnTriggerEnter(Collider other)
@@ -17,5 +18,5 @@ public class Jumping_Platform : MonoBehaviour
             playerMovement.Jump(jumpForce);
         }
     }
-}
+}*/
 }
