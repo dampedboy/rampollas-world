@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028353, g: 0.22571383, b: 0.30692253, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1221,6 +1221,7 @@ MonoBehaviour:
   player: {fileID: 488174278}
   risucchio: {fileID: 69884998}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
+  isHoldingObject: 0
   isThrown: 0
   chatBubbleScript: {fileID: 0}
   isLaunching: 0
@@ -1231,6 +1232,7 @@ MonoBehaviour:
   metal: {fileID: 432112078}
   glass: {fileID: 947768204}
   wood: {fileID: 41674346}
+  Rampolla: {fileID: 488174287}
 --- !u!82 &240571319
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2302,6 +2304,9 @@ MonoBehaviour:
   jumpButtonGracePeriod: 0.2
   jumpSound: {fileID: 8300000, guid: 117acd73be21dcc41a68bdc2f0061ebb, type: 3}
   walkSound: {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
+  launchable: 0
+  isGrounded: 0
+  isAbsorbing: 0
   spawnPoint: {fileID: 488174279}
   vortexPrefab: {fileID: 69884998}
   assorbimento: {fileID: 8300000, guid: 5124ec37d6f90364fb598c775e218264, type: 3}
@@ -4876,6 +4881,7 @@ MonoBehaviour:
   player: {fileID: 488174278}
   risucchio: {fileID: 69884998}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
+  isHoldingObject: 0
   isThrown: 0
   chatBubbleScript: {fileID: 0}
   isLaunching: 0
@@ -4886,6 +4892,7 @@ MonoBehaviour:
   metal: {fileID: 432112078}
   glass: {fileID: 947768204}
   wood: {fileID: 41674346}
+  Rampolla: {fileID: 488174287}
 --- !u!82 &1325045801
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6242,6 +6249,7 @@ MonoBehaviour:
   player: {fileID: 488174278}
   risucchio: {fileID: 69884998}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
+  isHoldingObject: 0
   isThrown: 0
   chatBubbleScript: {fileID: 0}
   isLaunching: 0
@@ -6252,6 +6260,7 @@ MonoBehaviour:
   metal: {fileID: 432112078}
   glass: {fileID: 947768204}
   wood: {fileID: 41674346}
+  Rampolla: {fileID: 0}
 --- !u!82 &1653036735
 AudioSource:
   m_ObjectHideFlags: 0
@@ -6830,6 +6839,7 @@ MonoBehaviour:
   player: {fileID: 488174278}
   risucchio: {fileID: 69884998}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
+  isHoldingObject: 0
   isThrown: 0
   chatBubbleScript: {fileID: 0}
   isLaunching: 0
@@ -6840,6 +6850,7 @@ MonoBehaviour:
   metal: {fileID: 432112078}
   glass: {fileID: 947768204}
   wood: {fileID: 41674346}
+  Rampolla: {fileID: 488174287}
 --- !u!1 &1797591838
 GameObject:
   m_ObjectHideFlags: 0
@@ -7379,6 +7390,7 @@ MonoBehaviour:
   player: {fileID: 488174278}
   risucchio: {fileID: 69884998}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
+  isHoldingObject: 0
   isThrown: 0
   chatBubbleScript: {fileID: 0}
   isLaunching: 0
@@ -7389,6 +7401,7 @@ MonoBehaviour:
   metal: {fileID: 432112078}
   glass: {fileID: 947768204}
   wood: {fileID: 41674346}
+  Rampolla: {fileID: 488174287}
 --- !u!82 &1979057101
 AudioSource:
   m_ObjectHideFlags: 0

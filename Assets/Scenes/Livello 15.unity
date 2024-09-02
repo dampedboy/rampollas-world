@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028353, g: 0.22571383, b: 0.30692253, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1096,6 +1096,9 @@ MonoBehaviour:
   jumpButtonGracePeriod: 0.2
   jumpSound: {fileID: 8300000, guid: 117acd73be21dcc41a68bdc2f0061ebb, type: 3}
   walkSound: {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
+  launchable: 0
+  isGrounded: 0
+  isAbsorbing: 0
   spawnPoint: {fileID: 463221663}
   vortexPrefab: {fileID: 762182730}
   assorbimento: {fileID: 8300000, guid: 5124ec37d6f90364fb598c775e218264, type: 3}
@@ -7383,6 +7386,7 @@ MonoBehaviour:
   player: {fileID: 192375492}
   risucchio: {fileID: 762182730}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
+  isHoldingObject: 0
   isThrown: 0
   chatBubbleScript: {fileID: 0}
   isLaunching: 0
@@ -7393,6 +7397,7 @@ MonoBehaviour:
   metal: {fileID: 890268657}
   glass: {fileID: 1012598229}
   wood: {fileID: 1068547227}
+  Rampolla: {fileID: 192375499}
 --- !u!1001 &1433028396
 PrefabInstance:
   m_ObjectHideFlags: 0
