@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -390,6 +390,7 @@ MonoBehaviour:
   objectToSpawn: {fileID: 919132149155446097, guid: 7351193184354dd4d84763de483f7dc5, type: 3}
   spawnHeight: 2
   animationDuration: 0.5
+  respawnDelay: 3
 --- !u!135 &162802154
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -697,23 +698,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582033184086839556, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.072201
+      value: 1.5953279
       objectReference: {fileID: 0}
     - target: {fileID: 4582033184086839556, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.072201
+      value: 1.5953279
       objectReference: {fileID: 0}
     - target: {fileID: 4582033184086839556, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8700482
+      value: 1.2945448
       objectReference: {fileID: 0}
     - target: {fileID: 4582033184086839556, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.27
+      value: 0.26982
       objectReference: {fileID: 0}
     - target: {fileID: 4582033184086839556, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.77
+      value: 2.63
       objectReference: {fileID: 0}
     - target: {fileID: 4582033184086839556, guid: 8759da7e004cfb54492e4342de935682, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1936,7 +1937,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2191133415972649578, guid: 801d1c75a0554bc4a9997a71b44acb76, type: 3}
       propertyPath: jumpForce
-      value: 18
+      value: 22
       objectReference: {fileID: 0}
     - target: {fileID: 2630670453122152289, guid: 801d1c75a0554bc4a9997a71b44acb76, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2919,6 +2920,9 @@ MonoBehaviour:
   jumpButtonGracePeriod: 0.2
   jumpSound: {fileID: 8300000, guid: 117acd73be21dcc41a68bdc2f0061ebb, type: 3}
   walkSound: {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
+  launchable: 0
+  isGrounded: 0
+  isAbsorbing: 0
   spawnPoint: {fileID: 1389415369}
   vortexPrefab: {fileID: 1502729392}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
@@ -3085,7 +3089,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 49fefe98d9f1a9244b7ec97e526ecf3f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.08
+      value: -3.29
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 49fefe98d9f1a9244b7ec97e526ecf3f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3093,7 +3097,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 49fefe98d9f1a9244b7ec97e526ecf3f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.103
+      value: -8.07
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 49fefe98d9f1a9244b7ec97e526ecf3f, type: 3}
       propertyPath: m_LocalRotation.w

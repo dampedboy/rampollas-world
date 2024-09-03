@@ -252,4 +252,14 @@ public class PlayerMovement : MonoBehaviour
             renderer.enabled = visible;
         }
     }
+    public void BoostJump(float boostForce)
+    {
+        
+        
+            ySpeed = Mathf.Sqrt(boostForce * -3f * Physics.gravity.y);
+            isJumping = true;
+            animator.SetBool("isJumping", true);
+            
+        
+    }
 }
