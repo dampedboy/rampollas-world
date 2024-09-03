@@ -35,8 +35,6 @@ public class ObjAbsorber : MonoBehaviour
 
     public PlayerMovement Rampolla;
 
-    // Riferimento allo script Chat_Bubble_Spawn
-    
     void Start()
     {
         initialPosition = transform.position; // Memorizza la posizione iniziale dell'oggetto
@@ -47,20 +45,18 @@ public class ObjAbsorber : MonoBehaviour
 
         // All'inizio della scena, solo "empty" è attivo
         SetActiveGameObject(empty);
-        
 
-        // Assicurati che il riferimento allo script Chat_Bubble_Spawn sia assegnato
         if (chatBubbleScript == null)
         {
             Debug.LogError("Chat_Bubble_Spawn script reference not set in ObjAbsorber.");
         }
     }
-      private IEnumerator Absorbing()
+
+    private IEnumerator Absorbing()
     {
         yield return new WaitForSeconds(0.3f);
         transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
     }
-
 
     void Update()
     {
@@ -68,22 +64,21 @@ public class ObjAbsorber : MonoBehaviour
         targetPosition = playerHead.position; // Imposta la posizione target come la testa del player
 
         // Controlla se il player è nel range dell'oggetto e ha premuto il tasto O
-        if (isInRange && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3")) && !isHoldingObject && (CompareTag("Glass") || CompareTag("Wood") || CompareTag("Metal") || CompareTag("Dynamite") || CompareTag("Key")) && !Rampolla.launchable && Rampolla.isGrounded)
+        if (isInRange && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3")) && !isHoldingObject && 
+            (CompareTag("Glass") || CompareTag("Wood") || CompareTag("Metal") || CompareTag("Dynamite") || CompareTag("Key")) && 
+            !Rampolla.launchable && Rampolla.isGrounded)
         {
-            // Se non sta già tenendo l'oggetto e nessun altro oggetto è attualmente assorbito
             if (currentAbsorbedObject == null)
             {
                 isHoldingObject = true;
                 rb.isKinematic = true;
-                currentAbsorbedObject = this; // Imposta questo oggetto come l'oggetto attualmente assorbito
+                currentAbsorbedObject = this;
 
-                // Distruggi la chat bubble quando l'oggetto viene risucchiato
                 if (chatBubbleScript != null)
                 {
                     chatBubbleScript.DestroyChatBubble();
                 }
 
-                // Imposta la visibilità degli oggetti in base al tag dell'oggetto assorbito
                 if (CompareTag("Metal"))
                     SetActiveGameObject(metal);
                 else if (CompareTag("Wood"))
@@ -97,29 +92,31 @@ public class ObjAbsorber : MonoBehaviour
             }
         }
 
-
-        // Se stiamo tenendo l'oggetto, muovilo lentamente verso il player
         if (isHoldingObject)
         {
-            // Usa Lerp per muovere gradualmente l'oggetto verso la posizione target
             if (!PerfectPosition)
             {
                 StartCoroutine(Absorbing());
             }
 
-            // Se l'oggetto è abbastanza vicino alla testa del player, impostalo esattamente lì
             if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
             {
                 transform.position = targetPosition;
                 PerfectPosition = true;
             }
 
-            // Mantieni l'oggetto sopra la testa del player mentre si muove
             if (PerfectPosition)
                 transform.position = playerHead.position;
 
-            // Controlla se il player ha premuto il tasto O per lanciare l'oggetto
-            if ((Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3") && Rampolla.launchable ))
+            // Quando il giocatore rilascia il pulsante
+            if (Input.GetKeyUp(KeyCode.O) || Input.GetButtonUp("Fire3"))
+            {
+                Rampolla.launchable = true;
+                Rampolla.isAbsorbing = false;
+            }
+
+            // Se il giocatore preme di nuovo il pulsante e l'oggetto è pronto per essere lanciato
+            if ((Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3")) && Rampolla.launchable)
             {
                 StartCoroutine(LaunchRoutine());
                 Vector3 throwDirection = player.forward.normalized;
@@ -135,23 +132,19 @@ public class ObjAbsorber : MonoBehaviour
         PerfectPosition = false;
         isThrown = true;
 
-        // Rende il Rigidbody non kinematic quando viene lanciato
         if (rb != null)
         {
             rb.isKinematic = false;
             rb.velocity = direction * throwSpeed; // Imposta la velocità del lancio
         }
 
-        // Resetta la variabile statica dell'oggetto assorbito
         currentAbsorbedObject = null;
 
-        // Riporta la visibilità a "empty" quando l'oggetto viene lanciato
         SetActiveGameObject(empty);
     }
 
     private IEnumerator LaunchRoutine()
     {
-        Rampolla.isAbsorbing=false;
         yield return new WaitForSeconds(0.3f);
         isLaunching = true;
         yield return new WaitForSeconds(0.3f);
@@ -161,12 +154,10 @@ public class ObjAbsorber : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        // Disegna il range di interazione come una sfera rossa quando il player è nel range
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, maxDistance);
     }
 
-    // Funzione helper per gestire la visibilità dei GameObject
     private void SetActiveGameObject(GameObject activeGameObject)
     {
         empty.SetActive(activeGameObject == empty);
@@ -176,6 +167,4 @@ public class ObjAbsorber : MonoBehaviour
         dynamite.SetActive(activeGameObject == dynamite);
         key.SetActive(activeGameObject == key);
     }
-    
 }
-
