@@ -968,7 +968,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b69ce9f4066f6b14ca42372dd4bb903c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPanelTalk: {fileID: 671254043}
+  uiPanelTalk: {fileID: 0}
   dialogueSound: {fileID: 8300000, guid: 808ebf24afada754a9e12766562ccf16, type: 3}
   audioSource: {fileID: 386931484}
   dialogueObject: {fileID: 11400000, guid: a90008a2b46492441b3cf9f3bdf4ba35, type: 2}
@@ -1089,6 +1089,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &386931486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386931477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96321a031ab5d7640bff5bac8e038e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawn: {fileID: 919132149155446097, guid: 7351193184354dd4d84763de483f7dc5, type: 3}
+  spawnHeight: 5
+  animationDuration: 0.5
+  respawnDelay: 0.1
 --- !u!1 &387269938 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b5e285fe43b50004193737beb590934e, type: 3}
@@ -2409,6 +2425,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de8cf584d79c073498fbabe26f4663f2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 386931484}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de8cf584d79c073498fbabe26f4663f2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 386931486}
   m_SourcePrefab: {fileID: 100100000, guid: de8cf584d79c073498fbabe26f4663f2, type: 3}
 --- !u!1 &646162134
 GameObject:
@@ -2460,7 +2479,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &671254044
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2878,7 +2897,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &748351297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4587,6 +4606,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8ca1a92ca98a9c24dac937a8849028ae, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1945682338}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8ca1a92ca98a9c24dac937a8849028ae, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1945682340}
   m_SourcePrefab: {fileID: 100100000, guid: 8ca1a92ca98a9c24dac937a8849028ae, type: 3}
 --- !u!1001 &1138069358
 PrefabInstance:
@@ -13031,7 +13053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPanel: {fileID: 1772224414}
-  uiPanel_talk: {fileID: 748351296}
+  uiPanel_talk: {fileID: 0}
   audioSource: {fileID: 1945682338}
   openSound: {fileID: 8300000, guid: d3e041a8546c42049a3555ea7ddae65b, type: 3}
   closeSound: {fileID: 8300000, guid: d3e041a8546c42049a3555ea7ddae65b, type: 3}
@@ -13194,6 +13216,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1945682340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945682330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96321a031ab5d7640bff5bac8e038e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawn: {fileID: 919132149155446097, guid: 7351193184354dd4d84763de483f7dc5, type: 3}
+  spawnHeight: 4.74
+  animationDuration: 0.5
+  respawnDelay: 0.1
 --- !u!1001 &1958158310
 PrefabInstance:
   m_ObjectHideFlags: 0

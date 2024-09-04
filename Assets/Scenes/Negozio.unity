@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028353, g: 0.22571383, b: 0.30692253, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1942,6 +1942,7 @@ GameObject:
   - component: {fileID: 524359006}
   - component: {fileID: 524359007}
   - component: {fileID: 524359008}
+  - component: {fileID: 524359009}
   m_Layer: 0
   m_Name: Froggy
   m_TagString: Untagged
@@ -1978,7 +1979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b69ce9f4066f6b14ca42372dd4bb903c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPanelTalk: {fileID: 1486649974}
+  uiPanelTalk: {fileID: 0}
   dialogueSound: {fileID: 8300000, guid: 808ebf24afada754a9e12766562ccf16, type: 3}
   audioSource: {fileID: 524359007}
   dialogueObject: {fileID: 11400000, guid: 4f50bf332dabe7c4f86048687b14b269, type: 2}
@@ -2172,6 +2173,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soundClip: {fileID: 0}
+--- !u!114 &524359009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524359002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96321a031ab5d7640bff5bac8e038e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawn: {fileID: 919132149155446097, guid: 7351193184354dd4d84763de483f7dc5, type: 3}
+  spawnHeight: 3
+  animationDuration: 0.5
+  respawnDelay: 0.1
 --- !u!1 &526520926
 GameObject:
   m_ObjectHideFlags: 0
@@ -3720,6 +3737,9 @@ MonoBehaviour:
   jumpButtonGracePeriod: 0.2
   jumpSound: {fileID: 8300000, guid: 117acd73be21dcc41a68bdc2f0061ebb, type: 3}
   walkSound: {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
+  launchable: 0
+  isGrounded: 0
+  isAbsorbing: 0
   spawnPoint: {fileID: 811687138}
   vortexPrefab: {fileID: 0}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
@@ -6231,7 +6251,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1486649975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7087,6 +7107,8 @@ MonoBehaviour:
   responseContainer: {fileID: 654459534}
   responseAudioSource: {fileID: 1743256973}
   responseAudioClip: {fileID: 8300000, guid: b653393ecdbc95b48a80a42c08c5ed83, type: 3}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!82 &1743256973
 AudioSource:
   m_ObjectHideFlags: 0
