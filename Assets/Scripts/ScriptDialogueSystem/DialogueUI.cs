@@ -85,7 +85,7 @@ public class DialogueUI : MonoBehaviour
         while (typewriterEffect.IsRunning)
         {
             yield return null;
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Submit"))
             {
                 typewriterEffect.Stop();
             }
