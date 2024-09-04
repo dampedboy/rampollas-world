@@ -1484,7 +1484,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 608.8, y: 436.9}
+  m_AnchoredPosition: {x: 1000, y: 461}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &354991663
@@ -3770,6 +3770,9 @@ MonoBehaviour:
   jumpButtonGracePeriod: 0.2
   jumpSound: {fileID: 8300000, guid: 117acd73be21dcc41a68bdc2f0061ebb, type: 3}
   walkSound: {fileID: 8300000, guid: a3194b8bbc96ef84fab1f98f4b7dae3e, type: 3}
+  launchable: 0
+  isGrounded: 0
+  isAbsorbing: 0
   spawnPoint: {fileID: 929600770}
   vortexPrefab: {fileID: 0}
   assorbimento: {fileID: 8300000, guid: e075fbee6078bbc4f82a20c33d849bcf, type: 3}
@@ -4759,8 +4762,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 479, y: 448}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 871, y: 472}
+  m_SizeDelta: {x: 120, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1339182997
 MonoBehaviour:
@@ -7200,6 +7203,8 @@ MonoBehaviour:
   responseContainer: {fileID: 973668134}
   responseAudioSource: {fileID: 1840282925}
   responseAudioClip: {fileID: 8300000, guid: b653393ecdbc95b48a80a42c08c5ed83, type: 3}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  highlightedColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!114 &1840282928
 MonoBehaviour:
   m_ObjectHideFlags: 0
