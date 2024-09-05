@@ -9,16 +9,22 @@ public class ResponseHandler : MonoBehaviour
     [SerializeField] private RectTransform responseBox;
     [SerializeField] private RectTransform responseButtonTemplate;
     [SerializeField] private RectTransform responseContainer;
-    [SerializeField] private AudioSource responseAudioSource; // Add this line
-    [SerializeField] private AudioClip responseAudioClip; // Add this line
-    [SerializeField] private Color normalColor = Color.white; // Colore normale per i bottoni
-    [SerializeField] private Color highlightedColor = Color.yellow; // Colore evidenziato per i bottoni
+    [SerializeField] private AudioSource responseAudioSource;
+    [SerializeField] private AudioClip responseAudioClip;
+    [SerializeField] private Color normalColor = Color.white;
+    [SerializeField] private Color highlightedColor = Color.yellow;
 
     private DialogueUI dialogueUI;
     private ResponseEvent[] responseEvents;
 
     private List<GameObject> tempResponseButtons = new List<GameObject>();
     private int currentResponseIndex = 0;
+
+    private float inputCooldown = 0.15f; // Cooldown per prevenire input multipli
+    private float lastInputTime;
+    private float axisInputCooldown = 0.15f; // Cooldown per l'asse
+    private float lastAxisInputTime;
+    private const float deadZone = 0.5f; // Dead zone per evitare piccoli movimenti accidentali
 
     private void Start()
     {
@@ -29,7 +35,11 @@ public class ResponseHandler : MonoBehaviour
     {
         if (tempResponseButtons.Count == 0) return;
 
-        HandleInput();
+        // Verifica se è trascorso abbastanza tempo per accettare nuovi input
+        if (Time.time - lastInputTime >= inputCooldown)
+        {
+            HandleInput();
+        }
     }
 
     public void AddResponseEvents(ResponseEvent[] responseEvents)
@@ -65,19 +75,43 @@ public class ResponseHandler : MonoBehaviour
 
     private void HandleInput()
     {
-        // Navigazione su/giù
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxisRaw("Vertical") > 0)
+        bool inputReceived = false;
+        float verticalAxis = Input.GetAxisRaw("Vertical");
+
+        // Gestione dell'asse verticale con dead zone e cooldown
+        if (verticalAxis > deadZone && Time.time - lastAxisInputTime >= axisInputCooldown)
         {
             currentResponseIndex = (currentResponseIndex - 1 + tempResponseButtons.Count) % tempResponseButtons.Count;
-            UpdateButtonSelection();
+            inputReceived = true;
+            lastAxisInputTime = Time.time;
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetAxisRaw("Vertical") < 0)
+        else if (verticalAxis < -deadZone && Time.time - lastAxisInputTime >= axisInputCooldown)
         {
             currentResponseIndex = (currentResponseIndex + 1) % tempResponseButtons.Count;
+            inputReceived = true;
+            lastAxisInputTime = Time.time;
+        }
+
+        // Gestione delle frecce su/giù
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            currentResponseIndex = (currentResponseIndex - 1 + tempResponseButtons.Count) % tempResponseButtons.Count;
+            inputReceived = true;
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            currentResponseIndex = (currentResponseIndex + 1) % tempResponseButtons.Count;
+            inputReceived = true;
+        }
+
+        // Selezione della risposta
+        if (inputReceived)
+        {
+            lastInputTime = Time.time; // Resetta il timer dell'input
             UpdateButtonSelection();
         }
 
-        // Seleziona con il tasto "P" o con il pulsante "Sopra" del controller
+        // Seleziona la risposta con il tasto "P" o il pulsante "Submit"
         if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Submit"))
         {
             tempResponseButtons[currentResponseIndex].GetComponent<Button>().onClick.Invoke();
@@ -95,7 +129,7 @@ public class ResponseHandler : MonoBehaviour
 
     private void OnPickedResponse(Response response, int responseIndex)
     {
-        // Play the response sound
+        // Riproduce il suono della risposta
         if (responseAudioSource != null && responseAudioClip != null)
         {
             responseAudioSource.PlayOneShot(responseAudioClip);
