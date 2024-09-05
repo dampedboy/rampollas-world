@@ -15,8 +15,6 @@ public class BookController : MonoBehaviour
     [SerializeField] private AudioClip openSound;
     [SerializeField] private AudioClip closeSound;
 
-  
-
     void Start()
     {
         _animator = GetComponent<Animator>();
@@ -37,8 +35,17 @@ public class BookController : MonoBehaviour
                 uiPanel_talk.SetActive(true);
             }
 
-            if (Input.GetKeyDown(KeyCode.I))
-                Open();
+            if (Input.GetKeyDown(KeyCode.T) || Input.GetButtonDown("Jump"))
+            {
+                if (_open)
+                {
+                    Close();
+                }
+                else
+                {
+                    Open();
+                }
+            }
         }
         else
         {
@@ -47,9 +54,6 @@ public class BookController : MonoBehaviour
                 uiPanel_talk.SetActive(false);
             }
         }
-
-        if (Input.GetKeyDown(KeyCode.U))
-            Close();
     }
 
     // Metodo chiamato quando un altro collider entra nel trigger
@@ -67,13 +71,14 @@ public class BookController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInside = false;
-           
         }
     }
 
     // Metodo per aprire l'animazione e la UI
     public void Open()
     {
+
+
         if (_animator == null)
             return;
 
@@ -112,6 +117,4 @@ public class BookController : MonoBehaviour
             uiPanel.SetActive(false);
         }
     }
-
-   
 }
