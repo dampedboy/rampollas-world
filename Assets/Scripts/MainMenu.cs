@@ -16,9 +16,7 @@ public class MainMenu : MonoBehaviour
     public Color normalColor = Color.gray;  // Colore per i bottoni non evidenziati
 
     private int currentButtonIndex = 0;
-    private TMP_Text currentButtonText;
-
-    private bool inputReleased = true; // Stato per controllare se il tasto è stato rilasciato
+    private bool inputReleased = true; // Per gestire il rilascio del tasto
 
     // Start is called before the first frame update
     void Start()
@@ -35,27 +33,26 @@ public class MainMenu : MonoBehaviour
 
     private void HandleNavigation()
     {
-        // Rileva il rilascio del tasto per evitare selezioni multiple
-        if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) || Input.GetAxis("Vertical") == 0)
+        // Se il tasto su/giù è stato rilasciato (freccia su o giù o joystick verticale)
+        if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) ||
+            (Input.GetAxisRaw("Vertical") == 0 && !inputReleased))
         {
-            inputReleased = true; // Rilasciato il tasto, pronto per una nuova selezione
+            inputReleased = true; // Il tasto è stato rilasciato, pronto per una nuova navigazione
         }
 
-        // Spostamento su o giù nella lista di bottoni solo se il tasto è stato rilasciato
-        if (inputReleased)
+        // Navigazione verso l'alto
+        if (inputReleased && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxisRaw("Vertical") > 0))
         {
-            if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxis("Vertical") > 0)
-            {
-                currentButtonIndex = (currentButtonIndex - 1 + buttons.Count) % buttons.Count;
-                UpdateButtonColors();
-                inputReleased = false; // Segna che il tasto è stato premuto
-            }
-            else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetAxis("Vertical") < 0)
-            {
-                currentButtonIndex = (currentButtonIndex + 1) % buttons.Count;
-                UpdateButtonColors();
-                inputReleased = false; // Segna che il tasto è stato premuto
-            }
+            currentButtonIndex = (currentButtonIndex - 1 + buttons.Count) % buttons.Count;
+            UpdateButtonColors();
+            inputReleased = false; // Impedisce la navigazione finché il tasto non viene rilasciato
+        }
+        // Navigazione verso il basso
+        else if (inputReleased && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetAxisRaw("Vertical") < 0))
+        {
+            currentButtonIndex = (currentButtonIndex + 1) % buttons.Count;
+            UpdateButtonColors();
+            inputReleased = false; // Impedisce la navigazione finché il tasto non viene rilasciato
         }
     }
 
