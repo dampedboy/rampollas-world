@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028353, g: 0.22571383, b: 0.30692253, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028331, g: 0.2257133, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -216,7 +216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &38929853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1217,7 +1217,7 @@ MonoBehaviour:
   buttonAnimator: {fileID: 326453979}
   platforms:
   - {fileID: 2072748643}
-  - {fileID: 38929852}
+  - {fileID: 1166898268}
   - {fileID: 656667434}
   - {fileID: 153242054}
   - {fileID: 1359443274}
@@ -1303,7 +1303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   malocchio: {fileID: 2054066703}
   portal: {fileID: 1043397573}
-  canvaTalk: {fileID: 38929852}
+  canvaTalk: {fileID: 0}
 --- !u!4 &350601645
 Transform:
   m_ObjectHideFlags: 0
@@ -2248,7 +2248,7 @@ MonoBehaviour:
   backgroundMusicClip: {fileID: 8300000, guid: 31feffbfee1474c15a6ece9f8c2b2252, type: 3}
   malocchio: {fileID: 2054066703}
   portal: {fileID: 1043397573}
-  canvaTalk: {fileID: 38929852}
+  canvaTalk: {fileID: 0}
 --- !u!114 &661756719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4335,6 +4335,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de8cf584d79c073498fbabe26f4663f2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2054066704}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: de8cf584d79c073498fbabe26f4663f2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2054066712}
   m_SourcePrefab: {fileID: 100100000, guid: de8cf584d79c073498fbabe26f4663f2, type: 3}
 --- !u!1 &1196739398
 GameObject:
@@ -7287,7 +7290,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b69ce9f4066f6b14ca42372dd4bb903c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPanelTalk: {fileID: 38929852}
+  uiPanelTalk: {fileID: 0}
   dialogueSound: {fileID: 8300000, guid: 808ebf24afada754a9e12766562ccf16, type: 3}
   audioSource: {fileID: 2054066704}
   dialogueObject: {fileID: 11400000, guid: c470bdab23157094285f45f70b95dce3, type: 2}
@@ -7354,6 +7357,22 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 4.5, y: 12.4, z: 4.5}
   m_Center: {x: 0.14, y: -2.68, z: 0}
+--- !u!114 &2054066712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054066703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96321a031ab5d7640bff5bac8e038e8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawn: {fileID: 919132149155446097, guid: 7351193184354dd4d84763de483f7dc5, type: 3}
+  spawnHeight: 4
+  animationDuration: 0.5
+  respawnDelay: 0.1
 --- !u!1001 &2058221063
 PrefabInstance:
   m_ObjectHideFlags: 0
