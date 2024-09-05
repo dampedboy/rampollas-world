@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro; // Importa TextMeshPro
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public static bool IsPaused = false;
 
-    public Button[] menuButtons; // Assign buttons for each menu option in the Inspector
-    public Color normalColor = Color.white;
-    public Color highlightedColor = Color.yellow;
+    public Button[] menuButtons; // Assegna i bottoni nel menu
+    public Color normalColor = Color.gray;
+    public Color highlightedColor = Color.black;
 
     private int currentButtonIndex = 0;
     private float inputCooldown = 0.15f;
@@ -24,7 +25,7 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         pauseMenu.SetActive(false);
-        UpdateButtonSelection();
+        UpdateButtonSelection(); // Evidenzia il primo bottone
     }
 
     // Update is called once per frame
@@ -46,7 +47,7 @@ public class PauseMenu : MonoBehaviour
         {
             if (Time.time - lastInputTime >= inputCooldown)
             {
-                HandleInput();
+                HandleInput(); // Gestisce la navigazione e la selezione
             }
         }
     }
@@ -56,7 +57,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         IsPaused = true;
-        currentButtonIndex = 0; // Start with the first button highlighted
+        currentButtonIndex = 0; // Evidenzia il primo bottone quando il gioco è in pausa
         UpdateButtonSelection();
     }
 
@@ -90,7 +91,7 @@ public class PauseMenu : MonoBehaviour
         bool inputReceived = false;
         float verticalAxis = Input.GetAxisRaw("Vertical");
 
-        // Handling controller's vertical axis input with a dead zone and cooldown
+        // Gestione asse verticale con dead zone e cooldown
         if (verticalAxis > deadZone && Time.time - lastAxisInputTime >= axisInputCooldown)
         {
             currentButtonIndex = (currentButtonIndex - 1 + menuButtons.Length) % menuButtons.Length;
@@ -104,7 +105,7 @@ public class PauseMenu : MonoBehaviour
             lastAxisInputTime = Time.time;
         }
 
-        // Handling keyboard arrow inputs
+        // Gestione frecce su/giù
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             currentButtonIndex = (currentButtonIndex - 1 + menuButtons.Length) % menuButtons.Length;
@@ -116,7 +117,7 @@ public class PauseMenu : MonoBehaviour
             inputReceived = true;
         }
 
-        // Select the option with "O" key or "Fire3" button
+        // Seleziona il bottone con O o Fire3
         if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
         {
             menuButtons[currentButtonIndex].onClick.Invoke();
@@ -124,8 +125,8 @@ public class PauseMenu : MonoBehaviour
 
         if (inputReceived)
         {
-            lastInputTime = Time.time;
-            UpdateButtonSelection();
+            lastInputTime = Time.time; // Aggiorna l'input time per evitare input multipli
+            UpdateButtonSelection(); // Aggiorna l'evidenziazione
         }
     }
 
@@ -133,8 +134,16 @@ public class PauseMenu : MonoBehaviour
     {
         for (int i = 0; i < menuButtons.Length; i++)
         {
-            Text buttonText = menuButtons[i].GetComponentInChildren<Text>();
-            buttonText.color = (i == currentButtonIndex) ? highlightedColor : normalColor;
+            TMP_Text buttonText = menuButtons[i].GetComponentInChildren<TMP_Text>();
+            if (i == currentButtonIndex)
+            {
+                buttonText.color = highlightedColor; // Cambia il colore in nero quando è selezionato
+            }
+            else
+            {
+                buttonText.color = normalColor; // Cambia il colore in grigio se non è selezionato
+            }
         }
     }
 }
+
