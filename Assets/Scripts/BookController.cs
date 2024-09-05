@@ -35,7 +35,7 @@ public class BookController : MonoBehaviour
                 uiPanel_talk.SetActive(true);
             }
 
-            if (Input.GetKeyDown(KeyCode.T) || Input.GetButtonDown("Jump"))
+            if (Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("Jump"))
             {
                 if (_open)
                 {

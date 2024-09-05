@@ -112,7 +112,7 @@ public class ResponseHandler : MonoBehaviour
         }
 
         // Seleziona la risposta con il tasto "P" o il pulsante "Submit"
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Submit"))
+        if (Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("Jump"))
         {
             tempResponseButtons[currentResponseIndex].GetComponent<Button>().onClick.Invoke();
         }

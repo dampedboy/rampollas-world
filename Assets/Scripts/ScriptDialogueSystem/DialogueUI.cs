@@ -64,7 +64,7 @@ public class DialogueUI : MonoBehaviour
             if (i == dialogueObject.Dialogue.Length - 1 && dialogueObject.HasResponses) break;
 
             yield return null;
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("Jump"));
             PlayNextDialogueSound();
         }
 
@@ -85,7 +85,7 @@ public class DialogueUI : MonoBehaviour
         while (typewriterEffect.IsRunning)
         {
             yield return null;
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Submit"))
+            if (Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("Jump"))
             {
                 typewriterEffect.Stop();
             }
