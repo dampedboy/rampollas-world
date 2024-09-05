@@ -140,6 +140,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
+
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 

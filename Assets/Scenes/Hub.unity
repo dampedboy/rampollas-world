@@ -4882,16 +4882,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1142408087}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.8228593, y: 2.8228593, z: 2.8228593}
+  m_LocalPosition: {x: 0, y: 0, z: -175.29985}
+  m_LocalScale: {x: 3.017233, y: 3.017233, z: 3.017233}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1305407808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -32, y: 18}
-  m_SizeDelta: {x: -235.93, y: -38.28}
+  m_AnchoredPosition: {x: -6.899759, y: 50.669666}
+  m_SizeDelta: {x: -235.93, y: -27.97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1142408089
 MonoBehaviour:
@@ -4913,7 +4913,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3ac703971c5b3994abdb1326d502860c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d875ef8ea71a2c49a50efaae671c904, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10665,7 +10665,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305407807}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
   m_LocalScale: {x: 0.18683, y: 0.18683, z: 0.18683}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10674,8 +10674,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.5, y: -44.2}
-  m_SizeDelta: {x: 249.279, y: 49.892}
+  m_AnchoredPosition: {x: 3.2, y: -40.9}
+  m_SizeDelta: {x: 249.279, y: 52.438}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1305407809
 MonoBehaviour:
@@ -10697,7 +10697,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press I /        to close
+  m_text: Press       to close
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0cc612715cf004e34b9b3e8999b25586, type: 2}
   m_sharedMaterial: {fileID: 3306685712980041104, guid: 0cc612715cf004e34b9b3e8999b25586, type: 2}
@@ -10724,8 +10724,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -10760,7 +10760,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -28.71318, w: 0}
+  m_margin: {x: 13.511711, y: 0, z: -28.71318, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -12640,6 +12640,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5701533773782247731, guid: 4a076b52b83b348dfafb46d81b518ef2, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1958158311}
+    - target: {fileID: 5701533773782247731, guid: 4a076b52b83b348dfafb46d81b518ef2, type: 3}
       propertyPath: normalColor.b
       value: 1
       objectReference: {fileID: 0}
@@ -13998,6 +14002,7 @@ MonoBehaviour:
   malocchio: {fileID: 386931477}
   portal: {fileID: 0}
   canvaTalk: {fileID: 671254043}
+  chatBubble: {fileID: 0}
 --- !u!114 &1995491500
 MonoBehaviour:
   m_ObjectHideFlags: 0

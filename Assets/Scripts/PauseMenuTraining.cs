@@ -9,6 +9,7 @@ public class PauseMenuTraining : MonoBehaviour
 {
     public GameObject pauseMenu;
     public static bool IsPaused = false;
+    public GameObject player; // Riferimento al personaggio principale
 
     public List<Button> buttons;  // Lista dei bottoni configurabile nell'inspector
     public Color highlightedColor = Color.blue;  // Colore per il bottone evidenziato
@@ -90,6 +91,8 @@ public class PauseMenuTraining : MonoBehaviour
 
     public void PauseGame()
     {
+        player.GetComponent<PlayerMovement>().enabled = false; // Disabilita il movimento del player
+
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         IsPaused = true;
@@ -99,6 +102,8 @@ public class PauseMenuTraining : MonoBehaviour
 
     public void ResumeGame()
     {
+        player.GetComponent<PlayerMovement>().enabled = true; // Riabilita il movimento del player
+
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         IsPaused = false;
