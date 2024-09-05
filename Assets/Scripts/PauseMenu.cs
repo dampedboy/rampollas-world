@@ -16,13 +16,20 @@ public class PauseMenu : MonoBehaviour
     public Color normalColor = Color.gray;  // Colore per i bottoni non evidenziati
 
     private int currentButtonIndex = 0;
-    private TMP_Text currentButtonText;
+    private ObjAbsorber objAbsorberScript; // Riferimento allo script ObjAbsorber
 
     // Start is called before the first frame update
     void Start()
     {
         pauseMenu.SetActive(false);
         UpdateButtonColors();
+
+        // Trova e assegna lo script ObjAbsorber
+        objAbsorberScript = FindObjectOfType<ObjAbsorber>();
+        if (objAbsorberScript == null)
+        {
+            Debug.LogError("ObjAbsorber script not found in the scene.");
+        }
     }
 
     // Update is called once per frame
@@ -92,18 +99,26 @@ public class PauseMenu : MonoBehaviour
     public void PauseGame()
     {
         player.GetComponent<PlayerMovement>().enabled = false; // Disabilita il movimento del player
+        if (objAbsorberScript != null)
+        {
+            objAbsorberScript.enabled = false; // Disabilita lo script ObjAbsorber
+        }
 
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         IsPaused = true;
         currentButtonIndex = 0;  // Imposta il primo bottone come evidenziato
         UpdateButtonColors();
-
     }
 
     public void ResumeGame()
     {
         player.GetComponent<PlayerMovement>().enabled = true; // Riabilita il movimento del player
+        if (objAbsorberScript != null)
+        {
+            objAbsorberScript.enabled = true; // Riabilita lo script ObjAbsorber
+        }
+
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         IsPaused = false;
