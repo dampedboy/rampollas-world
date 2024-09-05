@@ -14,6 +14,8 @@ public class DialogueUI : MonoBehaviour
     public GameObject malocchio;
     public GameObject portal;
     public GameObject canvaTalk;
+    public GameObject chatBubble;
+
 
     public bool IsOpen { get; private set; }
 
@@ -112,6 +114,7 @@ public class DialogueUI : MonoBehaviour
             Destroy(gameObject);
             Destroy(malocchio);
             Destroy(canvaTalk);
+            Destroy(chatBubble);
             portal.SetActive(true);
 
             // Avvia la nuova musica di sottofondo per le scene delle prove
