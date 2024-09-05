@@ -6,7 +6,7 @@ using System.Collections;
 public class TimerProve : MonoBehaviour
 {
     public float respawnTime = 150f; // Timer impostato su 2 minuti e 30 secondi (150 secondi)
-    public TextMeshProUGUI gameOverText; // Testo per Game Over
+    public GameObject gameOverCanvas; // Testo per Game Over
     public AudioClip timerSound; // Clip audio per il suono del timer
     public AnimationCurve textScaleCurve; // Curva per l'animazione di scala del testo
     public float textScaleMagnitude = 0.1f; // Magnitudine di scala del testo
@@ -30,6 +30,7 @@ public class TimerProve : MonoBehaviour
             {
                 instance = this;
                 DontDestroyOnLoad(gameObject);
+                DontDestroyOnLoad(gameOverCanvas);
             }
             else
             {
@@ -39,6 +40,7 @@ public class TimerProve : MonoBehaviour
         else if (instance != this)
         {
             Destroy(gameObject);
+            Destroy(gameOverCanvas);
         }
     }
 
@@ -54,11 +56,7 @@ public class TimerProve : MonoBehaviour
         audioSource.loop = false;
 
         // Assicurati che il testo "Game Over" sia nascosto all'inizio
-        if (gameOverText != null)
-        {
-            gameOverText.gameObject.SetActive(false);
-        }
-
+        gameOverCanvas.SetActive(false);
         SceneManager.sceneLoaded += OnSceneLoaded; // Registrati per ricevere eventi di caricamento della scena
     }
 
@@ -119,12 +117,9 @@ public class TimerProve : MonoBehaviour
     IEnumerator ShowGameOverAndReturnToHub()
     {
         // Mostra la scritta "Game Over"
-        if (gameOverText != null)
-        {
-            gameOverText.gameObject.SetActive(true);
-        }
+        gameOverCanvas.SetActive(true);
 
-        yield return new WaitForSeconds(5f); // Aspetta 5 secondi
+        yield return new WaitForSeconds(2.5f); // Aspetta 5 secondi
 
         // Torna alla scena "Hub"
         SceneManager.LoadScene("Hub");
