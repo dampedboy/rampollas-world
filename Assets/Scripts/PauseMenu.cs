@@ -57,7 +57,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         IsPaused = true;
-        currentButtonIndex = 0; // Evidenzia il primo bottone quando il gioco � in pausa
+        currentButtonIndex = 0; // Evidenzia il primo bottone quando il gioco è in pausa
         UpdateButtonSelection();
     }
 
@@ -94,26 +94,26 @@ public class PauseMenu : MonoBehaviour
         // Gestione asse verticale con dead zone e cooldown
         if (verticalAxis > deadZone && Time.time - lastAxisInputTime >= axisInputCooldown)
         {
-            currentButtonIndex = currentButtonIndex - 1;
+            currentButtonIndex = (currentButtonIndex - 1 + menuButtons.Length) % menuButtons.Length;
             inputReceived = true;
             lastAxisInputTime = Time.time;
         }
         else if (verticalAxis < -deadZone && Time.time - lastAxisInputTime >= axisInputCooldown)
         {
-            currentButtonIndex = currentButtonIndex + 1;
+            currentButtonIndex = (currentButtonIndex + 1) % menuButtons.Length;
             inputReceived = true;
             lastAxisInputTime = Time.time;
         }
 
-        // Gestione frecce su/gi�
+        // Gestione frecce su/giù
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            currentButtonIndex = currentButtonIndex - 1;
+            currentButtonIndex = (currentButtonIndex - 1 + menuButtons.Length) % menuButtons.Length;
             inputReceived = true;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            currentButtonIndex = currentButtonIndex + 1;
+            currentButtonIndex = (currentButtonIndex + 1) % menuButtons.Length;
             inputReceived = true;
         }
 
@@ -137,13 +137,12 @@ public class PauseMenu : MonoBehaviour
             TMP_Text buttonText = menuButtons[i].GetComponentInChildren<TMP_Text>();
             if (i == currentButtonIndex)
             {
-                buttonText.color = highlightedColor; // Cambia il colore in nero quando � selezionato
+                buttonText.color = highlightedColor; // Cambia il colore in nero quando è selezionato
             }
             else
             {
-                buttonText.color = normalColor; // Cambia il colore in grigio se non � selezionato
+                buttonText.color = normalColor; // Cambia il colore in grigio se non è selezionato
             }
         }
     }
 }
-
