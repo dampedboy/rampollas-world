@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
         {
             playerMovementScript.enabled = true;
 
-            if ((Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("Fire3")) && Interactable != null)
+            if ((Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3")) && Interactable != null)
             {
                 Interactable.Interact(this);
             }
