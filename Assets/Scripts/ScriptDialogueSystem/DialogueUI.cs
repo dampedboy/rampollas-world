@@ -85,7 +85,7 @@ public class DialogueUI : MonoBehaviour
         while (typewriterEffect.IsRunning)
         {
             yield return null;
-            if Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
+            if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
             {
                 typewriterEffect.Stop();
             }

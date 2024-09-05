@@ -35,7 +35,7 @@ public class ResponseHandler : MonoBehaviour
     {
         if (tempResponseButtons.Count == 0) return;
 
-        // Verifica se è trascorso abbastanza tempo per accettare nuovi input
+        // Verifica se ï¿½ trascorso abbastanza tempo per accettare nuovi input
         if (Time.time - lastInputTime >= inputCooldown)
         {
             HandleInput();
@@ -92,7 +92,7 @@ public class ResponseHandler : MonoBehaviour
             lastAxisInputTime = Time.time;
         }
 
-        // Gestione delle frecce su/giù
+        // Gestione delle frecce su/giï¿½
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             currentResponseIndex = (currentResponseIndex - 1 + tempResponseButtons.Count) % tempResponseButtons.Count;
@@ -112,7 +112,7 @@ public class ResponseHandler : MonoBehaviour
         }
 
         // Seleziona la risposta con il tasto "P" o il pulsante "Submit"
-        if Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
+        if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
         {
             tempResponseButtons[currentResponseIndex].GetComponent<Button>().onClick.Invoke();
         }
