@@ -15,7 +15,7 @@ public class DialogueUI : MonoBehaviour
     public GameObject portal;
     public GameObject canvaTalk;
     public GameObject chatBubble;
-
+    public Chat_Bubble_Spawn chatBubbleSpawn; // Reference to Chat_Bubble_Spawn script
 
     public bool IsOpen { get; private set; }
 
@@ -110,14 +110,21 @@ public class DialogueUI : MonoBehaviour
         string sceneName = SceneManager.GetActiveScene().name;
         if (sceneName == "Malocchio")
         {
-            // Distruggi gli oggetti come prima
+            // Destroy objects as before
             Destroy(gameObject);
             Destroy(malocchio);
             Destroy(canvaTalk);
             Destroy(chatBubble);
+
+            // Destroy chat bubble via Chat_Bubble_Spawn
+            if (chatBubbleSpawn != null)
+            {
+                chatBubbleSpawn.DestroySpawnedObject();
+            }
+
             portal.SetActive(true);
 
-            // Avvia la nuova musica di sottofondo per le scene delle prove
+            // Play background music for the next scene
             PlayBackgroundMusic();
         }
     }

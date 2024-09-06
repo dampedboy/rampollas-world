@@ -21,6 +21,16 @@ public class Chat_Bubble_Spawn : MonoBehaviour
         }
     }
 
+    // Method to externally destroy the chat bubble
+    public void DestroySpawnedObject()
+    {
+        if (spawnedObject != null)
+        {
+            Destroy(spawnedObject); // Directly destroy the chat bubble
+            spawnedObject = null;   // Set to null to avoid issues later
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && canRespawn)
