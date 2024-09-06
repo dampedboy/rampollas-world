@@ -21,7 +21,7 @@ public class BackButton : MonoBehaviour
     void Update()
     {
         // Selezione del bottone con il tasto "O" o "Fire3"
-        if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2"))
         {
             buttons[currentButtonIndex].onClick.Invoke();
         }

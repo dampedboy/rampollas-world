@@ -30,6 +30,9 @@ public class PauseMenu : MonoBehaviour
         {
             Debug.LogError("ObjAbsorber script not found in the scene.");
         }
+
+        // Disabilita l'interazione con i bottoni all'avvio (quando non è in pausa)
+        SetButtonsInteractable(false);
     }
 
     // Update is called once per frame
@@ -44,7 +47,6 @@ public class PauseMenu : MonoBehaviour
             else
             {
                 PauseGame();
-                Debug.Log("individuato P");
             }
         }
 
@@ -72,8 +74,8 @@ public class PauseMenu : MonoBehaviour
 
     private void HandleButtonSelection()
     {
-        // Selezione del bottone con il tasto "O" o "Fire3"
-        if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
+        // Selezione del bottone con il tasto "O" o "Fire3" solo se il gioco è in pausa
+        if (IsPaused && (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2")))
         {
             buttons[currentButtonIndex].onClick.Invoke();
         }
@@ -96,6 +98,15 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
+    // Funzione che abilita/disabilita l'interazione con i bottoni
+    private void SetButtonsInteractable(bool interactable)
+    {
+        foreach (Button button in buttons)
+        {
+            button.interactable = interactable;
+        }
+    }
+
     public void PauseGame()
     {
         player.GetComponent<PlayerMovement>().enabled = false; // Disabilita il movimento del player
@@ -109,6 +120,7 @@ public class PauseMenu : MonoBehaviour
         IsPaused = true;
         currentButtonIndex = 0;  // Imposta il primo bottone come evidenziato
         UpdateButtonColors();
+        SetButtonsInteractable(true);  // Abilita l'interazione con i bottoni
     }
 
     public void ResumeGame()
@@ -122,6 +134,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         IsPaused = false;
+        SetButtonsInteractable(false);  // Disabilita l'interazione con i bottoni
     }
 
     public void GoToMainMenu()
