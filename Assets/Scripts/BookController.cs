@@ -7,6 +7,7 @@ public class BookController : MonoBehaviour
     private Animator _animator;
     [SerializeField] private GameObject uiPanel; // Il pannello della UI
     [SerializeField] private GameObject uiPanel_talk; // Il pannello della UI talk
+    [SerializeField] private GameObject player; // Riferimento al personaggio principale
 
     private bool _open = false;
     private bool isPlayerInside = false;
@@ -74,11 +75,9 @@ public class BookController : MonoBehaviour
         }
     }
 
-    // Metodo per aprire l'animazione e la UI
+    // Metodo per aprire l'animazione e la UI, e disabilitare il movimento del player
     public void Open()
     {
-
-
         if (_animator == null)
             return;
 
@@ -95,9 +94,15 @@ public class BookController : MonoBehaviour
         {
             uiPanel.SetActive(true);
         }
+
+        // Disabilita il movimento del player
+        if (player != null)
+        {
+            player.GetComponent<PlayerMovement>().enabled = false;
+        }
     }
 
-    // Metodo per chiudere l'animazione e la UI
+    // Metodo per chiudere l'animazione e la UI, e riabilitare il movimento del player
     public void Close()
     {
         if (_animator == null)
@@ -115,6 +120,12 @@ public class BookController : MonoBehaviour
         if (uiPanel != null)
         {
             uiPanel.SetActive(false);
+        }
+
+        // Riabilita il movimento del player
+        if (player != null)
+        {
+            player.GetComponent<PlayerMovement>().enabled = true;
         }
     }
 }
