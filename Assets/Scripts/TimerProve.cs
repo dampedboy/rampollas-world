@@ -35,6 +35,7 @@ public class TimerProve : MonoBehaviour
             else
             {
                 Destroy(gameObject); // Distruggi l'oggetto se non siamo in una delle scene di prova
+                Destroy(gameOverCanvas);
             }
         }
         else if (instance != this)
@@ -119,11 +120,12 @@ public class TimerProve : MonoBehaviour
         // Mostra la scritta "Game Over"
         gameOverCanvas.SetActive(true);
 
-        yield return new WaitForSeconds(2.5f); // Aspetta 5 secondi
+        yield return new WaitForSeconds(3.5f); // Aspetta 5 secondi
 
         // Torna alla scena "Hub"
         SceneManager.LoadScene("Hub");
         Destroy(gameObject); // Distruggi il timer quando torni alla scena "Hub"
+        Destroy(gameOverCanvas);
     }
 
     void UpdateTimerText()
