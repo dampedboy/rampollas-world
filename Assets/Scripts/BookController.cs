@@ -39,7 +39,7 @@ public class BookController : MonoBehaviour
                 uiPanelTalk.SetActive(true);
             }
 
-            if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
+            if (Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("Fire1"))
             {
                 if (_isOpen)
                 {
