@@ -92,13 +92,13 @@ public class ResponseHandler : MonoBehaviour
             lastAxisInputTime = Time.time;
         }
 
-        // Gestione delle frecce su/gi�
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        // Gestione delle frecce su/giù e dei tasti W/S
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
             currentResponseIndex = (currentResponseIndex - 1 + tempResponseButtons.Count) % tempResponseButtons.Count;
             inputReceived = true;
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S))
         {
             currentResponseIndex = (currentResponseIndex + 1) % tempResponseButtons.Count;
             inputReceived = true;
@@ -111,12 +111,13 @@ public class ResponseHandler : MonoBehaviour
             UpdateButtonSelection();
         }
 
-        // Seleziona la risposta con il tasto "P" o il pulsante "Submit"
+        // Seleziona la risposta con il tasto "O" o il pulsante "Fire3"
         if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
         {
             tempResponseButtons[currentResponseIndex].GetComponent<Button>().onClick.Invoke();
         }
     }
+
 
     private void UpdateButtonSelection()
     {

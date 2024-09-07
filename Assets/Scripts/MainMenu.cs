@@ -33,28 +33,30 @@ public class MainMenu : MonoBehaviour
 
     private void HandleNavigation()
     {
-        // Se il tasto su/giù è stato rilasciato (freccia su o giù o joystick verticale)
-        if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.DownArrow) ||
+        // Se il tasto su/giù è stato rilasciato (freccia su/giù o W/S o joystick verticale)
+        if (Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W) ||
+            Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S) ||
             (Input.GetAxisRaw("Vertical") == 0 && !inputReleased))
         {
             inputReleased = true; // Il tasto è stato rilasciato, pronto per una nuova navigazione
         }
 
         // Navigazione verso l'alto
-        if (inputReleased && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxisRaw("Vertical") > 0))
+        if (inputReleased && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetAxisRaw("Vertical") > 0))
         {
             currentButtonIndex = (currentButtonIndex - 1 + buttons.Count) % buttons.Count;
             UpdateButtonColors();
             inputReleased = false; // Impedisce la navigazione finché il tasto non viene rilasciato
         }
         // Navigazione verso il basso
-        else if (inputReleased && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetAxisRaw("Vertical") < 0))
+        else if (inputReleased && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetAxisRaw("Vertical") < 0))
         {
             currentButtonIndex = (currentButtonIndex + 1) % buttons.Count;
             UpdateButtonColors();
             inputReleased = false; // Impedisce la navigazione finché il tasto non viene rilasciato
         }
     }
+
 
     private void HandleButtonSelection()
     {

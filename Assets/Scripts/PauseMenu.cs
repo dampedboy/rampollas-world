@@ -59,18 +59,19 @@ public class PauseMenu : MonoBehaviour
 
     private void HandleNavigation()
     {
-        // Spostamento su o giù nella lista di bottoni
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetAxis("Vertical") > 0)
+        // Spostamento su o giù nella lista di bottoni con frecce o W/S
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetAxis("Vertical") > 0)
         {
             currentButtonIndex = (currentButtonIndex - 1 + buttons.Count) % buttons.Count;
             UpdateButtonColors();
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetAxis("Vertical") < 0)
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetAxis("Vertical") < 0)
         {
             currentButtonIndex = (currentButtonIndex + 1) % buttons.Count;
             UpdateButtonColors();
         }
     }
+
 
     private void HandleButtonSelection()
     {
