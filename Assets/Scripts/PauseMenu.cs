@@ -76,7 +76,7 @@ public class PauseMenu : MonoBehaviour
     private void HandleButtonSelection()
     {
         // Selezione del bottone con il tasto "O" o "Fire3" solo se il gioco è in pausa
-        if (IsPaused && (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire1")))
+        if (IsPaused && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3")))
         {
             buttons[currentButtonIndex].onClick.Invoke();
         }
@@ -126,33 +126,55 @@ public class PauseMenu : MonoBehaviour
 
     public void ResumeGame()
     {
-        player.GetComponent<PlayerMovement>().enabled = true; // Riabilita il movimento del player
-        if (objAbsorberScript != null)
+        if (IsPaused) 
         {
-            objAbsorberScript.enabled = true; // Riabilita lo script ObjAbsorber
+            player.GetComponent<PlayerMovement>().enabled = true; // Riabilita il movimento del player
+            if (objAbsorberScript != null)
+            {
+                objAbsorberScript.enabled = true; // Riabilita lo script ObjAbsorber
+            }
+
+            pauseMenu.SetActive(false);
+            Time.timeScale = 1f;
+            IsPaused = false;
+            SetButtonsInteractable(false);  // Disabilita l'interazione con i bottoni
         }
 
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
-        IsPaused = false;
-        SetButtonsInteractable(false);  // Disabilita l'interazione con i bottoni
+
     }
 
     public void GoToMainMenu()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        if (IsPaused)  // Controlla se il gioco è in pausa
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MainMenu");
+            IsPaused = false;
+        }
+
     }
 
     public void Quit()
     {
-        Time.timeScale = 1f;
-        Application.Quit();
+        if (IsPaused)  // Controlla se il gioco è in pausa
+        {
+            Time.timeScale = 1f;
+            Application.Quit();
+            IsPaused = false;
+        }
+
     }
 
     public void Hub()
     {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("Hub");
+        if (IsPaused) 
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("Hub");
+            IsPaused = false;
+        }
+
     }
+
+    
 }

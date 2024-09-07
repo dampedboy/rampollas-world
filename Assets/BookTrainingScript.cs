@@ -16,12 +16,12 @@ public class BookTrainingScript : MonoBehaviour
         if (Vector3.Distance(player.transform.position, transform.position) < interactionDistance)
         {
             // Se il giocatore preme il tasto I o il pulsante in alto del controller (Jump) e non sta già visualizzando immagini
-            if ((Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("Fire1")) && !isViewingImages)
+            if ((Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3")) && !isViewingImages)
             {
                 StartViewingImages();
             }
             // Se il giocatore preme il tasto I o il pulsante in alto del controller (Jump) e sta visualizzando immagini
-            else if ((Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("Fire1")) && isViewingImages)
+            else if ((Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3")) && isViewingImages)
             {
                 ShowNextImage();
             }

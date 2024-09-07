@@ -66,9 +66,9 @@ public class DialogueUI : MonoBehaviour
             if (i == dialogueObject.Dialogue.Length - 1 && dialogueObject.HasResponses) break;
 
             yield return null;
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("Fire1"));
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"));
             PlayNextDialogueSound();
-        }
+        } 
 
         if (dialogueObject.HasResponses)
         {
@@ -87,7 +87,7 @@ public class DialogueUI : MonoBehaviour
         while (typewriterEffect.IsRunning)
         {
             yield return null;
-            if (Input.GetKeyDown(KeyCode.I) || Input.GetButtonDown("Fire1"))
+            if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
             {
                 typewriterEffect.Stop();
             }

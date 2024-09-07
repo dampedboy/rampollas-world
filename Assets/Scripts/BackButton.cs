@@ -14,14 +14,13 @@ public class BackButton : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
     void Update()
     {
         // Selezione del bottone con il tasto "O" o "Fire3"
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2"))
+        if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
         {
             buttons[currentButtonIndex].onClick.Invoke();
         }
