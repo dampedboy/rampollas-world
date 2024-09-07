@@ -17,6 +17,7 @@ public class MainMenu : MonoBehaviour
 
     private int currentButtonIndex = 0;
     private bool inputReleased = true; // Per gestire il rilascio del tasto
+    private bool navigationEnabled = true; // Nuova variabile per abilitare/disabilitare la navigazione
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,10 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        HandleNavigation();
+        if (navigationEnabled)
+        {
+            HandleNavigation();
+        }
         HandleButtonSelection();
     }
 
@@ -57,10 +61,9 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-
     private void HandleButtonSelection()
     {
-        // Selezione del bottone con il tasto "P" o "Fire2"
+        // Selezione del bottone con il tasto "O" o "Fire2"
         if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
         {
             buttons[currentButtonIndex].onClick.Invoke();
@@ -101,5 +104,17 @@ public class MainMenu : MonoBehaviour
         yield return new WaitForSeconds(transitionTime);
 
         SceneManager.LoadScene("Hub");
+    }
+
+    // Funzione per disabilitare la navigazione
+    public void DisableNavigation()
+    {
+        navigationEnabled = false;
+    }
+
+    // Funzione per abilitare la navigazione
+    public void EnableNavigation()
+    {
+        navigationEnabled = true;
     }
 }
