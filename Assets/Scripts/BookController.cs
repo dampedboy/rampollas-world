@@ -1,44 +1,47 @@
-using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class BookController : MonoBehaviour
 {
     private Animator _animator;
-    [SerializeField] private GameObject uiPanel; // Il pannello della UI
-    [SerializeField] private GameObject uiPanel_talk; // Il pannello della UI talk
-    [SerializeField] private GameObject player; // Riferimento al personaggio principale
+    [SerializeField] private GameObject uiPanel;
+    [SerializeField] private GameObject uiPanelTalk;
+    [SerializeField] private GameObject player;
 
-    private bool _open = false;
-    private bool isPlayerInside = false;
+    private bool _isOpen = false;
+    private bool _isPlayerInside = false;
 
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip openSound;
     [SerializeField] private AudioClip closeSound;
 
+    [SerializeField] private PlayerMovement _playerMovement;
+
     void Start()
     {
         _animator = GetComponent<Animator>();
-
         if (uiPanel != null)
         {
             uiPanel.SetActive(false);
-            uiPanel_talk.SetActive(false);
         }
+        if (uiPanelTalk != null)
+        {
+            uiPanelTalk.SetActive(false);
+        }
+
     }
 
     void Update()
     {
-        if (isPlayerInside)
+        if (_isPlayerInside)
         {
-            if (uiPanel_talk != null)
+            if (uiPanelTalk != null)
             {
-                uiPanel_talk.SetActive(true);
+                uiPanelTalk.SetActive(true);
             }
 
             if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3"))
             {
-                if (_open)
+                if (_isOpen)
                 {
                     Close();
                 }
@@ -50,82 +53,78 @@ public class BookController : MonoBehaviour
         }
         else
         {
-            if (uiPanel_talk != null)
+            if (uiPanelTalk != null)
             {
-                uiPanel_talk.SetActive(false);
+                uiPanelTalk.SetActive(false);
             }
         }
     }
 
-    // Metodo chiamato quando un altro collider entra nel trigger
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInside = true;
+            _isPlayerInside = true;
         }
     }
 
-    // Metodo chiamato quando un altro collider esce dal trigger
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            isPlayerInside = false;
+            _isPlayerInside = false;
         }
     }
 
-    // Metodo per aprire l'animazione e la UI, e disabilitare il movimento del player
     public void Open()
     {
-        if (_animator == null)
+        if (_animator == null || _isOpen)
             return;
 
-        _open = true;
-        _animator.SetBool("open", _open);
+        _isOpen = true;
+        _animator.SetBool("open", true);
 
-        if (audioSource != null && openSound != null)
-        {
-            audioSource.clip = openSound;
-            audioSource.Play();
-        }
+        PlaySound(openSound);
 
         if (uiPanel != null)
         {
             uiPanel.SetActive(true);
         }
 
-        // Disabilita il movimento del player
-        if (player != null)
+        if (_playerMovement != null)
         {
-            player.GetComponent<PlayerMovement>().enabled = false;
+            _playerMovement.enabled = false;
         }
     }
 
-    // Metodo per chiudere l'animazione e la UI, e riabilitare il movimento del player
     public void Close()
     {
-        if (_animator == null)
+        if (_animator == null || !_isOpen)
             return;
 
-        _open = false;
-        _animator.SetBool("open", _open);
+        _isOpen = false;
+        _animator.SetBool("open", false);
 
-        if (audioSource != null && closeSound != null)
-        {
-            audioSource.clip = closeSound;
-            audioSource.Play();
-        }
+        PlaySound(closeSound);
 
         if (uiPanel != null)
         {
             uiPanel.SetActive(false);
         }
 
-        // Riabilita il movimento del player
-        if (player != null)
+        if (_playerMovement != null)
         {
-            player.GetComponent<PlayerMovement>().enabled = true;
+            _playerMovement.enabled = true;
+        }
+    }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if (audioSource != null && clip != null)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
         }
     }
 }
+
