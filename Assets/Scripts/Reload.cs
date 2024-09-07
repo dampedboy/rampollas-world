@@ -7,8 +7,8 @@ public class ReloadSceneOnKeyPress : MonoBehaviour
 
     void Update()
     {
-        // Controlla se il tasto "R" viene premuto
-        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton5)
+        // Controlla se il tasto "R" o il tasto del joystick viene premuto
+        if (Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton5))
         {
             // Imposta la variabile a true quando la scena viene ricaricata
             isSceneReloaded = true;
