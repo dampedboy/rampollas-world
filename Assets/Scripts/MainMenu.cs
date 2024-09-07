@@ -61,7 +61,7 @@ public class MainMenu : MonoBehaviour
     private void HandleButtonSelection()
     {
         // Selezione del bottone con il tasto "P" o "Fire2"
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2"))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire1"))
         {
             buttons[currentButtonIndex].onClick.Invoke();
         }

@@ -76,7 +76,7 @@ public class PauseMenu : MonoBehaviour
     private void HandleButtonSelection()
     {
         // Selezione del bottone con il tasto "O" o "Fire3" solo se il gioco è in pausa
-        if (IsPaused && (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire2")))
+        if (IsPaused && (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Fire1")))
         {
             buttons[currentButtonIndex].onClick.Invoke();
         }
