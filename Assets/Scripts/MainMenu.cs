@@ -19,10 +19,18 @@ public class MainMenu : MonoBehaviour
     private bool inputReleased = true; // Per gestire il rilascio del tasto
     private bool navigationEnabled = true; // Nuova variabile per abilitare/disabilitare la navigazione
 
+    // Variabili per il suono di navigazione
+    public AudioClip navigationSound;
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         UpdateButtonColors();
+
+        // Crea un AudioSource dinamicamente se non esiste già
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
     // Update is called once per frame
@@ -47,22 +55,37 @@ public class MainMenu : MonoBehaviour
             inputReleased = true; // Il tasto è stato rilasciato, pronto per una nuova navigazione
         }
 
+        bool moved = false; // Variabile per rilevare se ci si è mossi
+
         // Navigazione verso l'alto
         if (inputReleased && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || verticalInput > 0.5f))
         {
             currentButtonIndex = (currentButtonIndex - 1 + buttons.Count) % buttons.Count;
-            UpdateButtonColors();
+            moved = true;
             inputReleased = false; // Impedisce la navigazione finché il tasto non viene rilasciato
         }
         // Navigazione verso il basso
         else if (inputReleased && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || verticalInput < -0.5f))
         {
             currentButtonIndex = (currentButtonIndex + 1) % buttons.Count;
-            UpdateButtonColors();
+            moved = true;
             inputReleased = false; // Impedisce la navigazione finché il tasto non viene rilasciato
+        }
+
+        if (moved)
+        {
+            PlayNavigationSound();
+            UpdateButtonColors();
         }
     }
 
+    private void PlayNavigationSound()
+    {
+        if (audioSource != null && navigationSound != null)
+        {
+            audioSource.PlayOneShot(navigationSound);
+        }
+    }
 
     private void HandleButtonSelection()
     {

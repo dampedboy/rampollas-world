@@ -18,18 +18,28 @@ public class PauseMenuTraining : MonoBehaviour
     private int currentButtonIndex = 0;
     private ObjAbsorber objAbsorberScript; // Riferimento allo script ObjAbsorber
 
+    // Variabili per il suono di navigazione e apertura del menu
+    public AudioClip navigationSound;
+    public AudioClip menuOpenSound; // Nuovo suono per l'apertura del menu
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         pauseMenu.SetActive(false);
         UpdateButtonColors();
         IsPaused = false;
+
         // Trova e assegna lo script ObjAbsorber
         objAbsorberScript = FindObjectOfType<ObjAbsorber>();
         if (objAbsorberScript == null)
         {
             Debug.LogError("ObjAbsorber script not found in the scene.");
         }
+
+        // Crea un AudioSource dinamicamente se non esiste già
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
     }
 
     // Update is called once per frame
@@ -57,19 +67,35 @@ public class PauseMenuTraining : MonoBehaviour
 
     private void HandleNavigation()
     {
+        bool moved = false;
+
         // Spostamento su o giù nella lista di bottoni con frecce o W/S
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetAxis("Vertical") > 0)
         {
             currentButtonIndex = (currentButtonIndex - 1 + buttons.Count) % buttons.Count;
-            UpdateButtonColors();
+            moved = true;
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetAxis("Vertical") < 0)
         {
             currentButtonIndex = (currentButtonIndex + 1) % buttons.Count;
+            moved = true;
+        }
+
+        if (moved)
+        {
+            // Riproduci il suono quando il giocatore si sposta tra i bottoni
+            PlayNavigationSound();
             UpdateButtonColors();
         }
     }
 
+    private void PlayNavigationSound()
+    {
+        if (audioSource != null && navigationSound != null)
+        {
+            audioSource.PlayOneShot(navigationSound);
+        }
+    }
 
     private void HandleButtonSelection()
     {
@@ -110,13 +136,24 @@ public class PauseMenuTraining : MonoBehaviour
         IsPaused = true;
         currentButtonIndex = 0;  // Imposta il primo bottone come evidenziato
         UpdateButtonColors();
+
+        // Riproduci il suono di apertura del menu
+        PlayMenuOpenSound();
+    }
+
+    private void PlayMenuOpenSound()
+    {
+        if (audioSource != null && menuOpenSound != null)
+        {
+            audioSource.PlayOneShot(menuOpenSound);
+        }
     }
 
     public void ResumeGame()
     {
         if (IsPaused)
         {
-           player.GetComponent<PlayerMovement>().enabled = true; // Riabilita il movimento del player
+            player.GetComponent<PlayerMovement>().enabled = true; // Riabilita il movimento del player
             if (objAbsorberScript != null)
             {
                 objAbsorberScript.enabled = true; // Riabilita lo script ObjAbsorber
@@ -126,8 +163,6 @@ public class PauseMenuTraining : MonoBehaviour
             Time.timeScale = 1f;
             IsPaused = false;
         }
-
- 
     }
 
     public void GoToMainMenu()
@@ -138,28 +173,25 @@ public class PauseMenuTraining : MonoBehaviour
             SceneManager.LoadScene("MainMenu");
             IsPaused = false;
         }
-  
     }
 
     public void Quit()
     {
-        if (IsPaused) 
+        if (IsPaused)
         {
             Time.timeScale = 1f;
             Application.Quit();
             IsPaused = false;
         }
-
     }
 
     public void Hub()
     {
         if (IsPaused)
         {
-           Time.timeScale = 1f;
-           SceneManager.LoadScene("Hub_Training");
-           IsPaused = false;
-        } 
- 
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("Hub_Training");
+            IsPaused = false;
+        }
     }
 }
