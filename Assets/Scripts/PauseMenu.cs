@@ -50,6 +50,7 @@ public class PauseMenu : MonoBehaviour
             if (IsPaused)
             {
                 ResumeGame();
+                PlayMenuOpenSound();
             }
             else
             {
