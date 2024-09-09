@@ -5,7 +5,7 @@ public class Chat_Bubble_Spawn : MonoBehaviour
 {
     [SerializeField] private GameObject objectToSpawn; // L'oggetto prefab da spawnare
     [SerializeField] private float spawnHeight = 3.0f; // Altezza a cui spawnare l'oggetto
-    [SerializeField] private float animationDuration = 0.5f; // Durata dell'animazione di ingrandimento
+    [SerializeField] private float animationDuration = 0.2f; // Durata dell'animazione di ingrandimento (più veloce)
     [SerializeField] private float respawnDelay = 3.0f; // Ritardo di 3 secondi per il respawn della chat bubble
 
     private GameObject spawnedObject; // Riferimento all'oggetto istanziato
@@ -104,6 +104,13 @@ public class Chat_Bubble_Spawn : MonoBehaviour
 
     void Update()
     {
+        // Destroy the chat bubble if the object is destroyed
+        if (this == null && spawnedObject != null)
+        {
+            DestroySpawnedObject();
+        }
+
+        // Keep the spawned object in sync with the position
         if (spawnedObject != null)
         {
             Vector3 updatedPosition = transform.position + new Vector3(0, spawnHeight, 0);
