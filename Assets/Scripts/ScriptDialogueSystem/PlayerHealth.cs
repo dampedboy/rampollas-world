@@ -29,7 +29,11 @@ public class PlayerHealth : MonoBehaviour
 
     private void Start()
     {
-        if (!isInitialized)
+        if (SceneManager.GetActiveScene().name == "Hub")
+        {
+            currentLives = 3; // Imposta le vite a 3 nella scena "Hub"
+        }
+        else if (!isInitialized)
         {
             currentLives = PlayerPrefs.GetInt("PlayerLives", startingLives);
             currentLives = Mathf.Clamp(currentLives, startingLives, maxLives);
