@@ -49,6 +49,7 @@ public class PauseMenuTraining : MonoBehaviour
         {
             if (IsPaused)
             {
+                PlayMenuOpenSound();
                 ResumeGame();
             }
             else
