@@ -10,6 +10,7 @@ public class Chat_Bubble_Spawn : MonoBehaviour
 
     private GameObject spawnedObject; // Riferimento all'oggetto istanziato
     private bool canRespawn = true; // Variabile di controllo per gestire il ritardo di respawn
+    private bool isDestroyed = false; // Variabile di controllo per la distruzione del GameObject
 
     // Il metodo per distruggere la chat bubble
     public void DestroyChatBubble()
@@ -33,7 +34,7 @@ public class Chat_Bubble_Spawn : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && canRespawn)
+        if (other.CompareTag("Player") && canRespawn && !isDestroyed)
         {
             SpawnObject();
         }
@@ -104,17 +105,21 @@ public class Chat_Bubble_Spawn : MonoBehaviour
 
     void Update()
     {
-        // Destroy the chat bubble if the object is destroyed
-        if (this == null && spawnedObject != null)
-        {
-            DestroySpawnedObject();
-        }
-
         // Keep the spawned object in sync with the position
-        if (spawnedObject != null)
+        if (spawnedObject != null && !isDestroyed)
         {
             Vector3 updatedPosition = transform.position + new Vector3(0, spawnHeight, 0);
             spawnedObject.transform.position = updatedPosition;
+        }
+    }
+
+    // This method will be called when the object this script is attached to is destroyed
+    private void OnDestroy()
+    {
+        isDestroyed = true;
+        if (spawnedObject != null)
+        {
+            DestroySpawnedObject(); // Ensure the chat bubble is destroyed when the parent object is destroyed
         }
     }
 }
