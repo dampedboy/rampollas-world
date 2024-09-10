@@ -18,10 +18,11 @@ public class PauseMenu : MonoBehaviour
     private int currentButtonIndex = 0;
     private ObjAbsorber objAbsorberScript; // Riferimento allo script ObjAbsorber
 
-    // Variabili per il suono di navigazione e apertura del menu
     public AudioClip navigationSound;
-    public AudioClip menuOpenSound; // Nuovo suono per l'apertura del menu
+    public AudioClip menuOpenSound; // Suono per l'apertura del menu
     private AudioSource audioSource;
+
+    private bool inputReleased = true; // Per gestire il rilascio del tasto
 
     void Start()
     {
@@ -35,7 +36,6 @@ public class PauseMenu : MonoBehaviour
             Debug.LogError("ObjAbsorber script not found in the scene.");
         }
 
-        // Disabilita l'interazione con i bottoni all'avvio (quando non è in pausa)
         SetButtonsInteractable(false);
 
         // Crea un AudioSource dinamicamente se non esiste già
@@ -67,23 +67,35 @@ public class PauseMenu : MonoBehaviour
 
     private void HandleNavigation()
     {
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        // Verifica se il tasto su/giù o W/S è stato rilasciato
+        if ((Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W) ||
+             Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)) ||
+             (verticalInput == 0 && !inputReleased))
+        {
+            inputReleased = true; // Tasto rilasciato, pronto per la nuova navigazione
+        }
+
         bool moved = false;
 
-        // Spostamento su o giù nella lista di bottoni con frecce o W/S
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetAxis("Vertical") > 0)
+        // Navigazione verso l'alto
+        if (inputReleased && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || verticalInput > 0.5f))
         {
             currentButtonIndex = (currentButtonIndex - 1 + buttons.Count) % buttons.Count;
             moved = true;
+            inputReleased = false; // Blocca la navigazione fino al rilascio del tasto
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetAxis("Vertical") < 0)
+        // Navigazione verso il basso
+        else if (inputReleased && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || verticalInput < -0.5f))
         {
             currentButtonIndex = (currentButtonIndex + 1) % buttons.Count;
             moved = true;
+            inputReleased = false; // Blocca la navigazione fino al rilascio del tasto
         }
 
         if (moved)
         {
-            // Riproduci il suono quando il giocatore si sposta tra i bottoni
             PlayNavigationSound();
             UpdateButtonColors();
         }
@@ -99,7 +111,7 @@ public class PauseMenu : MonoBehaviour
 
     private void HandleButtonSelection()
     {
-        // Selezione del bottone con il tasto "O" o "Fire3" solo se il gioco è in pausa
+        // Selezione del bottone con il tasto "O" o "Fire3"
         if (IsPaused && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3")))
         {
             buttons[currentButtonIndex].onClick.Invoke();
@@ -146,7 +158,6 @@ public class PauseMenu : MonoBehaviour
         UpdateButtonColors();
         SetButtonsInteractable(true);  // Abilita l'interazione con i bottoni
 
-        // Riproduci il suono di apertura del menu
         PlayMenuOpenSound();
     }
 
@@ -177,7 +188,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        if (IsPaused)  // Controlla se il gioco è in pausa
+        if (IsPaused)
         {
             Time.timeScale = 1f;
             SceneManager.LoadScene("MainMenu");
@@ -187,7 +198,7 @@ public class PauseMenu : MonoBehaviour
 
     public void Quit()
     {
-        if (IsPaused)  // Controlla se il gioco è in pausa
+        if (IsPaused)
         {
             Time.timeScale = 1f;
             Application.Quit();

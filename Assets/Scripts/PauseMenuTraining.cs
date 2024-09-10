@@ -23,6 +23,8 @@ public class PauseMenuTraining : MonoBehaviour
     public AudioClip menuOpenSound; // Nuovo suono per l'apertura del menu
     private AudioSource audioSource;
 
+    private bool inputReleased = true; // Per gestire il rilascio del tasto
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +39,7 @@ public class PauseMenuTraining : MonoBehaviour
             Debug.LogError("ObjAbsorber script not found in the scene.");
         }
 
-        // Crea un AudioSource dinamicamente se non esiste gi‡
+        // Crea un AudioSource dinamicamente se non esiste gi√†
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
     }
@@ -68,18 +70,31 @@ public class PauseMenuTraining : MonoBehaviour
 
     private void HandleNavigation()
     {
+        float verticalInput = Input.GetAxisRaw("Vertical");
+
+        // Verifica se il tasto su/gi√π o W/S √® stato rilasciato
+        if ((Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W) ||
+             Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)) ||
+             (verticalInput == 0 && !inputReleased))
+        {
+            inputReleased = true; // Tasto rilasciato, pronto per la nuova navigazione
+        }
+
         bool moved = false;
 
-        // Spostamento su o gi˘ nella lista di bottoni con frecce o W/S
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetAxis("Vertical") > 0)
+        // Navigazione verso l'alto
+        if (inputReleased && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || verticalInput > 0.5f))
         {
             currentButtonIndex = (currentButtonIndex - 1 + buttons.Count) % buttons.Count;
             moved = true;
+            inputReleased = false; // Blocca la navigazione fino al rilascio del tasto
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetAxis("Vertical") < 0)
+        // Navigazione verso il basso
+        else if (inputReleased && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || verticalInput < -0.5f))
         {
             currentButtonIndex = (currentButtonIndex + 1) % buttons.Count;
             moved = true;
+            inputReleased = false; // Blocca la navigazione fino al rilascio del tasto
         }
 
         if (moved)
