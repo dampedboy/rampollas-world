@@ -47,29 +47,30 @@ public class MainMenu : MonoBehaviour
     {
         float verticalInput = Input.GetAxisRaw("Vertical");
 
-        // Se il tasto su/giù è stato rilasciato (freccia su/giù, W/S o joystick verticale)
-        if ((Input.GetKeyUp(KeyCode.UpArrow) || Input.GetKeyUp(KeyCode.W) ||
-             Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S)) ||
-             (verticalInput == 0 && !inputReleased))
+        // Imposta una dead zone per il rilascio del joystick
+        float deadZone = 0.1f;
+
+        // Se la levetta del joystick è stata rilasciata (verticalInput vicino a 0)
+        if (Mathf.Abs(verticalInput) < deadZone && !inputReleased)
         {
-            inputReleased = true; // Il tasto è stato rilasciato, pronto per una nuova navigazione
+            inputReleased = true; // Pronto per una nuova navigazione
         }
 
         bool moved = false; // Variabile per rilevare se ci si è mossi
 
         // Navigazione verso l'alto
-        if (inputReleased && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || verticalInput > 0.5f))
+        if (inputReleased && verticalInput > 0.5f) // Se si muove verso l'alto oltre la soglia
         {
             currentButtonIndex = (currentButtonIndex - 1 + buttons.Count) % buttons.Count;
             moved = true;
-            inputReleased = false; // Impedisce la navigazione finché il tasto non viene rilasciato
+            inputReleased = false; // Impedisce la navigazione finché la levetta non viene rilasciata
         }
         // Navigazione verso il basso
-        else if (inputReleased && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || verticalInput < -0.5f))
+        else if (inputReleased && verticalInput < -0.5f) // Se si muove verso il basso oltre la soglia
         {
             currentButtonIndex = (currentButtonIndex + 1) % buttons.Count;
             moved = true;
-            inputReleased = false; // Impedisce la navigazione finché il tasto non viene rilasciato
+            inputReleased = false; // Impedisce la navigazione finché la levetta non viene rilasciata
         }
 
         if (moved)
@@ -78,6 +79,7 @@ public class MainMenu : MonoBehaviour
             UpdateButtonColors();
         }
     }
+
 
     private void PlayNavigationSound()
     {
