@@ -58,14 +58,14 @@ public class MainMenu : MonoBehaviour
         bool moved = false; // Variabile per rilevare se ci si è mossi
 
         // Navigazione verso l'alto
-        if (inputReleased && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || verticalInput > 0.5f))
+        if (inputReleased && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W) || Input.GetAxis("Vertical") > 0))
         {
             currentButtonIndex = (currentButtonIndex - 1 + buttons.Count) % buttons.Count;
             moved = true;
             inputReleased = false; // Impedisce la navigazione finché il tasto non viene rilasciato
         }
         // Navigazione verso il basso
-        else if (inputReleased && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || verticalInput < -0.5f))
+        else if (inputReleased && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S) || Input.GetAxis("Vertical") < 0))
         {
             currentButtonIndex = (currentButtonIndex + 1) % buttons.Count;
             moved = true;
