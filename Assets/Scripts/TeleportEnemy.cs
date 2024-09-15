@@ -4,14 +4,16 @@ using System.Collections.Generic;
 public class TeleportEnemy : MonoBehaviour
 {
     public float detectionRange = 10f;
-    public List<Vector3> teleportPositions;  // Lista di posizioni di teletrasporto da inserire nell'inspector
-    public List<Vector3> teleportRotations;  // Lista di rotazioni di teletrasporto da inserire nell'inspector
-    public GameObject keyObject;             // Oggetto chiave da portare nel teletrasporto
+    public List<Vector3> teleportPositions;        // Lista di posizioni di teletrasporto del nemico
+    public List<Vector3> teleportRotations;        // Lista di rotazioni di teletrasporto del nemico
+    public List<Vector3> keyTeleportPositions;     // Lista di posizioni di teletrasporto della chiave
+    public List<Vector3> keyTeleportRotations;     // Lista di rotazioni di teletrasporto della chiave
+    public GameObject keyObject;                   // Oggetto chiave da portare nel teletrasporto
 
     private Transform player;
     private float nextTeleportTime = 0f;
-    public float teleportCooldown = 5f;      // Tempo di attesa tra i teletrasporti
-    private int currentTeleportIndex = 0;    // Indice per tenere traccia del punto di teletrasporto corrente
+    public float teleportCooldown = 5f;            // Tempo di attesa tra i teletrasporti
+    private int currentTeleportIndex = 0;          // Indice per tenere traccia del punto di teletrasporto corrente
 
     void Start()
     {
@@ -32,9 +34,16 @@ public class TeleportEnemy : MonoBehaviour
 
     void Teleport()
     {
-        if (teleportPositions.Count == 0 || teleportRotations.Count == 0) return;  // Se non ci sono punti di teletrasporto, non fare nulla
+        // Controllo che la lista delle posizioni e delle rotazioni non sia vuota
+        if (teleportPositions.Count == 0 || teleportRotations.Count == 0 ||
+            keyTeleportPositions.Count == 0 || keyTeleportRotations.Count == 0) return;
 
-        // Prendere la posizione e la rotazione attuale dalla lista
+        // Assicurarsi che le liste abbiano lo stesso numero di elementi
+        if (teleportPositions.Count != teleportRotations.Count ||
+            keyTeleportPositions.Count != keyTeleportRotations.Count ||
+            teleportPositions.Count != keyTeleportPositions.Count) return;
+
+        // Prendere la posizione e la rotazione attuale dalla lista per il nemico
         Vector3 targetPosition = teleportPositions[currentTeleportIndex];
         Vector3 targetRotation = teleportRotations[currentTeleportIndex];
 
@@ -42,11 +51,15 @@ public class TeleportEnemy : MonoBehaviour
         transform.position = targetPosition;
         transform.rotation = Quaternion.Euler(targetRotation);
 
-        // Teletrasportare anche l'oggetto chiave alla stessa posizione e rotazione del nemico
+        // Prendere la posizione e la rotazione attuale dalla lista per la chiave
+        Vector3 keyTargetPosition = keyTeleportPositions[currentTeleportIndex];
+        Vector3 keyTargetRotation = keyTeleportRotations[currentTeleportIndex];
+
+        // Teletrasportare l'oggetto chiave alla posizione e rotazione specifica
         if (keyObject != null)
         {
-            keyObject.transform.position = targetPosition;
-            keyObject.transform.rotation = Quaternion.Euler(targetRotation);
+            keyObject.transform.position = keyTargetPosition;
+            keyObject.transform.rotation = Quaternion.Euler(keyTargetRotation);
         }
 
         // Aggiornare l'indice per il prossimo punto di teletrasporto ciclico
