@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour
         timer = respawnTime;
         UpdateTimerText();
 
-        // Aggiungi un AudioSource dinamicamente se non è già presente
+        // Aggiungi un AudioSource dinamicamente se non ï¿½ giï¿½ presente
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.clip = timerSound;
         audioSource.loop = false;
@@ -28,7 +28,7 @@ public class Timer : MonoBehaviour
 
     void Update()
     {
-        // Controlla se il tasto "E" è stato premuto
+        // Controlla se il tasto "E" ï¿½ stato premuto
         if (Input.GetKeyDown(KeyCode.E))
         {
             LoadNextLevel();
@@ -67,7 +67,7 @@ public class Timer : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSeconds(audioSource.clip.length);
 
-        // Ricarica la scena corrente dopo che il suono è stato riprodotto due volte
+        // Ricarica la scena corrente dopo che il suono ï¿½ stato riprodotto due volte
         ReloadCurrentScene();
     }
 
@@ -94,7 +94,7 @@ public class Timer : MonoBehaviour
 
         int nextSceneIndex = currentSceneIndex;
 
-        if (currentSceneIndex == 30)
+        if (currentSceneIndex == 40)
         {
             SceneManager.LoadScene(1);
         }
@@ -108,7 +108,7 @@ public class Timer : MonoBehaviour
             nextSceneIndex = currentSceneIndex + 1;
         }
 
-        if (nextSceneIndex < 31)
+        if (nextSceneIndex < 41)
         {
             SceneManager.LoadScene(nextSceneIndex);
 
