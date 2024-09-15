@@ -1,7 +1,8 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class WoodObject : MonoBehaviour
+public class FireObject : MonoBehaviour
 {
     public AudioClip breakSound; // Reference to the audio clip
     private AudioSource audioSource; // Reference to the audio source component
@@ -24,7 +25,7 @@ public class WoodObject : MonoBehaviour
     {
         GameObject otherObject = collision.gameObject;
 
-        if (otherObject.CompareTag("MetalBlock") || otherObject.CompareTag("SteelBlock"))
+        if (otherObject.CompareTag("MetalBlock") || otherObject.CompareTag("SteelBlock")|| otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("GlassBlock"))
         {
             // Disable the MeshRenderer immediately
             if (meshRenderer != null)
@@ -43,11 +44,7 @@ public class WoodObject : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else if (otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("GlassBlock"))
-        {
-            Debug.Log("Wood object destroyed.");
-            Destroy(gameObject);
-        }
+       
     }
 
     private IEnumerator DestroyAfterSound()

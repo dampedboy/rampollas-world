@@ -17,6 +17,10 @@ public class WoodBlock : MonoBehaviour
             ReplaceWithBeams(emptyTransform.position, emptyTransform.rotation); // Usa la posizione dell'Empty
             Destroy(gameObject);
         }
+        else if (otherObject.CompareTag("Fire"))
+        {
+            Destroy(gameObject);
+        }
     }
 
     private bool IsAbsorbedMetal(GameObject otherObject)

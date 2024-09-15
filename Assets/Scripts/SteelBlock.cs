@@ -1,9 +1,10 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class MetalBlock : MonoBehaviour
+public class SteelBlock : MonoBehaviour
 {
-    public GameObject woodBlockPrefab;
+    public GameObject metalBlockPrefab;
     public AudioClip breakSound; // AudioClip per il suono di rottura
 
     private bool canCollide = true; // Variabile per controllare se il blocco può collidere
@@ -66,10 +67,9 @@ public class MetalBlock : MonoBehaviour
         yield return new WaitForSeconds(0.8f); // Modifica il valore 1f a seconda del ritardo desiderato
 
         // Sostituisci con un nuovo blocco di legno
-        Instantiate(woodBlockPrefab, position, rotation);
+        Instantiate(metalBlockPrefab, position, rotation);
 
         // Distruggi questo blocco di metallo
         Destroy(gameObject);
     }
 }
-

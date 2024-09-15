@@ -1,9 +1,10 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class MetalBlock : MonoBehaviour
+public class GlassBlock : MonoBehaviour
 {
-    public GameObject woodBlockPrefab;
+    public GameObject metalexteriorPrefab;
     public AudioClip breakSound; // AudioClip per il suono di rottura
 
     private bool canCollide = true; // Variabile per controllare se il blocco può collidere
@@ -26,7 +27,7 @@ public class MetalBlock : MonoBehaviour
         GameObject otherObject = collision.gameObject;
 
         // Controlla se il blocco può collidere e se l'oggetto che ha causato la collisione è di metallo
-        if (canCollide && otherObject.CompareTag("Metal"))
+        if (canCollide && (otherObject.CompareTag("Metal")|| otherObject.CompareTag("Wood")|| otherObject.CompareTag("Glass")))
         {
             // Ottieni lo script ObjAbsorbeMetal dall'oggetto che ha causato la collisione
             ObjAbsorber metalScript = otherObject.GetComponent<ObjAbsorber>();
@@ -66,10 +67,9 @@ public class MetalBlock : MonoBehaviour
         yield return new WaitForSeconds(0.8f); // Modifica il valore 1f a seconda del ritardo desiderato
 
         // Sostituisci con un nuovo blocco di legno
-        Instantiate(woodBlockPrefab, position, rotation);
+        Instantiate(metalexteriorPrefab, position, rotation);
 
         // Distruggi questo blocco di metallo
         Destroy(gameObject);
     }
 }
-

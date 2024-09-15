@@ -8,7 +8,7 @@ public class MetalObject : MonoBehaviour
     {
         GameObject otherObject = collision.gameObject;
 
-        if ((otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("MetalBlock")) && IsAbsorbedMetal())
+        if ((otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("MetalBlock") || otherObject.CompareTag("GlassBlock") || otherObject.CompareTag("SteelBlock")) && IsAbsorbedMetal())
         {
             metalCollisionCount++;
             Debug.Log($"Metal collision count: {metalCollisionCount}");

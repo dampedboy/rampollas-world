@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class GlassObject : MonoBehaviour
 {
@@ -8,10 +9,15 @@ public class GlassObject : MonoBehaviour
     {
         GameObject otherObject = collision.gameObject;
 
-        if (otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("MetalBlock"))
+        if (otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("MetalBlock") || otherObject.CompareTag("SteelBlock"))
         {
             PlayGlassBreakSound();
             Debug.Log("Glass object destroyed.");
+            Destroy(gameObject);
+        }
+        else if (otherObject.CompareTag("GlassBlock"))
+        {
+            Debug.Log("Wood object destroyed.");
             Destroy(gameObject);
         }
     }
@@ -22,5 +28,6 @@ public class GlassObject : MonoBehaviour
         {
             AudioSource.PlayClipAtPoint(glassBreakSound, transform.position, 10f);
         }
+        
     }
 }
