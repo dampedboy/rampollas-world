@@ -145,9 +145,9 @@ public class ObjAbsorber : MonoBehaviour
 
     private IEnumerator LaunchRoutine()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         isLaunching = true;
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         isLaunching = false;
         Rampolla.launchable = false;
     }
