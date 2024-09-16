@@ -86,7 +86,7 @@ public class Portal : MonoBehaviour
 
         int nextSceneIndex = currentSceneIndex;
 
-        if (currentSceneIndex == 40)
+        if (currentSceneIndex == 47)
         {
             SceneManager.LoadScene(1);
         }
@@ -99,7 +99,7 @@ public class Portal : MonoBehaviour
             nextSceneIndex = currentSceneIndex + 1;
         }
 
-        if (nextSceneIndex < 41)
+        if (nextSceneIndex < 48)
         {
             SceneManager.LoadScene(nextSceneIndex);
 
