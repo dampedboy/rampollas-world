@@ -156,7 +156,7 @@ public class TimerProve : MonoBehaviour
 
         int nextSceneIndex = currentSceneIndex;
 
-        if (currentSceneIndex == 47)
+        if (currentSceneIndex == 50)
         {
             SceneManager.LoadScene(1);
         }
@@ -170,7 +170,7 @@ public class TimerProve : MonoBehaviour
             nextSceneIndex = currentSceneIndex + 1;
         }
 
-        if (nextSceneIndex < 48)
+        if (nextSceneIndex < 51)
         {
             SceneManager.LoadScene(nextSceneIndex);
 
