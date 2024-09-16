@@ -17,51 +17,69 @@ public class ChessPlatform : MonoBehaviour
     // Prefab della piattaforma da duplicare (può essere lo stesso oggetto in scena)
     public GameObject platformPrefab;
 
-    // Intervallo di tempo per l'apparizione e la scomparsa
+    // Intervallo di tempo per l'apparizione
     public float interval = 0.5f;
 
-    // Lista per tracciare le piattaforme duplicate
-    private List<GameObject> createdPlatforms = new List<GameObject>();
+    // Tempo dopo il quale le piattaforme scompaiono
+    public float disappearDelay = 0f;
+
+    // Flag per determinare se questa è la piattaforma originale
+    public bool isOriginal = true;
+
+    // Lista delle piattaforme create
+    private List<GameObject> spawnedPlatforms = new List<GameObject>();
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        // Controlliamo se è la piattaforma originale e se il player ha toccato la piattaforma
+        if (isOriginal && other.CompareTag("Player"))
         {
-            // Avvia la coroutine per creare e far scomparire le piattaforme
-            StartCoroutine(HandlePlatforms());
+            // Avvia la coroutine per creare le piattaforme
+            StartCoroutine(SpawnPlatforms());
         }
     }
 
-    // Coroutine che gestisce sia l'apparizione che la scomparsa delle piattaforme
-    private IEnumerator HandlePlatforms()
+    // Coroutine che gestisce l'apparizione delle piattaforme una alla volta
+    private IEnumerator SpawnPlatforms()
     {
-        // Aggiungi la piattaforma originale alla lista
-        createdPlatforms.Add(gameObject);
-
         // Inizia l'apparizione delle piattaforme una alla volta
         for (int i = 0; i < platformTransforms.Count; i++)
         {
             // Crea la nuova piattaforma
             PlatformTransform platformTransform = platformTransforms[i];
             GameObject newPlatform = Instantiate(platformPrefab, platformTransform.position, Quaternion.Euler(platformTransform.rotation));
-            createdPlatforms.Add(newPlatform);
+
+            // Assicura che la nuova piattaforma non attivi la duplicazione
+            ChessPlatform platformScript = newPlatform.GetComponent<ChessPlatform>();
+            if (platformScript != null)
+            {
+                platformScript.isOriginal = false;  // La nuova piattaforma non è l'originale
+            }
+
+            // Aggiungi la piattaforma creata alla lista
+            spawnedPlatforms.Add(newPlatform);
 
             // Attendere l'intervallo prima di crearne un'altra
             yield return new WaitForSeconds(interval);
         }
 
-        // Dopo aver creato tutte le piattaforme, avvia la scomparsa parallela
-        StartCoroutine(DisappearPlatforms());
+        // Dopo aver creato tutte le piattaforme, iniziamo la Coroutine per farle scomparire
+        StartCoroutine(DestroyPlatforms());
     }
 
-    // Coroutine per far scomparire le piattaforme una alla volta
-    private IEnumerator DisappearPlatforms()
+    // Coroutine per distruggere le piattaforme duplicate con un ritardo
+    private IEnumerator DestroyPlatforms()
     {
-        foreach (GameObject platform in createdPlatforms)
+        // Distruggi ogni piattaforma duplicata con un ritardo
+        foreach (GameObject platform in spawnedPlatforms)
         {
-            // Attende l'intervallo per la scomparsa di ogni piattaforma
-            yield return new WaitForSeconds(interval);
-            platform.SetActive(false);  // Disattiva la piattaforma (equivalente a farla scomparire)
+            // Aspetta il tempo di delay prima di distruggere ogni piattaforma
+            yield return new WaitForSeconds(disappearDelay);
+
+            // Distruggi la piattaforma
+            Destroy(platform);
         }
+
+        // Una volta che tutte le piattaforme duplicate sono state distrutte, puoi scegliere di far fare qualcosa alla piattaforma originale se necessario
     }
 }
