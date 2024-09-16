@@ -17,8 +17,8 @@ public class ChessPlatform : MonoBehaviour
     // Prefab della piattaforma da duplicare (può essere lo stesso oggetto in scena)
     public GameObject platformPrefab;
 
-    // Intervallo di tempo prima che una piattaforma scompaia
-    public float disappearInterval = 0.5f;
+    // Intervallo di tempo per l'apparizione e la scomparsa
+    public float interval = 0.5f;
 
     // Lista per tracciare le piattaforme duplicate
     private List<GameObject> createdPlatforms = new List<GameObject>();
@@ -27,32 +27,40 @@ public class ChessPlatform : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Duplica la piattaforma nelle posizioni e rotazioni specificate
-            DuplicatePlatforms();
-            // Avvia la coroutine per farle scomparire
-            StartCoroutine(DisappearPlatforms());
+            // Avvia la coroutine per creare e far scomparire le piattaforme
+            StartCoroutine(HandlePlatforms());
         }
     }
 
-    // Duplica le piattaforme alle posizioni e rotazioni specificate
-    private void DuplicatePlatforms()
+    // Coroutine che gestisce sia l'apparizione che la scomparsa delle piattaforme
+    private IEnumerator HandlePlatforms()
     {
-        foreach (PlatformTransform platformTransform in platformTransforms)
+        // Aggiungi la piattaforma originale alla lista
+        createdPlatforms.Add(gameObject);
+
+        // Inizia l'apparizione delle piattaforme una alla volta
+        for (int i = 0; i < platformTransforms.Count; i++)
         {
+            // Crea la nuova piattaforma
+            PlatformTransform platformTransform = platformTransforms[i];
             GameObject newPlatform = Instantiate(platformPrefab, platformTransform.position, Quaternion.Euler(platformTransform.rotation));
             createdPlatforms.Add(newPlatform);
+
+            // Attendere l'intervallo prima di crearne un'altra
+            yield return new WaitForSeconds(interval);
         }
+
+        // Dopo aver creato tutte le piattaforme, avvia la scomparsa parallela
+        StartCoroutine(DisappearPlatforms());
     }
 
-    // Coroutine che fa scomparire le piattaforme a intervalli
+    // Coroutine per far scomparire le piattaforme una alla volta
     private IEnumerator DisappearPlatforms()
     {
-        // Aggiungi la piattaforma originale alla lista per farla scomparire per prima
-        createdPlatforms.Insert(0, gameObject);
-
         foreach (GameObject platform in createdPlatforms)
         {
-            yield return new WaitForSeconds(disappearInterval);
+            // Attende l'intervallo per la scomparsa di ogni piattaforma
+            yield return new WaitForSeconds(interval);
             platform.SetActive(false);  // Disattiva la piattaforma (equivalente a farla scomparire)
         }
     }
