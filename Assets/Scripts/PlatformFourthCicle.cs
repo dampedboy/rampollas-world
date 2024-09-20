@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformThirdCicle : MonoBehaviour
+public class PlatformFourthCicle : MonoBehaviour
 {
-    public GameObject[] blackPlatforms; // Solo blackPlatforms
+    public GameObject[] whitePlatforms; // Solo blackPlatforms
     public AudioClip cambioColoriSound; // AudioClip per il suono del cambio colori
     private AudioSource audioSource;    // AudioSource per riprodurre il suono
 
-    private float switchInterval = 2f;  // Intervallo di 2 secondi per l'accensione/spegnimento
-    private float visibilityDuration = 2f; // Durata della visibilità di 2 secondi
+    private float switchInterval = 1f;  // Intervallo di 2 secondi per l'accensione/spegnimento
+    private float visibilityDuration = 1f; // Durata della visibilità di 2 secondi
 
     void Start()
     {
@@ -29,7 +29,7 @@ public class PlatformThirdCicle : MonoBehaviour
         while (true)
         {
             // Rendere le piattaforme visibili
-            foreach (var platform in blackPlatforms)
+            foreach (var platform in whitePlatforms)
             {
                 platform.SetActive(true);
             }
@@ -44,7 +44,7 @@ public class PlatformThirdCicle : MonoBehaviour
             yield return new WaitForSeconds(visibilityDuration);
 
             // Nascondere le piattaforme
-            foreach (var platform in blackPlatforms)
+            foreach (var platform in whitePlatforms)
             {
                 platform.SetActive(false);
             }
