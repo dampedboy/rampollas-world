@@ -19,6 +19,9 @@ public class MetalObject : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        else if (otherObject.CompareTag("PlasmaBlock")){
+            Destroy(gameObject);
+        }
     }
 
     private bool IsAbsorbedMetal()

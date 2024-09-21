@@ -9,7 +9,7 @@ public class GlassObject : MonoBehaviour
     {
         GameObject otherObject = collision.gameObject;
 
-        if (otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("MetalBlock") || otherObject.CompareTag("SteelBlock"))
+        if (otherObject.CompareTag("WoodBlock") || otherObject.CompareTag("MetalBlock") || otherObject.CompareTag("SteelBlock")||otherObject.CompareTag("PlasmaBlock"))
         {
             PlayGlassBreakSound();
             Debug.Log("Glass object destroyed.");

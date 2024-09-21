@@ -65,7 +65,7 @@ public class ObjAbsorber : MonoBehaviour
 
         // Controlla se il player è nel range dell'oggetto e ha premuto il tasto O
         if (isInRange && (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("Fire3")) && !isHoldingObject && 
-            (CompareTag("Glass") || CompareTag("Wood") || CompareTag("Metal") || CompareTag("Dynamite") || CompareTag("Key")||CompareTag("Fire")) && 
+            (CompareTag("Glass") || CompareTag("Wood") || CompareTag("Metal") || CompareTag("Dynamite") || CompareTag("Key")||CompareTag("Fire") || CompareTag("Plasma")) && 
             !Rampolla.launchable && Rampolla.isGrounded)
         {
             if (currentAbsorbedObject == null)
