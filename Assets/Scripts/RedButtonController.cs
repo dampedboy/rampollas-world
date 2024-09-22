@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class RedButtonController : MonoBehaviour
+public class RedButtonController : MonoBehaviour, ITemporarilyActivatableButton
 {
     public Animator buttonAnimator; // Riferimento all'animator del bottone
     public GameObject[] platforms; // Array di piattaforme da rendere visibili
@@ -9,6 +9,7 @@ public class RedButtonController : MonoBehaviour
     public AudioClip buttonPressClip; // Riferimento all'AudioClip
 
     private bool isButtonPressed = false; // Flag per controllare se il bottone è stato premuto
+    private Coroutine platformCoroutine; // Per gestire la coroutine attuale
 
     void Start()
     {
@@ -27,7 +28,7 @@ public class RedButtonController : MonoBehaviour
             isButtonPressed = true;
             buttonAnimator.SetTrigger("Press"); // Attiva l'animazione del bottone
             PlayButtonPressSound(); // Riproduce il suono del bottone
-            StartCoroutine(ShowPlatformsTemporarily());
+            platformCoroutine = StartCoroutine(ShowPlatformsTemporarily(platformsVisibleDuration));
         }
     }
 
@@ -37,7 +38,7 @@ public class RedButtonController : MonoBehaviour
         AudioSource.PlayClipAtPoint(buttonPressClip, transform.position);
     }
 
-    private IEnumerator ShowPlatformsTemporarily()
+    private IEnumerator ShowPlatformsTemporarily(float duration)
     {
         // Rendi visibili le piattaforme
         foreach (GameObject platform in platforms)
@@ -46,14 +47,25 @@ public class RedButtonController : MonoBehaviour
         }
 
         // Attendi per la durata specificata
-        yield return new WaitForSeconds(platformsVisibleDuration);
+        yield return new WaitForSeconds(duration);
 
         // Nascondi le piattaforme
         foreach (GameObject platform in platforms)
         {
             platform.SetActive(false);
         }
+    }
 
-        // Nota: il flag `isButtonPressed` non viene resettato
+    // Implementazione del metodo ReactivateEffect dall'interfaccia ITemporarilyActivatableButton
+    public void ReactivateEffect(float additionalDuration)
+    {
+        // Se una coroutine è già attiva, fermala prima di riattivarla
+        if (platformCoroutine != null)
+        {
+            StopCoroutine(platformCoroutine);
+        }
+
+        // Riavvia l'effetto temporaneo con la nuova durata
+        platformCoroutine = StartCoroutine(ShowPlatformsTemporarily(additionalDuration));
     }
 }
