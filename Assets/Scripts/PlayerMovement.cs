@@ -37,6 +37,7 @@ public class PlayerMovement : MonoBehaviour
     public ObjAbsorber obj2;
     public ObjAbsorber obj3;
     public ObjAbsorber obj4;
+    public ObjAbsorber obj5;
 
     private bool hasAbsorbedObject = false;
 
@@ -80,7 +81,8 @@ public class PlayerMovement : MonoBehaviour
                (obj1 != null && obj1.isLaunching) ||
                (obj2 != null && obj2.isLaunching) ||
                (obj3 != null && obj3.isLaunching) ||
-               (obj4 != null && obj4.isLaunching);
+               (obj4 != null && obj4.isLaunching) ||
+               (obj5 != null && obj5.isLaunching);
     }
 
     private void StartAbsorbing()
@@ -135,7 +137,8 @@ public class PlayerMovement : MonoBehaviour
                (obj1 == null || obj1.PerfectPosition) &&
                (obj2 == null || obj2.PerfectPosition) &&
                (obj3 == null || obj3.PerfectPosition) &&
-               (obj4 == null || obj4.PerfectPosition);
+               (obj4 == null || obj4.PerfectPosition) &&
+               (obj5 == null || obj5.PerfectPosition);
     }
 
     private void HandleMovement()
