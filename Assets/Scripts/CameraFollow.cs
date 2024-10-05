@@ -1,29 +1,28 @@
-using System;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     // Riferimento al giocatore
-    private Transform playerTransform;
+    public Transform playerTransform;
 
     // Distanza offset tra il giocatore e la camera
     public Vector3 offset;
 
-    // Velocità di smorzamento per movimenti più fluidi
+    // Velocità di smorzamento per un movimento fluido
     public float smoothSpeed = 0.125f;
 
-    // Riferimenti ai limiti della stanza
-    public Transform leftBoundary;   // Limite sinistro
-    public Transform rightBoundary;  // Limite destro
-    public Transform frontBoundary;  // Limite davanti
-    public Transform backBoundary;   // Limite per evitare il vuoto (dietro)
+    // Limite per identificare quando il giocatore si muove "indietro"
+    public float rotationThreshold = -0.1f; // Movimento sull'asse Z negativo
+
+    // Rotazione della camera per guardare dietro
+    public Vector3 backViewRotation = new Vector3(30, 180, 0); // Un esempio di rotazione per "dietro"
+
+    // Rotazione standard (davanti)
+    public Vector3 frontViewRotation = new Vector3(30, 0, 0); // Rotazione di default
 
     void Start()
     {
-        // Trova il giocatore per tag
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-
-        // Se non hai specificato l'offset dall'Inspector, lo calcola in base alla posizione iniziale
+        // Se non è stato impostato l'offset, calcola l'offset iniziale
         if (offset == Vector3.zero)
         {
             offset = transform.position - playerTransform.position;
@@ -32,20 +31,25 @@ public class CameraFollow : MonoBehaviour
 
     void LateUpdate()
     {
-        // Calcola la posizione desiderata della camera
+        // Calcola la posizione desiderata della camera in base alla posizione del giocatore
         Vector3 desiredPosition = playerTransform.position + offset;
 
-        // Applica un movimento fluido alla camera
+        // Movimento fluido verso la posizione desiderata
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
 
-        // Blocca la posizione della camera entro i limiti della stanza
-        float clampedX = Mathf.Clamp(smoothedPosition.x, leftBoundary.position.x, rightBoundary.position.x);
-        float clampedY = Mathf.Clamp(smoothedPosition.y, backBoundary.position.y, frontBoundary.position.y);
+        // Aggiorna la posizione della camera
+        transform.position = smoothedPosition;
 
-        // Aggiorna la posizione della camera con i valori limitati
-        transform.position = new Vector3(clampedX, clampedY, transform.position.z); // Mantieni l'asse Y invariato
-
-        // (Opzionale) Mantieni la camera sempre orientata in una direzione fissa o verso il giocatore
-        transform.LookAt(playerTransform);
+        // Verifica se il player si sta muovendo indietro o avanti (asse Z)
+        if (playerTransform.forward.z < rotationThreshold) // Se si muove indietro
+        {
+            // Ruota la camera per guardare "dietro"
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(backViewRotation), smoothSpeed);
+        }
+        else
+        {
+            // Torna alla rotazione standard (davanti)
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(frontViewRotation), smoothSpeed);
+        }
     }
 }
