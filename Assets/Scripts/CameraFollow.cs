@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
@@ -39,10 +40,10 @@ public class CameraFollow : MonoBehaviour
 
         // Blocca la posizione della camera entro i limiti della stanza
         float clampedX = Mathf.Clamp(smoothedPosition.x, leftBoundary.position.x, rightBoundary.position.x);
-        float clampedZ = Mathf.Clamp(smoothedPosition.z, backBoundary.position.z, frontBoundary.position.z);
+        float clampedY = Mathf.Clamp(smoothedPosition.y, backBoundary.position.y, frontBoundary.position.y);
 
         // Aggiorna la posizione della camera con i valori limitati
-        transform.position = new Vector3(clampedX, transform.position.y, clampedZ); // Mantieni l'asse Y invariato
+        transform.position = new Vector3(clampedX, clampedY, transform.position.z); // Mantieni l'asse Y invariato
 
         // (Opzionale) Mantieni la camera sempre orientata in una direzione fissa o verso il giocatore
         transform.LookAt(playerTransform);
